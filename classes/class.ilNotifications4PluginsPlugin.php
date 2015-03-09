@@ -35,16 +35,7 @@ class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin
 
         return self::$instance;
     }
-
-
-    /**
-     * Init plugin
-     */
-    protected function init()
-    {
-        $this->updateLanguages();
-    }
-
+    
 
     /**
      * Get Plugin Name. Must be same as in class name il<Name>Plugin
