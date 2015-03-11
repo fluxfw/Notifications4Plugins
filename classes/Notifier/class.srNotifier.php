@@ -5,6 +5,9 @@ require_once(dirname(dirname(__FILE__)) . '/Parser/class.srNotificationTwigParse
 /**
  * Class srNotifier
  *
+ * Wrapper class to send notifications. You can also send notifications directly via the srNotification objects,
+ * see srNotification::send() for more informations.
+ *
  * @author Stefan Wanzenried <sw@studer-raimann.ch>
  */
 class srNotifier
