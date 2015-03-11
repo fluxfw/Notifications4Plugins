@@ -26,7 +26,7 @@ class srNotificationService
     /**
      * @param string $title
      * @param string $description
-     * @param $name
+     * @param string $name
      * @param string $default_language
      * @param array $notifications
      */
@@ -39,7 +39,7 @@ class srNotificationService
     /**
      * @param $title
      * @param $description
-     * @param $name
+     * @param string $name
      * @param $default_language
      * @param array $notifications
      */

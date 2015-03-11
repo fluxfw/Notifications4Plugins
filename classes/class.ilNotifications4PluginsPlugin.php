@@ -35,7 +35,7 @@ class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin
 
         return self::$instance;
     }
-    
+
 
     /**
      * Get Plugin Name. Must be same as in class name il<Name>Plugin
