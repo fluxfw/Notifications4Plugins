@@ -82,6 +82,11 @@ class srNotification extends ActiveRecord
      */
     protected $parser;
 
+    /**
+     * @var array
+     */
+    protected $notification_languages;
+
 
     /**
      * @param $name
@@ -98,6 +103,9 @@ class srNotification extends ActiveRecord
         $this->created_at = date('Y-m-d H:m:s');
         $this->updated_at = date('Y-m-d H:m:s');
         parent::create();
+        foreach ($this->getNotificationLanguages() as $notification) {
+            $notification->save();
+        }
     }
 
 
@@ -105,6 +113,9 @@ class srNotification extends ActiveRecord
     {
         $this->updated_at = date('Y-m-d H:m:s');
         parent::update();
+        foreach ($this->getNotificationLanguages() as $notification) {
+            $notification->save();
+        }
     }
 
 
@@ -165,11 +176,10 @@ class srNotification extends ActiveRecord
                 $this->save();
             }
             $notification->setNotificationId($this->getId());
+            $this->notification_languages[$language] = $notification;
         }
         $notification->setSubject($subject);
-        $notification->save();
     }
-
 
 
     /**
@@ -190,9 +200,9 @@ class srNotification extends ActiveRecord
                 $this->save();
             }
             $notification->setNotificationId($this->getId());
+            $this->notification_languages[$language] = $notification;
         }
         $notification->setText($text);
-        $notification->save();
     }
 
 
@@ -267,14 +277,16 @@ class srNotification extends ActiveRecord
      */
     protected function getNotificationLanguages()
     {
-        $notifications = srNotificationLanguage::where(array('notification_id' => $this->getId()))->get();
-        /** @var srNotificationLanguage $notification */
-        $return = array();
-        foreach ($notifications as $notification) {
-            $return[$notification->getLanguage()] = $notification;
+        if ($this->notification_languages === null) {
+            $notifications = srNotificationLanguage::where(array('notification_id' => $this->getId()))->get();
+            /** @var srNotificationLanguage $notification */
+            $this->notification_languages = array();
+            foreach ($notifications as $notification) {
+                $this->notification_languages[$notification->getLanguage()] = $notification;
+            }
         }
 
-        return $return;
+        return $this->notification_languages;
     }
 
 

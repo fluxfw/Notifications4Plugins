@@ -50,23 +50,6 @@ class srNotificationService
 
 
     /**
-     * @param string $language
-     * @param string $subject
-     * @param string $text
-     */
-    protected function createOrUpdateNotification($language, $subject, $text)
-    {
-        $notification = $this->notification->getNotificationLanguage($language);
-        $notification = (is_null($notification)) ? new srNotificationLanguage() : $notification;
-        $notification->setLanguage($language);
-        $notification->setSubject($subject);
-        $notification->setText($text);
-        $notification->setNotificationId($this->notification->getId());
-        $notification->save();
-    }
-
-
-    /**
      * @param $title
      * @param $description
      * @param $name
@@ -82,8 +65,10 @@ class srNotificationService
         $this->notification->setName($name);
         $this->notification->save();
         foreach ($notifications as $notification) {
-            $this->createOrUpdateNotification($notification['language'], $notification['subject'], $notification['text']);
+            $this->notification->setText($notification['text'], $notification['language']);
+            $this->notification->setSubject($notification['subject'], $notification['language']);
         }
+        $this->notification->save();
     }
 
 }
