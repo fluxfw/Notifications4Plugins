@@ -28,4 +28,12 @@ interface srNotificationSender
      */
     public function setSubject($subject);
 
+
+    /**
+     * Reset internal state of object, e.g. clear all data (from, to, subject, message etc.)
+     *
+     * @return $this
+     */
+    public function reset();
+
 }

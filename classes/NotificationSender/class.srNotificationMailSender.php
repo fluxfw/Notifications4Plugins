@@ -54,10 +54,10 @@ class srNotificationMailSender implements srNotificationSender
     protected $bcc = array();
 
     /**
-     * @param string|array $to
-     * @param string $from
+     * @param string|array $to E-Mail address or array of addresses
+     * @param string $from E-Mail from address. If omitted, the ILIAS setting 'external noreply address' is used
      */
-    public function __construct($to, $from = '')
+    public function __construct($to = '', $from = '')
     {
         $this->to = $to;
         $this->from = $from;
@@ -93,12 +93,15 @@ class srNotificationMailSender implements srNotificationSender
      * Add an attachment
      *
      * @param string $file Full path of the file to attach
+     * @return $this
      */
     public function addAttachment($file)
     {
         if (is_file($file)) {
             $this->attachments[] = $file;
         }
+
+        return $this;
     }
 
 
@@ -106,10 +109,13 @@ class srNotificationMailSender implements srNotificationSender
      * Set the message to send
      *
      * @param string $message
+     * @return $this
      */
     public function setMessage($message)
     {
         $this->message = $message;
+
+        return $this;
     }
 
 
@@ -117,10 +123,13 @@ class srNotificationMailSender implements srNotificationSender
      * Set the subject for the message
      *
      * @param string $subject
+     * @return $this
      */
     public function setSubject($subject)
     {
         $this->subject = $subject;
+
+        return $this;
     }
 
 
@@ -135,10 +144,13 @@ class srNotificationMailSender implements srNotificationSender
 
     /**
      * @param array|string $cc
+     * @return $this
      */
     public function setCc($cc)
     {
         $this->cc = $cc;
+
+        return $this;
     }
 
 
@@ -159,4 +171,63 @@ class srNotificationMailSender implements srNotificationSender
         $this->bcc = $bcc;
     }
 
+
+    /**
+     * @return array|string
+     */
+    public function getTo()
+    {
+        return $this->to;
+    }
+
+
+    /**
+     * @param array|string $to
+     * @return $this
+     */
+    public function setTo($to)
+    {
+        $this->to = $to;
+
+        return $this;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getFrom()
+    {
+        return $this->from;
+    }
+
+
+    /**
+     * @param string $from
+     * @return $this
+     */
+    public function setFrom($from)
+    {
+        $this->from = $from;
+
+        return $this;
+    }
+
+
+    /**
+     * Reset internal state of object, e.g. clear all data (from, to, subject, message etc.)
+     *
+     * @return $this
+     */
+    public function reset()
+    {
+        $this->from = '';
+        $this->to = '';
+        $this->subject = '';
+        $this->message = '';
+        $this->attachments = array();
+        $this->cc = array();
+        $this->bcc = array();
+        $this->mailer = new ilMimeMail();
+    }
 }
