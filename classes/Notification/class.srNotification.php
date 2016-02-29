@@ -55,7 +55,7 @@ class srNotification extends ActiveRecord
      * @db_has_field    true
      * @db_fieldtype    text
      * @db_is_unique    true
-     * @db_length       32
+     * @db_length       128
      */
     protected $name;
 

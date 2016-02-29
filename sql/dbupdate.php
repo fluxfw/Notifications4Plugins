@@ -10,3 +10,8 @@
     require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/Notification/class.srNotification.php');
     srNotification::updateDB();
     ?>
+<#3>
+    <?php
+    require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/Notification/class.srNotification.php');
+    srNotification::updateDB();
+    ?>
