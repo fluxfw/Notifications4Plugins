@@ -45,7 +45,7 @@ class srNotification extends ActiveRecord
      *
      * @db_has_field    true
      * @db_fieldtype    text
-     * @db_length       64
+     * @db_length       1024
      */
     protected $title;
 
@@ -55,7 +55,7 @@ class srNotification extends ActiveRecord
      * @db_has_field    true
      * @db_fieldtype    text
      * @db_is_unique    true
-     * @db_length       128
+     * @db_length       1024
      */
     protected $name;
 
@@ -64,7 +64,7 @@ class srNotification extends ActiveRecord
      *
      * @db_has_field    true
      * @db_fieldtype    text
-     * @db_length       1204
+     * @db_length       4000
      */
     protected $description;
 
@@ -100,8 +100,8 @@ class srNotification extends ActiveRecord
 
     public function create()
     {
-        $this->created_at = date('Y-m-d H:m:s');
-        $this->updated_at = date('Y-m-d H:m:s');
+        $this->created_at = date('Y-m-d H:i:s');
+        $this->updated_at = date('Y-m-d H:i:s');
         parent::create();
         foreach ($this->getNotificationLanguages() as $notification) {
             $notification->save();
@@ -111,7 +111,7 @@ class srNotification extends ActiveRecord
 
     public function update()
     {
-        $this->updated_at = date('Y-m-d H:m:s');
+        $this->updated_at = date('Y-m-d H:i:s');
         parent::update();
         foreach ($this->getNotificationLanguages() as $notification) {
             $notification->save();
