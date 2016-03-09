@@ -65,8 +65,8 @@ class srNotificationInternalMailSender implements srNotificationSender
 
 
     /**
-     * @param int|string $user_from Should be the user-ID from the sender, you can also pass the login
-     * @param int|string $user_to Should be the login of the receiver, you can also pass a user-ID
+     * @param int|string|ilObjUser $user_from Should be the user-ID from the sender, you can also pass the login
+     * @param int|string|ilObjUser $user_to Should be the login of the receiver, you can also pass a user-ID
      */
     public function __construct($user_from = 0, $user_to = '')
     {
@@ -102,19 +102,21 @@ class srNotificationInternalMailSender implements srNotificationSender
     /**
      * Convert User-ID to login
      *
-     * @param $id
+     * @param int|string|ilObjUser $id_or_user
      * @return mixed
      */
-    protected function id2login($id)
+    protected function idOrUser2login($id_or_user)
     {
-        if (is_numeric($id)) {
+        if ($id_or_user instanceof ilObjUser) {
+            return $id_or_user->getLogin();
+        } else if (is_numeric($id_or_user)) {
             // Need login
-            $data = ilObjUser::_lookupName($id);
+            $data = ilObjUser::_lookupName($id_or_user);
 
             return $data['login'];
         }
 
-        return $id;
+        return $id_or_user;
     }
 
 
@@ -197,12 +199,14 @@ class srNotificationInternalMailSender implements srNotificationSender
 
 
     /**
-     * @param int|string $user_from
+     * @param int|string|ilObjUser $user_from
      * @return $this
      */
     public function setUserFrom($user_from)
     {
-        if (is_string($user_from) && !is_numeric($user_from)) {
+        if ($user_from instanceof ilObjUser) {
+            $user_from = $user_from->getId();
+        } else if (is_string($user_from) && !is_numeric($user_from)) {
             // Need user-ID
             $user_from = ilObjUser::_lookupId($user_from);
         }
@@ -222,12 +226,12 @@ class srNotificationInternalMailSender implements srNotificationSender
 
 
     /**
-     * @param int|string $user_to
+     * @param int|string|ilObjUser $user_to
      * @return $this
      */
     public function setUserTo($user_to)
     {
-        $this->user_to = $this->id2login($user_to);
+        $this->user_to = $this->idOrUser2login($user_to);
 
         return $this;
     }
@@ -248,7 +252,7 @@ class srNotificationInternalMailSender implements srNotificationSender
      */
     public function setCc($cc)
     {
-        $this->cc = $this->id2login($cc);
+        $this->cc = $this->idOrUser2login($cc);
 
         return $this;
     }
@@ -269,7 +273,7 @@ class srNotificationInternalMailSender implements srNotificationSender
      */
     public function setBcc($bcc)
     {
-        $this->bcc = $this->id2login($bcc);
+        $this->bcc = $this->idOrUser2login($bcc);
 
         return $this;
     }
@@ -290,5 +294,29 @@ class srNotificationInternalMailSender implements srNotificationSender
         $this->bcc = '';
         $this->save_in_sent_box = true;
         $this->mailer = null;
+    }
+
+
+    /**
+     * @param int|string|ilObjUser $from
+     *
+     * @return $this
+     */
+    public function setFrom($from) {
+        $this->setUserFrom($from);
+
+        return $this;
+    }
+
+
+    /**
+     * @param int|string|ilObjUser $to
+     *
+     * @return $this
+     */
+    public function setTo($to) {
+        $this->setUserTo($to);
+
+        return $this;
     }
 }
