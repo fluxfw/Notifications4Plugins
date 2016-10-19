@@ -1,0 +1,8 @@
+add_notification#:#Add Notification
+
+title#:#Title
+name#:#Name
+description#:#Description
+default_language#:#Default Language
+languages#:#Languages
+actions#:#Actions
