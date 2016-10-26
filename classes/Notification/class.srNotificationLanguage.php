@@ -77,15 +77,15 @@ class srNotificationLanguage extends ActiveRecord
 
     public function create()
     {
-        $this->created_at = date('Y-m-d H:m:s');
-        $this->updated_at = date('Y-m-d H:m:s');
+        $this->created_at = date('Y-m-d H:i:s');
+        $this->updated_at = date('Y-m-d H:i:s');
         parent::create();
     }
 
 
     public function update()
     {
-        $this->updated_at = date('Y-m-d H:m:s');
+        $this->updated_at = date('Y-m-d H:i:s');
         parent::update();
     }
 
