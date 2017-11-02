@@ -129,7 +129,7 @@ class srNotificationTableGUI extends ilTable2GUI
     /**
      * @param array $a_set
      */
-    protected function fillRow(array $a_set)
+    protected function fillRow($a_set)
     {
         foreach ($this->columns as $col) {
             if ($this->isColumnSelected($col)) {
