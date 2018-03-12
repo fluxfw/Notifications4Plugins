@@ -2,9 +2,6 @@
 
 This plugin offers a quick and easy way to create notifications (subject & text) in any language in the configuration screen in ILIAS. The text of the notifications is parsed by default with the [Twig template engine!](http://twig.sensiolabs.org/), meaning the developer can replace placeholders and use if statements and loops. The API offers easy methods to send the notifications.
 
-## Requirements
-* ActiveRecord for ILIAS < 5 (https://github.com/studer-raimann/ActiveRecord)
-
 ## API
 
 ### Create a notification
