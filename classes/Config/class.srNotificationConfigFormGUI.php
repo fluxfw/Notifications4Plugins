@@ -118,8 +118,8 @@ class srNotificationConfigFormGUI extends ilPropertyFormGUI {
 
 
 	protected function addCommandButtons() {
-		$method = $this->notification->getId() ? 'update' : 'create';
-		$this->addCommandButton($method, $this->pl->txt('save'));
-		$this->addCommandButton('cancel', $this->pl->txt('cancel'));
+		$method = $this->notification->getId() ? ilNotifications4PluginsConfigGUI::CMD_UPDATE : ilNotifications4PluginsConfigGUI::CMD_CREATE;
+		$this->addCommandButton($method, $this->pl->txt(ilNotifications4PluginsConfigGUI::CMD_SAVE));
+		$this->addCommandButton('cancel', $this->pl->txt(ilNotifications4PluginsConfigGUI::CMD_CANCEL));
 	}
 }

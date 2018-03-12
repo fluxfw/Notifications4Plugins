@@ -14,6 +14,16 @@ require_once('./Services/Utilities/classes/class.ilConfirmationGUI.php');
  */
 class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 
+	const CMD_ADD = 'add';
+	const CMD_CANCEL = 'cancel';
+	const CMD_CONFIGURE = 'configure';
+	const CMD_CONFIRM_DELETE = 'confirmDelete';
+	const CMD_CREATE = 'create';
+	const CMD_DELETE = 'delete';
+	const CMD_EDIT = 'edit';
+	const CMD_INDEX = 'index';
+	const CMD_SAVE = 'save';
+	const CMD_UPDATE = 'update';
 	/**
 	 * @var ilNotifications4PluginsPlugin
 	 */
@@ -46,21 +56,21 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	 * @param $cmd
 	 */
 	public function performCommand($cmd) {
-		$cmd = $this->ctrl->getCmd('index');
+		$cmd = $this->ctrl->getCmd(self::CMD_INDEX);
 
 		switch ($cmd) {
-			case 'index':
-			case 'cancel':
-			case 'configure':
+			case self::CMD_INDEX:
+			case self::CMD_CANCEL:
+			case self::CMD_CONFIGURE:
 				$this->index();
 				break;
-			case 'save':
-			case 'edit':
-			case 'create':
-			case 'update':
-			case 'delete':
-			case 'confirmDelete':
-			case 'add':
+			case self::CMD_SAVE:
+			case self::CMD_EDIT:
+			case self::CMD_CREATE:
+			case self::CMD_UPDATE:
+			case self::CMD_DELETE:
+			case self::CMD_CONFIRM_DELETE:
+			case self::CMD_ADD:
 				$this->$cmd();
 				break;
 		}
@@ -72,10 +82,10 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	 */
 	public function index() {
 		$button = ilLinkButton::getInstance();
-		$button->setUrl($this->ctrl->getLinkTarget($this, 'add'));
+		$button->setUrl($this->ctrl->getLinkTarget($this, self::CMD_ADD));
 		$button->setCaption($this->pl->txt('add_notification'), false);
 		$this->toolbar->addButtonInstance($button);
-		$table = new srNotificationTableGUI($this, 'index');
+		$table = new srNotificationTableGUI($this, self::CMD_INDEX);
 		$this->tpl->setContent($table->getHTML());
 	}
 
@@ -127,8 +137,8 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 		$gui = new ilConfirmationGUI();
 		$gui->setHeaderText($this->pl->txt('delete_confirm'));
 		$gui->setFormAction($this->ctrl->getFormAction($this));
-		$gui->setCancel($this->pl->txt('cancel'), 'cancel');
-		$gui->setConfirm($this->pl->txt('delete'), 'delete');
+		$gui->setCancel($this->pl->txt('cancel'), self::CMD_CANCEL);
+		$gui->setConfirm($this->pl->txt('delete'), self::CMD_DELETE);
 		$gui->addItem('notification_id', $notification->getId(), $notification->getTitle());
 		$this->tpl->setContent($gui->getHTML());
 	}
