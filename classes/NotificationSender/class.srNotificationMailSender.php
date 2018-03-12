@@ -68,7 +68,14 @@ class srNotificationMailSender implements srNotificationSender {
 
 		$this->mailer->To($this->to);
 		$from = ($this->from) ? $this->from : $ilias->getSetting('mail_external_sender_noreply');
-		$this->mailer->From($from);
+		if (ILIAS_VERSION_NUMERIC >= "5.3") {
+			/** @var ilMailMimeSenderFactory $senderFactory */
+			$senderFactory = $DIC["mail.mime.sender.factory"];
+
+			$this->mailer->From($senderFactory->userByEmailAddress($from));
+		} else {
+			$this->mailer->From($from);
+		}
 		$this->mailer->Cc($this->cc);
 		$this->mailer->Bcc($this->bcc);
 		$this->mailer->Subject($this->subject);
