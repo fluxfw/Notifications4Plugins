@@ -57,10 +57,10 @@ class srNotificationTableGUI extends ilTable2GUI {
 	 * @param string $a_parent_cmd
 	 */
 	public function __construct($a_parent_obj, $a_parent_cmd = "") {
-		global $ilCtrl, $ilUser, $lng;
+		global $DIC;
 
-		$this->ctrl = $ilCtrl;
-		$this->lng = $lng;
+		$this->ctrl = $DIC->ctrl();
+		$this->lng = $DIC->language();
 		$this->pl = ilNotifications4PluginsPlugin::getInstance();
 		parent::__construct($a_parent_obj, $a_parent_cmd, '');
 

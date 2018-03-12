@@ -33,12 +33,12 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 
 
 	public function __construct() {
-		global $ilCtrl, $tpl, $ilToolbar;
+		global $DIC;
 
 		$this->pl = ilNotifications4PluginsPlugin::getInstance();
-		$this->ctrl = $ilCtrl;
-		$this->tpl = $tpl;
-		$this->toolbar = $ilToolbar;
+		$this->ctrl = $DIC->ctrl();
+		$this->tpl = $DIC->ui()->mainTemplate();
+		$this->toolbar = $DIC->toolbar();
 	}
 
 

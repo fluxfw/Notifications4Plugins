@@ -36,11 +36,12 @@ class srNotificationConfigFormGUI extends ilPropertyFormGUI {
 	 * @param srNotification $notification
 	 */
 	public function __construct($parent_gui, srNotification $notification) {
-		global $ilCtrl, $lng;
+		parent::__construct();
+		global $DIC;
 
 		$this->parent_gui = $parent_gui;
-		$this->ctrl = $ilCtrl;
-		$this->lng = $lng;
+		$this->ctrl = $DIC->ctrl();
+		$this->lng = $DIC->language();
 		$this->pl = ilNotifications4PluginsPlugin::getInstance();
 		$this->notification = $notification;
 		$this->setFormAction($this->ctrl->getFormAction($this->parent_gui));
