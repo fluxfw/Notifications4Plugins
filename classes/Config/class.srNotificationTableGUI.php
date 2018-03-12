@@ -129,9 +129,9 @@ class srNotificationTableGUI extends ilTable2GUI {
 			}
 		}
 
-		$this->ctrl->setParameterByClass('ilNotifications4PluginsConfigGUI', 'notification_id', $a_set['id']);
-		$edit = $this->ctrl->getLinkTargetByClass('ilNotifications4PluginsConfigGUI', 'edit');
-		$delete = $this->ctrl->getLinkTargetByClass('ilNotifications4PluginsConfigGUI', 'confirmDelete');
+		$this->ctrl->setParameterByClass(ilNotifications4PluginsConfigGUI::class, 'notification_id', $a_set['id']);
+		$edit = $this->ctrl->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, 'edit');
+		$delete = $this->ctrl->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, 'confirmDelete');
 		$this->tpl->setCurrentBlock('td');
 		$this->tpl->setVariable('VALUE', "<a href='{$edit}'>{$this->pl->txt('edit')}</a> / <a href='{$delete}'>{$this->pl->txt('delete')}</a>");
 		$this->tpl->parseCurrentBlock();
