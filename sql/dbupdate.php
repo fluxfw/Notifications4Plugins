@@ -17,9 +17,10 @@
     ?>
 <#4>
     <?php
+    require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/Notification/class.srNotification.php');
     global $DIC;
     $ilDB = $DIC->database();
-    $ilDB->modifyTableColumn('sr_notification', 'title', array('type' => 'text', 'length' => 1024));
-    $ilDB->modifyTableColumn('sr_notification', 'description', array('type' => 'text', 'length' => 4000));
-    $ilDB->modifyTableColumn('sr_notification', 'name', array('type' => 'text', 'length' => 1024));
+    $ilDB->modifyTableColumn(srNotification::TABLE_NAME, 'title', array('type' => 'text', 'length' => 1024));
+    $ilDB->modifyTableColumn(srNotification::TABLE_NAME, 'description', array('type' => 'text', 'length' => 4000));
+    $ilDB->modifyTableColumn(srNotification::TABLE_NAME, 'name', array('type' => 'text', 'length' => 1024));
     ?>
