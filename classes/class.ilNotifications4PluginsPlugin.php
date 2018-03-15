@@ -1,8 +1,5 @@
 <?php
-
-require_once("./Services/UIComponent/classes/class.ilUserInterfaceHookPlugin.php");
-
-require_once('./Services/ActiveRecord/class.ActiveRecord.php');
+require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
  * Class ilNotifications4PluginsPlugin
@@ -61,9 +58,6 @@ class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 
 
 	protected function beforeUninstall() {
-		require_once './Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/Notification/class.srNotification.php';
-		require_once './Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/Notification/class.srNotificationLanguage.php';
-
 		$this->db->dropTable(srNotification::TABLE_NAME, false);
 		$this->db->dropTable(srNotificationLanguage::TABLE_NAME, false);
 

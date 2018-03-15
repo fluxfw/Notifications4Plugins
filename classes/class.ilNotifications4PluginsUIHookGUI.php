@@ -1,5 +1,5 @@
 <?php
-require_once("./Services/UIComponent/classes/class.ilUIHookPluginGUI.php");
+require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
  * Class ilNotifications4PluginsUIHookGUI

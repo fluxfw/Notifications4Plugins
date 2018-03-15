@@ -1,0 +1,38 @@
+{
+  "name": "studer-raimann.ch/notifications4plugins",
+  "type": "project",
+  "license": "GPL-3.0+",
+  "authors": [
+    {
+      "name": "Theodor Truffer",
+      "email": "tt@studer-raimann.ch",
+      "homepage": "https://studer-raimann.ch",
+      "role": "Project Manager, Software Engineer"
+    }
+  ],
+  "support": {
+    "email": "info@studer-raimann.ch"
+  },
+  "minimum-stability": "beta",
+  "prefer-stable": true,
+  "require": {
+    "php": "^5.5.9 || ^7.0"
+  },
+  "autoload": {
+    "classmap": [
+      "./classes/",
+      "../../../../../../../Services/UIComponent",
+      "../../../../../../../Services/Component",
+      "../../../../../../../Services/Utilities",
+      "../../../../../../../Services/ActiveRecord",
+      "../../../../../../../Services/Table",
+      "../../../../../../../Services/Form",
+      "../../../../../../../Services/Mail"
+    ]
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "classmap-authoritative": true
+  }
+}

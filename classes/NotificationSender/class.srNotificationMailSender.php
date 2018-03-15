@@ -1,8 +1,5 @@
 <?php
 
-require_once('./Services/Mail/classes/class.ilMimeMail.php');
-require_once('srNotificationSender.php');
-
 /**
  * Class srNotificationMailSender
  *

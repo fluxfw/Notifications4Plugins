@@ -1,11 +1,5 @@
 <?php
-
-require_once('./Services/Component/classes/class.ilPluginConfigGUI.php');
-require_once(dirname(__FILE__) . '/Config/class.srNotificationConfigFormGUI.php');
-require_once(dirname(__FILE__) . '/Config/class.srNotificationTableGUI.php');
-require_once(dirname(__FILE__) . '/Notification/class.srNotificationService.php');
-require_once('./Services/UIComponent/Button/classes/class.ilLinkButton.php');
-require_once('./Services/Utilities/classes/class.ilConfirmationGUI.php');
+require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
  * Class ilNotifications4PluginsConfigGUI

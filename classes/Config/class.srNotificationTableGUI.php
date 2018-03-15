@@ -1,8 +1,4 @@
 <?php
-
-require_once('./Services/Table/classes/class.ilTable2GUI.php');
-require_once(dirname(dirname(__FILE__)) . '/Notification/class.srNotification.php');
-
 /**
  * Class srNotificationTableGUI
  *

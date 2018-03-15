@@ -1,7 +1,5 @@
 <?php
 
-require_once('srNotificationParser.php');
-
 /**
  * Class srNotificationTwigParser
  *
@@ -35,7 +33,7 @@ class srNotificationTwigParser implements srNotificationParser
     {
         static $loaded = false;
         if (!$loaded) {
-            require_once(dirname(dirname(dirname(__FILE__))) . '/lib/twig/lib/Twig/Autoloader.php');
+            require_once __DIR__ . '/../../lib/twig/lib/Twig/Autoloader.php';
             Twig_Autoloader::register();
             $loaded = true;
         }
