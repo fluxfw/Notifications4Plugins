@@ -8,6 +8,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
  */
 class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 
+	const PLUGIN_ID = 'notifications4pl';
+	const PLUGIN_NAME = 'Notifications4Plugins';
 	/**
 	 * @var ilNotifications4PluginsPlugin
 	 */
@@ -53,7 +55,7 @@ class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 	 * @return    string    Plugin Name
 	 */
 	public function getPluginName() {
-		return 'Notifications4Plugins';
+		return self::PLUGIN_NAME;
 	}
 
 
