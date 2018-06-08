@@ -8,6 +8,25 @@
 class srNotification extends ActiveRecord {
 
 	const TABLE_NAME = 'sr_notification';
+
+
+	/**
+	 * @return string
+	 */
+	public function getConnectorContainerName() {
+		return self::TABLE_NAME;
+	}
+
+
+	/**
+	 * @return string
+	 * @deprecated
+	 */
+	public static function returnDbTableName() {
+		return self::TABLE_NAME;
+	}
+
+
 	/**
 	 * @var int
 	 *
@@ -361,16 +380,6 @@ class srNotification extends ActiveRecord {
 	 */
 	public function setDefaultLanguage($default_language) {
 		$this->default_language = $default_language;
-	}
-
-
-	/**
-	 * Return the Name of your Database Table
-	 *
-	 * @return string
-	 */
-	public static function returnDbTableName() {
-		return self::TABLE_NAME;
 	}
 
 

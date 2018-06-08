@@ -59,6 +59,9 @@ class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 	}
 
 
+	/**
+	 * @return bool
+	 */
 	protected function beforeUninstall() {
 		$this->db->dropTable(srNotification::TABLE_NAME, false);
 		$this->db->dropTable(srNotificationLanguage::TABLE_NAME, false);
