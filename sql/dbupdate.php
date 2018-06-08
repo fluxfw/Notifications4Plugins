@@ -1,22 +1,22 @@
 <#1>
     <?php
-    require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/Notification/vendor/autoload.php';
+    require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php';
     srNotification::updateDB();
     srNotificationLanguage::updateDB();
     ?>
 <#2>
     <?php
-    require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/Notification/vendor/autoload.php';
+    require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php';
     srNotification::updateDB();
     ?>
 <#3>
     <?php
-    require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/Notification/vendor/autoload.php';
+    require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php';
     srNotification::updateDB();
     ?>
 <#4>
     <?php
-    require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/Notification/vendor/autoload.php';
+    require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php';
     global $DIC;
     $ilDB = $DIC->database();
     $ilDB->modifyTableColumn(srNotification::TABLE_NAME, 'title', array('type' => 'text', 'length' => 1024));
