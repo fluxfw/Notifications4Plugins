@@ -280,6 +280,11 @@ class srNotificationVcalendarSender implements srNotificationSender {
 		$message .= "</html>\n";
 		$message .= "--$mime_boundary\r\n";
 
+		$status = "CONFIRMED";
+		if($this->method == self::METHOD_CANCEL) {
+			$status = "CANCELLED";
+		}
+
 
 		$ical = 'BEGIN:VCALENDAR' . "\r\n" .
 			'PRODID:-//ILIAS' . "\r\n" .
@@ -298,7 +303,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 			'LOCATION:' . $this->location . "\r\n" .
 			'SEQUENCE:6'. "\r\n" .
 			'PRIORITY:5'. "\r\n" .
-			'STATUS:CANCELLED'. "\r\n" .
+			'STATUS:'.$status. "\r\n" .
 			'TRANSP:OPAQUE'. "\r\n" .
 			'CLASS:PUBLIC'. "\r\n" .
 			'BEGIN:VALARM' . "\r\n" .
