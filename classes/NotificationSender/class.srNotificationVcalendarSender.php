@@ -106,7 +106,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 		$this->uid = $uid;
 		$this->startTime = $startTime;
 		$this->endTime = $endTime;
-		$this->sequence = 0;
+		$this->sequence = $sequence;
 
 	}
 
@@ -301,7 +301,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 			'ATTENDEE;CN="'.$this->to.'";ROLE=REQ-PARTICIPANT;RSVP=TRUE:MAILTO:'.$this->to. "\r\n" .
 			'SUMMARY:' . $this->subject . "\r\n" .
 			'LOCATION:' . $this->location . "\r\n" .
-			'SEQUENCE:6'. "\r\n" .
+			'SEQUENCE:'. $this->sequence . "\r\n" .
 			'PRIORITY:5'. "\r\n" .
 			'STATUS:'.$status. "\r\n" .
 			'TRANSP:OPAQUE'. "\r\n" .
