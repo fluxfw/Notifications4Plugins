@@ -311,7 +311,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 		$message .= "Content-Transfer-Encoding: 8bit\n\n";
 		$message .= "<html>\n";
 		$message .= "<body>\n";
-		$message .= $this->message;
+		$message .= nl2br($this->message);
 		//$message .= '<p>'.$description.'</p>';
 		$message .= "</body>\n";
 		$message .= "</html>\n";
