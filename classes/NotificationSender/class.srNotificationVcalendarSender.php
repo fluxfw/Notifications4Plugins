@@ -25,13 +25,19 @@ class srNotificationVcalendarSender implements srNotificationSender {
 	 */
 	protected $location = '';
 	/**
+	 * @var ilMail
+	 */
+	protected $mailer;
+	/**
 	 * @var string|array
 	 */
 	protected $to;
 	/**
-	 * @var string
+	 * User-ID or login of sender
+	 *
+	 * @var int|string
 	 */
-	protected $from = '';
+	protected $user_from = 0;
 	/**
 	 * @var string
 	 */
@@ -72,7 +78,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 	 * srNotificationVcalendarSender constructor.
 	 *
 	 * @param string|array $to   E-Mail address or array of addresses
-	 * @param string       $from E-Mail from address. If omitted, the ILIAS setting 'external noreply address' is used
+	 * @param int|string|ilObjUser $user_from Should be the user-ID from the sender, you can also pass the login
 	 * @param string  $method
 	 * @param int $startTime Timestamp
 	 * @param int $endTime Timestamp
@@ -80,7 +86,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 	 *
 	 */
 	public function __construct($to = '',
-								$from = '',
+								$user_from = 0,
 								$method = self::METHOD_REQUEST,
 								$uid = '',
 								$startTime = 0,
@@ -92,14 +98,8 @@ class srNotificationVcalendarSender implements srNotificationSender {
 
 		$this->to = $to;
 
-		$from = ($from) ? $from : $ilias->getSetting('mail_external_sender_noreply');
-		if (ILIAS_VERSION_NUMERIC >= "5.3") {
-			/** @var ilMailMimeSenderFactory $senderFactory */
-			$senderFactory = $DIC["mail.mime.sender.factory"];
-
-			$this->from = $senderFactory->userByEmailAddress($from);
-		} else {
-			$this->from = $from;
+		if ($user_from) {
+			$this->setUserFrom($user_from);
 		}
 
 		$this->method = $method;
@@ -120,8 +120,35 @@ class srNotificationVcalendarSender implements srNotificationSender {
 		global $DIC;
 		$ilias = $DIC["ilias"];
 
+		$this->mailer = new ilMail($this->getUserFrom());
 
-		return $this->sendIcalEvent();
+
+		$mbox           = new ilMailbox($this->getUserFrom());
+		$sent_folder_id = $mbox->getSentFolder();
+
+		//Create Email Headers
+		$mime_boundary = "----Meeting Booking----".MD5(TIME());
+
+		$this->mailer->sendInternalMail(
+			$sent_folder_id, $this->getUserFrom(), '',
+			$this->to,'', '',
+			'read', 'email', 0,
+			$this->subject, $this->getIcalEvent($mime_boundary), $this->getUserFrom(), 0
+		);
+
+		$this->mailer = new ilMail($this->getUserFrom());
+
+
+		$iluser = new ilObjUser($this->getUserFrom());
+		$headers = "From: ".$iluser->getEmail()." <".$iluser->getEmail().">\n";
+		$headers .= "Reply-To: ".$iluser->getEmail()." <".$iluser->getEmail().">\n";
+		$headers .= "MIME-Version: 1.0\n";
+		$headers .= "Content-Type: multipart/alternative; boundary=\"$mime_boundary\"\n";
+		$headers .= "Content-class: urn:content-classes:calendarmessage\n";
+
+		$mailsent = mail($this->to, $this->subject, $this->getIcalEvent($mime_boundary), $headers);
+
+		return ($mailsent)?(true):(false);
 	}
 
 
@@ -237,36 +264,46 @@ class srNotificationVcalendarSender implements srNotificationSender {
 		return $this;
 	}
 
-
 	/**
-	 * @return string
+	 * @return int|string
 	 */
-	public function getFrom() {
-		return $this->from;
+	public function getUserFrom() {
+		return $this->user_from;
 	}
 
-
 	/**
-	 * @param string $from
+	 * @param int|string|ilObjUser $from
 	 *
 	 * @return $this
 	 */
 	public function setFrom($from) {
-		$this->from = $from;
+		$this->setUserFrom($from);
 
 		return $this;
 	}
 
-	public function sendIcalEvent()
-	{
-		//Create Email Headers
-		$mime_boundary = "----Meeting Booking----".MD5(TIME());
+	/**
+	 * @param int|string|ilObjUser $user_from
+	 *
+	 * @return $this
+	 */
+	public function setUserFrom($user_from) {
+		if ($user_from instanceof ilObjUser) {
+			$user_from = $user_from->getId();
+		} else {
+			if (is_string($user_from) && !is_numeric($user_from)) {
+				// Need user-ID
+				$user_from = ilObjUser::_lookupId($user_from);
+			}
+		}
+		$this->user_from = (int)$user_from;
 
-		$headers = "From: ".$this->from." <".$this->from.">\n";
-		$headers .= "Reply-To: ".$this->from." <".$this->from.">\n";
-		$headers .= "MIME-Version: 1.0\n";
-		$headers .= "Content-Type: multipart/alternative; boundary=\"$mime_boundary\"\n";
-		$headers .= "Content-class: urn:content-classes:calendarmessage\n";
+		return $this;
+	}
+
+	public function getIcalEvent($mime_boundary)
+	{
+		$iluser = new ilObjUser($this->getUserFrom());
 
 		//Create Email Body (HTML)
 		$message = "--$mime_boundary\r\n";
@@ -274,7 +311,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 		$message .= "Content-Transfer-Encoding: 8bit\n\n";
 		$message .= "<html>\n";
 		$message .= "<body>\n";
-		//$message .= '<p>Dear '.$to_name.',</p>';
+		$message .= $this->message;
 		//$message .= '<p>'.$description.'</p>';
 		$message .= "</body>\n";
 		$message .= "</html>\n";
@@ -297,7 +334,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 			'DTEND:'.date("Ymd\THis", $this->endTime). "\r\n" .
 			'DTSTAMP:'.date("Ymd\TGis"). "\r\n" .
 			'LAST-MODIFIED:' . date("Ymd\TGis") . "\r\n" .
-			'ORGANIZER;CN="'.$this->from.'":MAILTO:'.$this->from. "\r\n" .
+			'ORGANIZER;CN="'.$this->from.'":MAILTO:'.$iluser->getEmail(). "\r\n" .
 			'ATTENDEE;CN="'.$this->to.'";ROLE=REQ-PARTICIPANT;RSVP=TRUE:MAILTO:'.$this->to. "\r\n" .
 			'SUMMARY:' . $this->subject . "\r\n" .
 			'LOCATION:' . $this->location . "\r\n" .
@@ -316,9 +353,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 		$message .= "Content-Transfer-Encoding: 8bit\n\n";
 		$message .= $ical;
 
-		$mailsent = mail($this->to, $this->subject, $message, $headers);
-
-		return ($mailsent)?(true):(false);
+		return $message;
 	}
 
 
