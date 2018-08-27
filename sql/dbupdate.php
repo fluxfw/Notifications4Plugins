@@ -1,24 +1,25 @@
 <#1>
     <?php
-    require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/Notification/class.srNotification.php');
-    require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/Notification/class.srNotificationLanguage.php');
-    srNotification::installDB();
-    srNotificationLanguage::installDB();
+    require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php';
+    srNotification::updateDB();
+    srNotificationLanguage::updateDB();
     ?>
 <#2>
     <?php
-    require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/Notification/class.srNotification.php');
+    require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php';
     srNotification::updateDB();
     ?>
 <#3>
     <?php
-    require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/Notification/class.srNotification.php');
+    require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php';
     srNotification::updateDB();
     ?>
 <#4>
     <?php
-    global $ilDB;
-    $ilDB->modifyTableColumn('sr_notification', 'title', array('type' => 'text', 'length' => 1024));
-    $ilDB->modifyTableColumn('sr_notification', 'description', array('type' => 'text', 'length' => 4000));
-    $ilDB->modifyTableColumn('sr_notification', 'name', array('type' => 'text', 'length' => 1024));
+    require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php';
+    global $DIC;
+    $ilDB = $DIC->database();
+    $ilDB->modifyTableColumn(srNotification::TABLE_NAME, 'title', array('type' => 'text', 'length' => 1024));
+    $ilDB->modifyTableColumn(srNotification::TABLE_NAME, 'description', array('type' => 'text', 'length' => 4000));
+    $ilDB->modifyTableColumn(srNotification::TABLE_NAME, 'name', array('type' => 'text', 'length' => 1024));
     ?>

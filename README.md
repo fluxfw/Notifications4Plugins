@@ -2,15 +2,12 @@
 
 This plugin offers a quick and easy way to create notifications (subject & text) in any language in the configuration screen in ILIAS. The text of the notifications is parsed by default with the [Twig template engine!](http://twig.sensiolabs.org/), meaning the developer can replace placeholders and use if statements and loops. The API offers easy methods to send the notifications.
 
-## Requirements
-* ActiveRecord for ILIAS < 5 (https://github.com/studer-raimann/ActiveRecord)
-
 ## API
 
 ### Create a notification
 The easiest way to create new notifications is to use the GUI of this plugin, here is an example how to do it with the API:
 ```php
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/Notification/class.srNotification.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php');
 
 $notification = new srNotification();
 $notification->setName('my_unique_name'); // Use the name as unique identifier to retrieve this object later
@@ -31,7 +28,7 @@ $notification->save();
 This plugin introduces a dedicated interface for sending notifications. Currently there is implemented one concrete class which does send notifications to external E-Mail addresses using the class `ilMimeMail` from ILIAS. There could be a sender for internal mails in ILIAS, SMS and so on.
 
 ```php
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/NotificationSender/class.srNotificationMailSender.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php');
 
 // Setup the sender object, in this case we send the notification as external mail to sw@studer-raimann.ch
 $sender = new srNotificationMailSender('sw@studer-raimann.ch', 'no-reply@studer-raimann.ch');

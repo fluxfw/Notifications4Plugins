@@ -1,8 +1,23 @@
 add_notification#:#Add Notification
-
 title#:#Title
 name#:#Name
 description#:#Description
 default_language#:#Default Language
 languages#:#Languages
 actions#:#Actions
+general#:#General
+add_new_language#:#Add new Language
+language#:#Language
+subject#:#Subject
+text#:#Text
+name_info#:#The name is an additional unique identifier of a notification. This allows to easy retrieve srNotification objects by name, not only by ID
+default_language_name#:#This language is substituted if you try to load a non-existing language or no language is provided
+created_notification#:#Created Notification
+updated_notification#:#Updated Notification
+cancel#:#Cancel
+save#:#Save
+delete#:#Delete
+delete_confirm#:#Are you sure you want to delete the Notification?
+deleted_notification#:#Deleted Notification
+edit#:#Edit
+ID#:#ID
