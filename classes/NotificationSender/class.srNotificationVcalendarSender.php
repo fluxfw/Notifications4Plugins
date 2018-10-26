@@ -117,7 +117,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 	 * @return bool
 	 */
 	public function send() {
-		global $DIC;
+		global $DIC, $ilSetting;
 		$ilias = $DIC["ilias"];
 
 		$this->mailer = new ilMail($this->getUserFrom());
@@ -146,7 +146,9 @@ class srNotificationVcalendarSender implements srNotificationSender {
 		$headers .= "Content-Type: multipart/alternative; boundary=\"$mime_boundary\"\n";
 		$headers .= "Content-class: urn:content-classes:calendarmessage\n";
 
-		$mailsent = mail($this->to, $this->subject, $this->getIcalEvent($mime_boundary), $headers);
+		if(!(int)$ilSetting->get('prevent_smtp_globally')) {
+			$mailsent = mail($this->to, $this->subject, $this->getIcalEvent($mime_boundary), $headers);
+		}
 
 		return ($mailsent)?(true):(false);
 	}
@@ -330,8 +332,8 @@ class srNotificationVcalendarSender implements srNotificationSender {
 			'BEGIN:VEVENT' . "\r\n" .
 			'UID: ' .$this->uid. "\r\n" .
 			'DESCRIPTION:Reminder' . "\r\n" .
-			'DTSTART:'.date("Ymd\THis", $this->startTime). "\r\n" .
-			'DTEND:'.date("Ymd\THis", $this->endTime). "\r\n" .
+			'DTSTART:'.date("Ymd\THis", $this->startTime). "Z\r\n" .
+			'DTEND:'.date("Ymd\THis", $this->endTime). "Z\r\n" .
 			'DTSTAMP:'.date("Ymd\TGis"). "\r\n" .
 			'LAST-MODIFIED:' . date("Ymd\TGis") . "\r\n" .
 			'ORGANIZER;CN="'.$this->from.'":MAILTO:'.$iluser->getEmail(). "\r\n" .
