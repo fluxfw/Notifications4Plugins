@@ -332,8 +332,8 @@ class srNotificationVcalendarSender implements srNotificationSender {
 			'BEGIN:VEVENT' . "\r\n" .
 			'UID: ' .$this->uid. "\r\n" .
 			'DESCRIPTION:Reminder' . "\r\n" .
-			'DTSTART:'.date("Ymd\THis", $this->startTime). "Z\r\n" .
-			'DTEND:'.date("Ymd\THis", $this->endTime). "Z\r\n" .
+			'DTSTART;TZID=CET:'.date("Ymd\THis", $this->startTime). "\r\n" .
+			'DTEND;TZID=CET:'.date("Ymd\THis", $this->endTime). "\r\n" .
 			'DTSTAMP:'.date("Ymd\TGis"). "\r\n" .
 			'LAST-MODIFIED:' . date("Ymd\TGis") . "\r\n" .
 			'ORGANIZER;CN="'.$this->from.'":MAILTO:'.$iluser->getEmail(). "\r\n" .
