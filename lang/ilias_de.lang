@@ -10,8 +10,8 @@ add_new_language#:#Neue Sprache hinzufügen
 language#:#Sprache
 subject#:#Betreff
 text#:#Text
-name_info#:#The name is an additional unique identifier of a notification. This allows to easy retrieve srNotification objects by name, not only by ID
-default_language_name#:#This language is substituted if you try to load a non-existing language or no language is provided
+name_info#:#Der Name ist eine zusätzliche eindeutige Kennung einer Benachrichtigung. Dies ermöglicht das einfache Abrufen von srNotification-Objekten anhand des Namens, nicht nur anhand der ID
+default_language_name#:#Diese Sprache wird ersetzt, wenn Sie versuchen, eine nicht vorhandene Sprache zu laden, oder wenn keine Sprache bereitgestellt wird
 created_notification#:#Benachrichtigung erstellt
 updated_notification#:#Benachrichtigung gespeichert
 cancel#:#Abbrechen

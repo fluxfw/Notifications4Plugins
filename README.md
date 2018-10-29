@@ -7,7 +7,7 @@ This plugin offers a quick and easy way to create notifications (subject & text)
 ### Create a notification
 The easiest way to create new notifications is to use the GUI of this plugin, here is an example how to do it with the API:
 ```php
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/Notification/class.srNotification.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php');
 
 $notification = new srNotification();
 $notification->setName('my_unique_name'); // Use the name as unique identifier to retrieve this object later
@@ -28,7 +28,7 @@ $notification->save();
 This plugin introduces a dedicated interface for sending notifications. Currently there is implemented one concrete class which does send notifications to external E-Mail addresses using the class `ilMimeMail` from ILIAS. There could be a sender for internal mails in ILIAS, SMS and so on.
 
 ```php
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/classes/NotificationSender/class.srNotificationMailSender.php');
+require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php');
 
 // Setup the sender object, in this case we send the notification as external mail to sw@studer-raimann.ch
 $sender = new srNotificationMailSender('sw@studer-raimann.ch', 'no-reply@studer-raimann.ch');
@@ -83,7 +83,7 @@ Your class must implement the interface `srNotificationsender` and implement the
 
 ### ILIAS Plugin SLA
 
-Wir lieben und leben die Philosophie von Open Soure Software! Die meisten unserer Entwicklungen, welche wir im Kundenauftrag oder in Eigenleistung entwickeln, stellen wir öffentlich allen Interessierten kostenlos unter https://github.com/studer-raimann zur Verfügung.
+Wir lieben und leben die Philosophie von Open Source Software! Die meisten unserer Entwicklungen, welche wir im Kundenauftrag oder in Eigenleistung entwickeln, stellen wir öffentlich allen Interessierten kostenlos unter https://github.com/studer-raimann zur Verfügung.
 
 Setzen Sie eines unserer Plugins professionell ein? Sichern Sie sich mittels SLA die termingerechte Verfügbarkeit dieses Plugins auch für die kommenden ILIAS Versionen. Informieren Sie sich hierzu unter https://studer-raimann.ch/produkte/ilias-plugins/plugin-sla.
 
