@@ -81,6 +81,14 @@ Your class must implement the interface `srNotificationsender` and implement the
     public function setSubject($subject);
 ```
 
+### Dependencies
+* ILIAS 5.2 or ILIAS 5.3
+* PHP >=5.6
+* [composer](https://getcomposer.org)
+* [srag/dic](https://packagist.org/packages/srag/dic)
+* [srag/jasperreport](https://packagist.org/packages/srag/jasperreport)
+* [srag/librariesnamespacechanger](https://packagist.org/packages/srag/librariesnamespacechanger)
+
 ### ILIAS Plugin SLA
 
 Wir lieben und leben die Philosophie von Open Source Software! Die meisten unserer Entwicklungen, welche wir im Kundenauftrag oder in Eigenleistung entwickeln, stellen wir öffentlich allen Interessierten kostenlos unter https://github.com/studer-raimann zur Verfügung.
@@ -92,4 +100,3 @@ Bitte beachten Sie, dass wir nur Institutionen, welche ein SLA abschliessen Unte
 ### Contact
 info@studer-raimann.ch  
 https://studer-raimann.ch  
-

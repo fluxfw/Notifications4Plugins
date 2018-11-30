@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . "/vendor/srag/dic/src/PHPVersionChecker.php";
+
 // alphanumerical ID of the plugin; never change this
 $id = "notifications4pl";
 
