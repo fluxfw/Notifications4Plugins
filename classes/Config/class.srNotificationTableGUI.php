@@ -52,7 +52,7 @@ class srNotificationTableGUI extends ilTable2GUI {
 	public function __construct($a_parent_obj, $a_parent_cmd = "") {
 		parent::__construct($a_parent_obj, $a_parent_cmd, '');
 
-		$this->setRowTemplate('tpl.row_generic.html', $this->pl->getDirectory());
+		$this->setRowTemplate('tpl.row_generic.html', self::plugin()->directory());
 		$this->setFormAction(self::dic()->ctrl()->getFormAction($a_parent_obj));
 		$this->addColumns();
 		$this->buildData();
@@ -65,7 +65,7 @@ class srNotificationTableGUI extends ilTable2GUI {
 	public function getSelectableColumns() {
 		$columns = array();
 		foreach ($this->columns as $column) {
-			$columns[$column] = array( 'txt' => $this->pl->txt($column), 'default' => true );
+			$columns[$column] = array( 'txt' => self::plugin()->translate($column), 'default' => true );
 		}
 
 		return $columns;
@@ -79,11 +79,11 @@ class srNotificationTableGUI extends ilTable2GUI {
 	protected function addColumns() {
 		foreach ($this->columns as $col) {
 			if (in_array($col, self::$available_columns) && $this->isColumnSelected($col)) {
-				$this->addColumn($this->pl->txt($col), $col);
+				$this->addColumn(self::plugin()->translate($col), $col);
 			}
 		}
 
-		$this->addColumn($this->pl->txt('actions'));
+		$this->addColumn(self::plugin()->translate('actions'));
 	}
 
 
@@ -119,9 +119,10 @@ class srNotificationTableGUI extends ilTable2GUI {
 
 		self::dic()->ctrl()->setParameterByClass(ilNotifications4PluginsConfigGUI::class, 'notification_id', $a_set['id']);
 		$edit = self::dic()->ctrl()->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_EDIT);
-		$delete = self::dic()->ctrl()->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_CONFIRM_DELETE);
+		$delete = self::dic()->ctrl()
+			->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_CONFIRM_DELETE);
 		$this->tpl->setCurrentBlock('td');
-		$this->tpl->setVariable('VALUE', "<a href='{$edit}'>{$this->pl->txt('edit')}</a> / <a href='{$delete}'>{$this->pl->txt('delete')}</a>");
+		$this->tpl->setVariable('VALUE', "<a href='{$edit}'>{self::plugin()->translate('edit')}</a> / <a href='{$delete}'>{self::plugin()->translate('delete')}</a>");
 		$this->tpl->parseCurrentBlock();
 	}
 

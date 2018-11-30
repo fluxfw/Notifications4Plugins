@@ -66,7 +66,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	public function index() {
 		$button = ilLinkButton::getInstance();
 		$button->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_ADD));
-		$button->setCaption($this->pl->txt('add_notification'), false);
+		$button->setCaption(self::plugin()->translate('add_notification'), false);
 		self::dic()->toolbar()->addButtonInstance($button);
 		$table = new srNotificationTableGUI($this, self::CMD_INDEX);
 		self::dic()->mainTemplate()->setContent($table->getHTML());
@@ -90,7 +90,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 		if ($form->checkInput()) {
 			$service = new srNotificationService();
 			$service->create($form->getInput('title'), $form->getInput('description'), $form->getInput('name'), $form->getInput('default_language'), $this->getNotificationData($form));
-			ilUtil::sendSuccess($this->pl->txt('created_notification'), true);
+			ilUtil::sendSuccess(self::plugin()->translate('created_notification'), true);
 			self::dic()->ctrl()->redirect($this);
 		}
 
@@ -106,7 +106,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 		if ($form->checkInput()) {
 			$service = new srNotificationService($notification);
 			$service->update($form->getInput('title'), $form->getInput('description'), $form->getInput('name'), $form->getInput('default_language'), $this->getNotificationData($form, $notification));
-			ilUtil::sendSuccess($this->pl->txt('updated_notification'), true);
+			ilUtil::sendSuccess(self::plugin()->translate('updated_notification'), true);
 			self::dic()->ctrl()->redirect($this);
 		}
 
@@ -118,10 +118,10 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	public function confirmDelete() {
 		$notification = srNotification::findOrFail((int)$_GET['notification_id']);
 		$gui = new ilConfirmationGUI();
-		$gui->setHeaderText($this->pl->txt('delete_confirm'));
+		$gui->setHeaderText(self::plugin()->translate('delete_confirm'));
 		$gui->setFormAction(self::dic()->ctrl()->getFormAction($this));
-		$gui->setCancel($this->pl->txt('cancel'), self::CMD_CANCEL);
-		$gui->setConfirm($this->pl->txt('delete'), self::CMD_DELETE);
+		$gui->setCancel(self::plugin()->translate('cancel'), self::CMD_CANCEL);
+		$gui->setConfirm(self::plugin()->translate('delete'), self::CMD_DELETE);
 		$gui->addItem('notification_id', $notification->getId(), $notification->getTitle());
 		self::dic()->mainTemplate()->setContent($gui->getHTML());
 	}
@@ -130,7 +130,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	public function delete() {
 		$notification = srNotification::findOrFail((int)$_POST['notification_id']);
 		$notification->delete();
-		ilUtil::sendSuccess($this->pl->txt('deleted_notification'), true);
+		ilUtil::sendSuccess(self::plugin()->translate('deleted_notification'), true);
 		self::dic()->ctrl()->redirect($this);
 	}
 

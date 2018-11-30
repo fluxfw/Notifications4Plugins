@@ -40,31 +40,31 @@ class srNotificationConfigFormGUI extends ilPropertyFormGUI {
 
 
 	protected function initForm() {
-		$this->setTitle($this->pl->txt('general'));
+		$this->setTitle(self::plugin()->translate('general'));
 
 		if ($id = $this->notification->getId()) {
-			$item = new ilNonEditableValueGUI($this->pl->txt('id'));
+			$item = new ilNonEditableValueGUI(self::plugin()->translate('id'));
 			$item->setValue($id);
 			$this->addItem($item);
 		}
 
-		$item = new ilTextInputGUI($this->pl->txt('name'), 'name');
+		$item = new ilTextInputGUI(self::plugin()->translate('name'), 'name');
 		$item->setRequired(true);
 		$item->setValue($this->notification->getName());
-		$item->setInfo($this->pl->txt('name_info'));
+		$item->setInfo(self::plugin()->translate('name_info'));
 		$this->addItem($item);
 
-		$item = new ilTextInputGUI($this->pl->txt('title'), 'title');
+		$item = new ilTextInputGUI(self::plugin()->translate('title'), 'title');
 		$item->setRequired(true);
 		$item->setValue($this->notification->getTitle());
 		$this->addItem($item);
 
-		$item = new ilTextAreaInputGUI($this->pl->txt('description'), 'description');
+		$item = new ilTextAreaInputGUI(self::plugin()->translate('description'), 'description');
 		$item->setValue($this->notification->getDescription());
 		$this->addItem($item);
 
-		$item = new ilTextInputGUI($this->pl->txt('default_language'), 'default_language');
-		$item->setInfo($this->pl->txt('default_language_name'));
+		$item = new ilTextInputGUI(self::plugin()->translate('default_language'), 'default_language');
+		$item->setInfo(self::plugin()->translate('default_language_name'));
 		$item->setValue($this->notification->getDefaultLanguage());
 		$item->setRequired(true);
 		$this->addItem($item);
@@ -89,19 +89,19 @@ class srNotificationConfigFormGUI extends ilPropertyFormGUI {
 	 */
 	protected function addInputsForLanguage($language = '') {
 		$section = new ilFormSectionHeaderGUI();
-		$section->setTitle($language ? strtoupper($language) : $this->pl->txt('add_new_language'));
+		$section->setTitle($language ? strtoupper($language) : self::plugin()->translate('add_new_language'));
 		$this->addItem($section);
 
 		if (!$language) {
-			$item = new ilTextInputGUI($this->pl->txt('language'), 'language');
+			$item = new ilTextInputGUI(self::plugin()->translate('language'), 'language');
 			$this->addItem($item);
 		}
 
-		$item = new ilTextInputGUI($this->pl->txt('subject'), 'subject_' . $language);
+		$item = new ilTextInputGUI(self::plugin()->translate('subject'), 'subject_' . $language);
 		$item->setValue($language ? $this->notification->getSubject($language) : '');
 		$this->addItem($item);
 
-		$item = new ilTextAreaInputGUI($this->pl->txt('text'), 'text_' . $language);
+		$item = new ilTextAreaInputGUI(self::plugin()->translate('text'), 'text_' . $language);
 		$item->setValue($language ? $this->notification->getText($language) : '');
 		$this->addItem($item);
 	}
@@ -109,7 +109,7 @@ class srNotificationConfigFormGUI extends ilPropertyFormGUI {
 
 	protected function addCommandButtons() {
 		$method = $this->notification->getId() ? ilNotifications4PluginsConfigGUI::CMD_UPDATE : ilNotifications4PluginsConfigGUI::CMD_CREATE;
-		$this->addCommandButton($method, $this->pl->txt(ilNotifications4PluginsConfigGUI::CMD_SAVE));
-		$this->addCommandButton('cancel', $this->pl->txt(ilNotifications4PluginsConfigGUI::CMD_CANCEL));
+		$this->addCommandButton($method, self::plugin()->translate(ilNotifications4PluginsConfigGUI::CMD_SAVE));
+		$this->addCommandButton('cancel', self::plugin()->translate(ilNotifications4PluginsConfigGUI::CMD_CANCEL));
 	}
 }
