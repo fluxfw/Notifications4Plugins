@@ -1,14 +1,14 @@
 <?php
 
-namespace srag\DIC\DIC\Implementation;
+namespace srag\DIC\Notifications4Plugins\DIC\Implementation;
 
 use ILIAS\DI\Container;
-use srag\DIC\DIC\AbstractDIC;
+use srag\DIC\Notifications4Plugins\DIC\AbstractDIC;
 
 /**
  * Class ILIAS54DIC
  *
- * @package srag\DIC\DIC\Implementation
+ * @package srag\DIC\Notifications4Plugins\DIC\Implementation
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

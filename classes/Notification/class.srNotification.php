@@ -1,5 +1,10 @@
 <?php
+
 require_once __DIR__ . '/../../vendor/autoload.php';
+
+use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
+
 /**
  * Class srNotification
  *
@@ -7,7 +12,10 @@ require_once __DIR__ . '/../../vendor/autoload.php';
  */
 class srNotification extends ActiveRecord {
 
+	use DICTrait;
+	use Notifications4PluginsTrait;
 	const TABLE_NAME = 'sr_notification';
+	const PLUGIN_CLASS_NAME = ilNotifications4PluginsPlugin::class;
 
 
 	/**

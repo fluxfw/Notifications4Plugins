@@ -1,17 +1,24 @@
 <?php
+
 require_once __DIR__ . '/../../vendor/autoload.php';
+
+use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
+
 /**
  * Class srNotificationVcalendarSender
  *
  * Sends the notification to an external E-Mail with calendar dates
  *
- * @author Stefan Wanzenried <sw@studer-raimann.ch>
+ * @author Martin Studer <ms@studer-raimann.ch>
  */
 class srNotificationVcalendarSender implements srNotificationSender {
 
+	use DICTrait;
+	use Notifications4PluginsTrait;
+	const PLUGIN_CLASS_NAME = ilNotifications4PluginsPlugin::class;
 	CONST METHOD_REQUEST = 'REQUEST';
 	CONST METHOD_CANCEL = 'CANCEL';
-
 	/**
 	 * @var string
 	 */
@@ -72,29 +79,18 @@ class srNotificationVcalendarSender implements srNotificationSender {
 	protected $bcc = array();
 
 
-
-
 	/**
 	 * srNotificationVcalendarSender constructor.
 	 *
-	 * @param string|array $to   E-Mail address or array of addresses
+	 * @param string|array         $to        E-Mail address or array of addresses
 	 * @param int|string|ilObjUser $user_from Should be the user-ID from the sender, you can also pass the login
-	 * @param string  $method
-	 * @param int $startTime Timestamp
-	 * @param int $endTime Timestamp
-	 * @param int     $sequence
+	 * @param string               $method
+	 * @param int                  $startTime Timestamp
+	 * @param int                  $endTime   Timestamp
+	 * @param int                  $sequence
 	 *
 	 */
-	public function __construct($to = '',
-								$user_from = 0,
-								$method = self::METHOD_REQUEST,
-								$uid = '',
-								$startTime = 0,
-								$endTime = 0,
-								$sequence = 0) {
-
-		global $DIC;
-		$ilias = $DIC["ilias"];
+	public function __construct($to = '', $user_from = 0, $method = self::METHOD_REQUEST, $uid = '', $startTime = 0, $endTime = 0, $sequence = 0) {
 
 		$this->to = $to;
 
@@ -107,7 +103,6 @@ class srNotificationVcalendarSender implements srNotificationSender {
 		$this->startTime = $startTime;
 		$this->endTime = $endTime;
 		$this->sequence = $sequence;
-
 	}
 
 
@@ -117,40 +112,30 @@ class srNotificationVcalendarSender implements srNotificationSender {
 	 * @return bool
 	 */
 	public function send() {
-		global $DIC, $ilSetting;
-		$ilias = $DIC["ilias"];
-
 		$this->mailer = new ilMail($this->getUserFrom());
 
-
-		$mbox           = new ilMailbox($this->getUserFrom());
+		$mbox = new ilMailbox($this->getUserFrom());
 		$sent_folder_id = $mbox->getSentFolder();
 
 		//Create Email Headers
-		$mime_boundary = "----Meeting Booking----".MD5(TIME());
+		$mime_boundary = "----Meeting Booking----" . MD5(TIME());
 
-		$this->mailer->sendInternalMail(
-			$sent_folder_id, $this->getUserFrom(), '',
-			$this->to,'', '',
-			'read', 'email', 0,
-			$this->subject, $this->getIcalEvent($mime_boundary), $this->getUserFrom(), 0
-		);
+		$this->mailer->sendInternalMail($sent_folder_id, $this->getUserFrom(), '', $this->to, '', '', 'read', 'email', 0, $this->subject, $this->getIcalEvent($mime_boundary), $this->getUserFrom(), 0);
 
 		$this->mailer = new ilMail($this->getUserFrom());
 
-
 		$iluser = new ilObjUser($this->getUserFrom());
-		$headers = "From: ".$iluser->getEmail()." <".$iluser->getEmail().">\n";
-		$headers .= "Reply-To: ".$iluser->getEmail()." <".$iluser->getEmail().">\n";
+		$headers = "From: " . $iluser->getEmail() . " <" . $iluser->getEmail() . ">\n";
+		$headers .= "Reply-To: " . $iluser->getEmail() . " <" . $iluser->getEmail() . ">\n";
 		$headers .= "MIME-Version: 1.0\n";
 		$headers .= "Content-Type: multipart/alternative; boundary=\"$mime_boundary\"\n";
 		$headers .= "Content-class: urn:content-classes:calendarmessage\n";
 
-		if(!(int)$ilSetting->get('prevent_smtp_globally')) {
+		if (!(int)self::dic()->settings()->get('prevent_smtp_globally')) {
 			$mailsent = mail($this->to, $this->subject, $this->getIcalEvent($mime_boundary), $headers);
 		}
 
-		return ($mailsent)?(true):(false);
+		return ($mailsent) ? (true) : (false);
 	}
 
 
@@ -196,6 +181,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 
 		return $this;
 	}
+
 
 	/**
 	 * Set the location for the message
@@ -266,12 +252,14 @@ class srNotificationVcalendarSender implements srNotificationSender {
 		return $this;
 	}
 
+
 	/**
 	 * @return int|string
 	 */
 	public function getUserFrom() {
 		return $this->user_from;
 	}
+
 
 	/**
 	 * @param int|string|ilObjUser $from
@@ -283,6 +271,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 
 		return $this;
 	}
+
 
 	/**
 	 * @param int|string|ilObjUser $user_from
@@ -303,8 +292,8 @@ class srNotificationVcalendarSender implements srNotificationSender {
 		return $this;
 	}
 
-	public function getIcalEvent($mime_boundary)
-	{
+
+	public function getIcalEvent($mime_boundary) {
 		$iluser = new ilObjUser($this->getUserFrom());
 
 		//Create Email Body (HTML)
@@ -320,38 +309,19 @@ class srNotificationVcalendarSender implements srNotificationSender {
 		$message .= "--$mime_boundary\r\n";
 
 		$status = "CONFIRMED";
-		if($this->method == self::METHOD_CANCEL) {
+		if ($this->method == self::METHOD_CANCEL) {
 			$status = "CANCELLED";
 		}
 
-
-		$ical = 'BEGIN:VCALENDAR' . "\r\n" .
-			'PRODID:-//ILIAS' . "\r\n" .
-			'VERSION:2.0' . "\r\n" .
-			'METHOD:' .$this->method. "\r\n" .
-			'BEGIN:VEVENT' . "\r\n" .
-			'UID: ' .$this->uid. "\r\n" .
-			'DESCRIPTION:Reminder' . "\r\n" .
-			'DTSTART;TZID=CET:'.date("Ymd\THis", $this->startTime). "\r\n" .
-			'DTEND;TZID=CET:'.date("Ymd\THis", $this->endTime). "\r\n" .
-			'DTSTAMP:'.date("Ymd\TGis"). "\r\n" .
-			'LAST-MODIFIED:' . date("Ymd\TGis") . "\r\n" .
-			'ORGANIZER;CN="'.$this->from.'":MAILTO:'.$iluser->getEmail(). "\r\n" .
-			'ATTENDEE;CN="'.$this->to.'";ROLE=REQ-PARTICIPANT;RSVP=TRUE:MAILTO:'.$this->to. "\r\n" .
-			'SUMMARY:' . $this->subject . "\r\n" .
-			'LOCATION:' . $this->location . "\r\n" .
-			'SEQUENCE:'. $this->sequence . "\r\n" .
-			'PRIORITY:5'. "\r\n" .
-			'STATUS:'.$status. "\r\n" .
-			'TRANSP:OPAQUE'. "\r\n" .
-			'CLASS:PUBLIC'. "\r\n" .
-			'BEGIN:VALARM' . "\r\n" .
-			'TRIGGER:-PT15M' . "\r\n" .
-			'ACTION:DISPLAY' . "\r\n" .
-			'END:VALARM' . "\r\n" .
-			'END:VEVENT'. "\r\n" .
-			'END:VCALENDAR'. "\r\n";
-		$message .= 'Content-Type: text/calendar;name="meeting.ics";method='.$this->method."\n";
+		$ical = 'BEGIN:VCALENDAR' . "\r\n" . 'PRODID:-//ILIAS' . "\r\n" . 'VERSION:2.0' . "\r\n" . 'METHOD:' . $this->method . "\r\n" . 'BEGIN:VEVENT'
+			. "\r\n" . 'UID: ' . $this->uid . "\r\n" . 'DESCRIPTION:Reminder' . "\r\n" . 'DTSTART;TZID=CET:' . date("Ymd\THis", $this->startTime)
+			. "\r\n" . 'DTEND;TZID=CET:' . date("Ymd\THis", $this->endTime) . "\r\n" . 'DTSTAMP:' . date("Ymd\TGis") . "\r\n" . 'LAST-MODIFIED:'
+			. date("Ymd\TGis") . "\r\n" . 'ORGANIZER;CN="' . $this->from . '":MAILTO:' . $iluser->getEmail() . "\r\n" . 'ATTENDEE;CN="' . $this->to
+			. '";ROLE=REQ-PARTICIPANT;RSVP=TRUE:MAILTO:' . $this->to . "\r\n" . 'SUMMARY:' . $this->subject . "\r\n" . 'LOCATION:' . $this->location
+			. "\r\n" . 'SEQUENCE:' . $this->sequence . "\r\n" . 'PRIORITY:5' . "\r\n" . 'STATUS:' . $status . "\r\n" . 'TRANSP:OPAQUE' . "\r\n"
+			. 'CLASS:PUBLIC' . "\r\n" . 'BEGIN:VALARM' . "\r\n" . 'TRIGGER:-PT15M' . "\r\n" . 'ACTION:DISPLAY' . "\r\n" . 'END:VALARM' . "\r\n"
+			. 'END:VEVENT' . "\r\n" . 'END:VCALENDAR' . "\r\n";
+		$message .= 'Content-Type: text/calendar;name="meeting.ics";method=' . $this->method . "\n";
 		$message .= "Content-Transfer-Encoding: 8bit\n\n";
 		$message .= $ical;
 

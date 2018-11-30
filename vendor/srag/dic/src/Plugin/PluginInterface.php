@@ -1,16 +1,16 @@
 <?php
 
-namespace srag\DIC\Plugin;
+namespace srag\DIC\Notifications4Plugins\Plugin;
 
 use ilPlugin;
 use ilTemplate;
 use ilTemplateException;
-use srag\DIC\Exception\DICException;
+use srag\DIC\Notifications4Plugins\Exception\DICException;
 
 /**
  * Interface PluginInterface
  *
- * @package srag\DIC\Plugin
+ * @package srag\DIC\Notifications4Plugins\Plugin
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

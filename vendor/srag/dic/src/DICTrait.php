@@ -1,17 +1,17 @@
 <?php
 
-namespace srag\DIC;
+namespace srag\DIC\Notifications4Plugins;
 
-use srag\DIC\DIC\DICInterface;
-use srag\DIC\Exception\DICException;
-use srag\DIC\Output\OutputInterface;
-use srag\DIC\Plugin\PluginInterface;
-use srag\DIC\Version\VersionInterface;
+use srag\DIC\Notifications4Plugins\DIC\DICInterface;
+use srag\DIC\Notifications4Plugins\Exception\DICException;
+use srag\DIC\Notifications4Plugins\Output\OutputInterface;
+use srag\DIC\Notifications4Plugins\Plugin\PluginInterface;
+use srag\DIC\Notifications4Plugins\Version\VersionInterface;
 
 /**
  * Trait DICTrait
  *
- * @package srag\DIC
+ * @package srag\DIC\Notifications4Plugins
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

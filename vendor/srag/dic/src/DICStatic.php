@@ -1,26 +1,26 @@
 <?php
 
-namespace srag\DIC;
+namespace srag\DIC\Notifications4Plugins;
 
 use ilLogLevel;
 use ilPlugin;
-use srag\DIC\DIC\DICInterface;
-use srag\DIC\DIC\Implementation\ILIAS52DIC;
-use srag\DIC\DIC\Implementation\ILIAS53DIC;
-use srag\DIC\DIC\Implementation\ILIAS54DIC;
-use srag\DIC\DIC\Implementation\LegacyDIC;
-use srag\DIC\Exception\DICException;
-use srag\DIC\Output\Output;
-use srag\DIC\Output\OutputInterface;
-use srag\DIC\Plugin\Plugin;
-use srag\DIC\Plugin\PluginInterface;
-use srag\DIC\Version\Version;
-use srag\DIC\Version\VersionInterface;
+use srag\DIC\Notifications4Plugins\DIC\DICInterface;
+use srag\DIC\Notifications4Plugins\DIC\Implementation\ILIAS52DIC;
+use srag\DIC\Notifications4Plugins\DIC\Implementation\ILIAS53DIC;
+use srag\DIC\Notifications4Plugins\DIC\Implementation\ILIAS54DIC;
+use srag\DIC\Notifications4Plugins\DIC\Implementation\LegacyDIC;
+use srag\DIC\Notifications4Plugins\Exception\DICException;
+use srag\DIC\Notifications4Plugins\Output\Output;
+use srag\DIC\Notifications4Plugins\Output\OutputInterface;
+use srag\DIC\Notifications4Plugins\Plugin\Plugin;
+use srag\DIC\Notifications4Plugins\Plugin\PluginInterface;
+use srag\DIC\Notifications4Plugins\Version\Version;
+use srag\DIC\Notifications4Plugins\Version\VersionInterface;
 
 /**
  * Class DICStatic
  *
- * @package srag\DIC
+ * @package srag\DIC\Notifications4Plugins
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

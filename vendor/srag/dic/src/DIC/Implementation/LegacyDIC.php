@@ -1,15 +1,15 @@
 <?php
 
-namespace srag\DIC\DIC\Implementation;
+namespace srag\DIC\Notifications4Plugins\DIC\Implementation;
 
 use ilLoggerFactory;
-use srag\DIC\DIC\AbstractDIC;
-use srag\DIC\Exception\DICException;
+use srag\DIC\Notifications4Plugins\DIC\AbstractDIC;
+use srag\DIC\Notifications4Plugins\Exception\DICException;
 
 /**
  * Class LegacyDIC
  *
- * @package srag\DIC\DIC\Implementation
+ * @package srag\DIC\Notifications4Plugins\DIC\Implementation
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

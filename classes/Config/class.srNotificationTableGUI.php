@@ -1,5 +1,10 @@
 <?php
+
 require_once __DIR__ . '/../../vendor/autoload.php';
+
+use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
+
 /**
  * Class srNotificationTableGUI
  *
@@ -7,18 +12,9 @@ require_once __DIR__ . '/../../vendor/autoload.php';
  */
 class srNotificationTableGUI extends ilTable2GUI {
 
-	/**
-	 * @var ilNotifications4PluginsPlugin
-	 */
-	protected $pl;
-	/**
-	 * @var ilCtrl
-	 */
-	protected $ctrl;
-	/**
-	 * @var ilLanguage
-	 */
-	protected $lng;
+	use DICTrait;
+	use Notifications4PluginsTrait;
+	const PLUGIN_CLASS_NAME = ilNotifications4PluginsPlugin::class;
 	/**
 	 * @var array
 	 */
@@ -54,15 +50,10 @@ class srNotificationTableGUI extends ilTable2GUI {
 	 * @param string $a_parent_cmd
 	 */
 	public function __construct($a_parent_obj, $a_parent_cmd = "") {
-		global $DIC;
-
-		$this->ctrl = $DIC->ctrl();
-		$this->lng = $DIC->language();
-		$this->pl = ilNotifications4PluginsPlugin::getInstance();
 		parent::__construct($a_parent_obj, $a_parent_cmd, '');
 
 		$this->setRowTemplate('tpl.row_generic.html', $this->pl->getDirectory());
-		$this->setFormAction($this->ctrl->getFormAction($a_parent_obj));
+		$this->setFormAction(self::dic()->ctrl()->getFormAction($a_parent_obj));
 		$this->addColumns();
 		$this->buildData();
 	}
@@ -126,9 +117,9 @@ class srNotificationTableGUI extends ilTable2GUI {
 			}
 		}
 
-		$this->ctrl->setParameterByClass(ilNotifications4PluginsConfigGUI::class, 'notification_id', $a_set['id']);
-		$edit = $this->ctrl->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_EDIT);
-		$delete = $this->ctrl->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_CONFIRM_DELETE);
+		self::dic()->ctrl()->setParameterByClass(ilNotifications4PluginsConfigGUI::class, 'notification_id', $a_set['id']);
+		$edit = self::dic()->ctrl()->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_EDIT);
+		$delete = self::dic()->ctrl()->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_CONFIRM_DELETE);
 		$this->tpl->setCurrentBlock('td');
 		$this->tpl->setVariable('VALUE', "<a href='{$edit}'>{$this->pl->txt('edit')}</a> / <a href='{$delete}'>{$this->pl->txt('delete')}</a>");
 		$this->tpl->parseCurrentBlock();

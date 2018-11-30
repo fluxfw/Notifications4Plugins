@@ -1,18 +1,18 @@
 <?php
 
-namespace srag\DIC\Plugin;
+namespace srag\DIC\Notifications4Plugins\Plugin;
 
 use Exception;
 use ilLanguage;
 use ilPlugin;
 use ilTemplate;
-use srag\DIC\DICTrait;
-use srag\DIC\Exception\DICException;
+use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\DIC\Notifications4Plugins\Exception\DICException;
 
 /**
  * Class Plugin
  *
- * @package srag\DIC\Plugin
+ * @package srag\DIC\Notifications4Plugins\Plugin
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */

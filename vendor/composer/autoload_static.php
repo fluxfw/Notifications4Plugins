@@ -9,12 +9,22 @@ class ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
+            'srag\\RemovePluginDataConfirm\\Notifications4Plugins\\' => 51,
+            'srag\\Plugins\\Notifications4Plugins\\' => 35,
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\DIC\\' => 9,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'srag\\RemovePluginDataConfirm\\Notifications4Plugins\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
+        ),
+        'srag\\Plugins\\Notifications4Plugins\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
+        ),
         'srag\\LibrariesNamespaceChanger\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
@@ -29,6 +39,7 @@ class ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c
         'ActiveRecord' => __DIR__ . '/../..' . '/../../../../../../../Services/ActiveRecord/class.ActiveRecord.php',
         'ActiveRecordList' => __DIR__ . '/../..' . '/../../../../../../../Services/ActiveRecord/class.ActiveRecordList.php',
         'Mail_RFC822' => __DIR__ . '/../..' . '/../../../../../../../Services/Mail/classes/Address/Parser/RFC822.php',
+        'Notifications4PluginsConfirm' => __DIR__ . '/../..' . '/classes/uninstall/class.Notifications4PluginsConfirm.php',
         'OnlyIncludeReplacer' => __DIR__ . '/../..' . '/../../../../../../../Services/Utilities/classes/Parser.php',
         'Parser' => __DIR__ . '/../..' . '/../../../../../../../Services/Utilities/classes/Parser.php',
         'Sanitizer' => __DIR__ . '/../..' . '/../../../../../../../Services/Utilities/classes/Sanitizer.php',
@@ -355,26 +366,33 @@ class ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c
         'srNotificationService' => __DIR__ . '/../..' . '/classes/Notification/class.srNotificationService.php',
         'srNotificationTableGUI' => __DIR__ . '/../..' . '/classes/Config/class.srNotificationTableGUI.php',
         'srNotificationTwigParser' => __DIR__ . '/../..' . '/classes/Parser/class.srNotificationTwigParser.php',
+        'srNotificationVcalendarSender' => __DIR__ . '/../..' . '/classes/NotificationSender/class.srNotificationVcalendarSender.php',
         'srNotifier' => __DIR__ . '/../..' . '/classes/Notifier/class.srNotifier.php',
-        'srag\\DIC\\DICStatic' => __DIR__ . '/..' . '/srag/dic/src/DICStatic.php',
-        'srag\\DIC\\DICStaticInterface' => __DIR__ . '/..' . '/srag/dic/src/DICStaticInterface.php',
-        'srag\\DIC\\DICTrait' => __DIR__ . '/..' . '/srag/dic/src/DICTrait.php',
-        'srag\\DIC\\DIC\\AbstractDIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/AbstractDIC.php',
-        'srag\\DIC\\DIC\\DICInterface' => __DIR__ . '/..' . '/srag/dic/src/DIC/DICInterface.php',
-        'srag\\DIC\\DIC\\Implementation\\ILIAS52DIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/Implementation/ILIAS52DIC.php',
-        'srag\\DIC\\DIC\\Implementation\\ILIAS53DIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/Implementation/ILIAS53DIC.php',
-        'srag\\DIC\\DIC\\Implementation\\ILIAS54DIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/Implementation/ILIAS54DIC.php',
-        'srag\\DIC\\DIC\\Implementation\\LegacyDIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/Implementation/LegacyDIC.php',
-        'srag\\DIC\\Exception\\DICException' => __DIR__ . '/..' . '/srag/dic/src/Exception/DICException.php',
-        'srag\\DIC\\Output\\Output' => __DIR__ . '/..' . '/srag/dic/src/Output/Output.php',
-        'srag\\DIC\\Output\\OutputInterface' => __DIR__ . '/..' . '/srag/dic/src/Output/OutputInterface.php',
-        'srag\\DIC\\PHPVersionChecker' => __DIR__ . '/..' . '/srag/dic/src/PHPVersionChecker.php',
-        'srag\\DIC\\Plugin\\Plugin' => __DIR__ . '/..' . '/srag/dic/src/Plugin/Plugin.php',
-        'srag\\DIC\\Plugin\\PluginInterface' => __DIR__ . '/..' . '/srag/dic/src/Plugin/PluginInterface.php',
-        'srag\\DIC\\Plugin\\Pluginable' => __DIR__ . '/..' . '/srag/dic/src/Plugin/Pluginable.php',
-        'srag\\DIC\\Version\\Version' => __DIR__ . '/..' . '/srag/dic/src/Version/Version.php',
-        'srag\\DIC\\Version\\VersionInterface' => __DIR__ . '/..' . '/srag/dic/src/Version/VersionInterface.php',
+        'srag\\DIC\\Notifications4Plugins\\DICStatic' => __DIR__ . '/..' . '/srag/dic/src/DICStatic.php',
+        'srag\\DIC\\Notifications4Plugins\\DICStaticInterface' => __DIR__ . '/..' . '/srag/dic/src/DICStaticInterface.php',
+        'srag\\DIC\\Notifications4Plugins\\DICTrait' => __DIR__ . '/..' . '/srag/dic/src/DICTrait.php',
+        'srag\\DIC\\Notifications4Plugins\\DIC\\AbstractDIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/AbstractDIC.php',
+        'srag\\DIC\\Notifications4Plugins\\DIC\\DICInterface' => __DIR__ . '/..' . '/srag/dic/src/DIC/DICInterface.php',
+        'srag\\DIC\\Notifications4Plugins\\DIC\\Implementation\\ILIAS52DIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/Implementation/ILIAS52DIC.php',
+        'srag\\DIC\\Notifications4Plugins\\DIC\\Implementation\\ILIAS53DIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/Implementation/ILIAS53DIC.php',
+        'srag\\DIC\\Notifications4Plugins\\DIC\\Implementation\\ILIAS54DIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/Implementation/ILIAS54DIC.php',
+        'srag\\DIC\\Notifications4Plugins\\DIC\\Implementation\\LegacyDIC' => __DIR__ . '/..' . '/srag/dic/src/DIC/Implementation/LegacyDIC.php',
+        'srag\\DIC\\Notifications4Plugins\\Exception\\DICException' => __DIR__ . '/..' . '/srag/dic/src/Exception/DICException.php',
+        'srag\\DIC\\Notifications4Plugins\\Output\\Output' => __DIR__ . '/..' . '/srag/dic/src/Output/Output.php',
+        'srag\\DIC\\Notifications4Plugins\\Output\\OutputInterface' => __DIR__ . '/..' . '/srag/dic/src/Output/OutputInterface.php',
+        'srag\\DIC\\Notifications4Plugins\\PHPVersionChecker' => __DIR__ . '/..' . '/srag/dic/src/PHPVersionChecker.php',
+        'srag\\DIC\\Notifications4Plugins\\Plugin\\Plugin' => __DIR__ . '/..' . '/srag/dic/src/Plugin/Plugin.php',
+        'srag\\DIC\\Notifications4Plugins\\Plugin\\PluginInterface' => __DIR__ . '/..' . '/srag/dic/src/Plugin/PluginInterface.php',
+        'srag\\DIC\\Notifications4Plugins\\Plugin\\Pluginable' => __DIR__ . '/..' . '/srag/dic/src/Plugin/Pluginable.php',
+        'srag\\DIC\\Notifications4Plugins\\Version\\Version' => __DIR__ . '/..' . '/srag/dic/src/Version/Version.php',
+        'srag\\DIC\\Notifications4Plugins\\Version\\VersionInterface' => __DIR__ . '/..' . '/srag/dic/src/Version/VersionInterface.php',
         'srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/LibrariesNamespaceChanger.php',
+        'srag\\Plugins\\Notifications4Plugins\\Utils\\Notifications4PluginsTrait' => __DIR__ . '/../..' . '/src/Utils/Notifications4PluginsTrait.php',
+        'srag\\RemovePluginDataConfirm\\Notifications4Plugins\\AbstractPluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/AbstractPluginUninstallTrait.php',
+        'srag\\RemovePluginDataConfirm\\Notifications4Plugins\\AbstractRemovePluginDataConfirm' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/AbstractRemovePluginDataConfirm.php',
+        'srag\\RemovePluginDataConfirm\\Notifications4Plugins\\PluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/PluginUninstallTrait.php',
+        'srag\\RemovePluginDataConfirm\\Notifications4Plugins\\RemovePluginDataConfirmException' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/RemovePluginDataConfirmException.php',
+        'srag\\RemovePluginDataConfirm\\Notifications4Plugins\\RepositoryObjectPluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/RepositoryObjectPluginUninstallTrait.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -1,5 +1,10 @@
 <?php
+
 require_once __DIR__ . '/../../vendor/autoload.php';
+
+use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
+
 /**
  * Class srNotificationConfigFormGUI
  *
@@ -7,22 +12,13 @@ require_once __DIR__ . '/../../vendor/autoload.php';
  */
 class srNotificationConfigFormGUI extends ilPropertyFormGUI {
 
+	use DICTrait;
+	use Notifications4PluginsTrait;
+	const PLUGIN_CLASS_NAME = ilNotifications4PluginsPlugin::class;
 	/**
 	 * @var
 	 */
 	protected $parent_gui;
-	/**
-	 * @var  ilCtrl
-	 */
-	protected $ctrl;
-	/**
-	 * @var ilNotifications4PluginsPlugin
-	 */
-	protected $pl;
-	/**
-	 * @var ilLanguage
-	 */
-	protected $lng;
 	/**
 	 * @var srNotification
 	 */
@@ -35,14 +31,10 @@ class srNotificationConfigFormGUI extends ilPropertyFormGUI {
 	 */
 	public function __construct($parent_gui, srNotification $notification) {
 		parent::__construct();
-		global $DIC;
 
 		$this->parent_gui = $parent_gui;
-		$this->ctrl = $DIC->ctrl();
-		$this->lng = $DIC->language();
-		$this->pl = ilNotifications4PluginsPlugin::getInstance();
 		$this->notification = $notification;
-		$this->setFormAction($this->ctrl->getFormAction($this->parent_gui));
+		$this->setFormAction(self::dic()->ctrl()->getFormAction($this->parent_gui));
 		$this->initForm();
 	}
 

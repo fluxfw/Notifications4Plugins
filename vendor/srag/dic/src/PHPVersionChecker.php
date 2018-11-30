@@ -1,13 +1,13 @@
 <?php
 
-namespace srag\DIC;
+namespace srag\DIC\Notifications4Plugins;
 
 use Throwable;
 
 /**
  * Class PHPVersionChecker
  *
- * @package srag\DIC
+ * @package srag\DIC\Notifications4Plugins
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
@@ -62,7 +62,7 @@ final class PHPVersionChecker {
 	 * @return bool
 	 */
 	private static function checkPHPVersion()/*: bool*/ {
-		if (self::$cache !== NULL) {
+		if (self::$cache === NULL) {
 			try {
 				$composer_file = __DIR__ . "/../../../../composer.json";
 

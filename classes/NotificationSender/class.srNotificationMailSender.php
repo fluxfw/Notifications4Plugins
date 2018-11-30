@@ -1,5 +1,10 @@
 <?php
+
 require_once __DIR__ . '/../../vendor/autoload.php';
+
+use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
+
 /**
  * Class srNotificationMailSender
  *
@@ -9,6 +14,9 @@ require_once __DIR__ . '/../../vendor/autoload.php';
  */
 class srNotificationMailSender implements srNotificationSender {
 
+	use DICTrait;
+	use Notifications4PluginsTrait;
+	const PLUGIN_CLASS_NAME = ilNotifications4PluginsPlugin::class;
 	/**
 	 * @var string
 	 */
@@ -60,14 +68,10 @@ class srNotificationMailSender implements srNotificationSender {
 	 * @return bool
 	 */
 	public function send() {
-		global $DIC;
-		$ilias = $DIC["ilias"];
-
 		$this->mailer->To($this->to);
-		$from = ($this->from) ? $this->from : $ilias->getSetting('mail_external_sender_noreply');
+		$from = ($this->from) ? $this->from : self::dic()->ilias()->getSetting('mail_external_sender_noreply');
 		if (ILIAS_VERSION_NUMERIC >= "5.3") {
-			/** @var ilMailMimeSenderFactory $senderFactory */
-			$senderFactory = $DIC["mail.mime.sender.factory"];
+			$senderFactory =self::dic()->mailMimeSenderFactory();
 
 			$this->mailer->From($senderFactory->userByEmailAddress($from));
 		} else {

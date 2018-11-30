@@ -1,5 +1,10 @@
 <?php
+
 require_once __DIR__ . '/../../vendor/autoload.php';
+
+use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
+
 /**
  * Class srNotificationInternalMailSender
  *
@@ -9,6 +14,9 @@ require_once __DIR__ . '/../../vendor/autoload.php';
  */
 class srNotificationInternalMailSender implements srNotificationSender {
 
+	use DICTrait;
+	use Notifications4PluginsTrait;
+	const PLUGIN_CLASS_NAME = ilNotifications4PluginsPlugin::class;
 	/**
 	 * @var string
 	 */
