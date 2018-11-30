@@ -28,20 +28,6 @@ class srNotificationTwigParser implements srNotificationParser {
 	 */
 	public function __construct(array $options = array()) {
 		$this->options = array_merge($this->options, $options);
-		$this->loadTwig();
-	}
-
-
-	/**
-	 * Bootstrap twig engine
-	 */
-	protected function loadTwig() {
-		static $loaded = false;
-		if (!$loaded) {
-			require_once __DIR__ . '/../../lib/twig/lib/Twig/Autoloader.php';
-			Twig_Autoloader::register();
-			$loaded = true;
-		}
 	}
 
 
@@ -52,8 +38,8 @@ class srNotificationTwigParser implements srNotificationParser {
 	 * @return string
 	 */
 	public function parse($text, array $replacements = array()) {
-		$loader = new \Twig_Loader_String();
-		$twig = new \Twig_Environment($loader, $this->options);
+		$loader = new Twig_Loader_String();
+		$twig = new Twig_Environment($loader, $this->options);
 
 		return $twig->render($text, $replacements);
 	}

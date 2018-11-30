@@ -9,5 +9,5 @@ return array(
     'srag\\RemovePluginDataConfirm\\Notifications4Plugins\\' => array($vendorDir . '/srag/removeplugindataconfirm/src'),
     'srag\\Plugins\\Notifications4Plugins\\' => array($baseDir . '/src'),
     'srag\\LibrariesNamespaceChanger\\' => array($vendorDir . '/srag/librariesnamespacechanger/src'),
-    'srag\\DIC\\' => array($vendorDir . '/srag/dic/src'),
+    'srag\\DIC\\Notifications4Plugins\\' => array($vendorDir . '/srag/dic/src'),
 );
