@@ -69,19 +69,19 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 		$button->setCaption(self::plugin()->translate('add_notification'), false);
 		self::dic()->toolbar()->addButtonInstance($button);
 		$table = new srNotificationTableGUI($this, self::CMD_INDEX);
-		self::dic()->mainTemplate()->setContent($table->getHTML());
+		self::output()->output($table);
 	}
 
 
 	public function add() {
 		$form = new srNotificationConfigFormGUI($this, new srNotification());
-		self::dic()->mainTemplate()->setContent($form->getHTML());
+		self::output()->output($form);
 	}
 
 
 	public function edit() {
 		$form = new srNotificationConfigFormGUI($this, srNotification::findOrFail((int)$_GET['notification_id']));
-		self::dic()->mainTemplate()->setContent($form->getHTML());
+		self::output()->output($form);
 	}
 
 
@@ -95,7 +95,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 		}
 
 		$form->setValuesByPost();
-		self::dic()->mainTemplate()->setContent($form->getHTML());
+		self::output()->output($form);
 	}
 
 
@@ -111,7 +111,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 		}
 
 		$form->setValuesByPost();
-		self::dic()->mainTemplate()->setContent($form->getHTML());
+		self::output()->output($form);
 	}
 
 
@@ -123,7 +123,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 		$gui->setCancel(self::plugin()->translate('cancel'), self::CMD_CANCEL);
 		$gui->setConfirm(self::plugin()->translate('delete'), self::CMD_DELETE);
 		$gui->addItem('notification_id', $notification->getId(), $notification->getTitle());
-		self::dic()->mainTemplate()->setContent($gui->getHTML());
+		self::output()->output($gui);
 	}
 
 
