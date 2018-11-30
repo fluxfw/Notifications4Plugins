@@ -122,7 +122,8 @@ class srNotificationTableGUI extends ilTable2GUI {
 		$delete = self::dic()->ctrl()
 			->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_CONFIRM_DELETE);
 		$this->tpl->setCurrentBlock('td');
-		$this->tpl->setVariable('VALUE', "<a href='{$edit}'>{self::plugin()->translate('edit')}</a> / <a href='{$delete}'>{self::plugin()->translate('delete')}</a>");
+		$this->tpl->setVariable('VALUE', "<a href='{$edit}'>" . self::plugin()->translate('edit') . "</a> / <a href='{$delete}'>" . self::plugin()
+				->translate('delete') . "</a>");
 		$this->tpl->parseCurrentBlock();
 	}
 
