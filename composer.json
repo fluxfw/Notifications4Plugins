@@ -1,26 +1,35 @@
 {
-  "name": "studer-raimann.ch/notifications4plugins",
+  "name": "srag/plugins/notifications4plugins",
+  "description": "",
   "type": "project",
-  "license": "GPL-3.0+",
+  "keywords": [
+    "ILIAS",
+    "Plugin"
+  ],
+  "homepage": "https://github.com/studer-raimann/Notifications4Plugins",
+  "license": "GPL-3.0-only",
   "authors": [
     {
-      "name": "Theodor Truffer",
-      "email": "tt@studer-raimann.ch",
+      "name": "studer + raimann ag - Team Custom 1",
+      "email": "support-custom1@studer-raimann.ch",
       "homepage": "https://studer-raimann.ch",
-      "role": "Project Manager, Software Engineer"
+      "role": "Developer"
     }
   ],
   "support": {
-    "email": "info@studer-raimann.ch"
+    "email": "support-custom1@studer-raimann.ch"
   },
-  "minimum-stability": "beta",
-  "prefer-stable": true,
   "require": {
     "php": ">=5.6",
     "srag/dic": ">=0.1.0",
     "srag/librariesnamespacechanger": ">=0.1.0",
     "srag/removeplugindataconfirm": ">=0.1.0",
     "twig/twig": "1.18.0"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "classmap-authoritative": true
   },
   "autoload": {
     "psr-4": {
@@ -36,11 +45,6 @@
       "../../../../../../../Services/Form",
       "../../../../../../../Services/Mail"
     ]
-  },
-  "config": {
-    "optimize-autoloader": true,
-    "sort-packages": true,
-    "classmap-authoritative": true
   },
   "scripts": {
     "pre-autoload-dump": "srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger::rewriteLibrariesNamespaces"
