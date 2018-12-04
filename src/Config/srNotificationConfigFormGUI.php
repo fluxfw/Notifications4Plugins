@@ -1,14 +1,25 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+namespace srag\Plugins\Notifications4Plugins\Config;
 
+use ilFormSectionHeaderGUI;
+use ilHiddenInputGUI;
+use ilNonEditableValueGUI;
+use ilNotifications4PluginsConfigGUI;
+use ilNotifications4PluginsPlugin;
+use ilPropertyFormGUI;
+use ilTextAreaInputGUI;
+use ilTextInputGUI;
 use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Plugins\Notifications4Plugins\Notification\srNotification;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
  * Class srNotificationConfigFormGUI
  *
- * @author Stefan Wanzenried <sw@studer-raimann.ch>
+ * @package srag\Plugins\Notifications4Plugins\Config
+ *
+ * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
 class srNotificationConfigFormGUI extends ilPropertyFormGUI {
 

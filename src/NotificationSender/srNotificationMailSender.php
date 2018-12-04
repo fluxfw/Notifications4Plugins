@@ -1,7 +1,9 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+namespace srag\Plugins\Notifications4Plugins\NotificationSender;
 
+use ilMimeMail;
+use ilNotifications4PluginsPlugin;
 use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
@@ -9,6 +11,8 @@ use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
  * Class srNotificationMailSender
  *
  * Sends the notification to an external E-Mail address using the ILIAS mailer class
+ *
+ * @package srag\Plugins\Notifications4Plugins\NotificationSender
  *
  * @author Stefan Wanzenried <sw@studer-raimann.ch>
  */

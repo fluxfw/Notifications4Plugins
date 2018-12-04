@@ -1,14 +1,19 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+namespace srag\Plugins\Notifications4Plugins\Parser;
 
+use ilNotifications4PluginsPlugin;
 use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
+use Twig_Environment;
+use Twig_Loader_String;
 
 /**
  * Class srNotificationTwigParser
  *
- * @author Stefan Wanzenried <sw@studer-raimann.ch>
+ * @package srag\Plugins\Notifications4Plugins\Parser
+ *
+ * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
 class srNotificationTwigParser implements srNotificationParser {
 

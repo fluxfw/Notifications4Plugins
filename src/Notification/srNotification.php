@@ -1,12 +1,19 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+namespace srag\Plugins\Notifications4Plugins\Notification;
 
+use ActiveRecord;
+use ilNotifications4PluginsPlugin;
 use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Plugins\Notifications4Plugins\NotificationSender\srNotificationSender;
+use srag\Plugins\Notifications4Plugins\Parser\srNotificationParser;
+use srag\Plugins\Notifications4Plugins\Parser\srNotificationTwigParser;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
  * Class srNotification
+ *
+ * @package srag\Plugins\Notifications4Plugins\Notification
  *
  * @author Stefan Wanzenried <sw@studer-raimann.ch>
  */
@@ -117,7 +124,7 @@ class srNotification extends ActiveRecord {
 		$this->updated_at = date('Y-m-d H:i:s');
 		parent::create();
 		foreach ($this->getNotificationLanguages() as $notification) {
-			$notification->save();
+			$notification->store();
 		}
 	}
 
@@ -126,7 +133,7 @@ class srNotification extends ActiveRecord {
 		$this->updated_at = date('Y-m-d H:i:s');
 		parent::update();
 		foreach ($this->getNotificationLanguages() as $notification) {
-			$notification->save();
+			$notification->store();
 		}
 	}
 
@@ -183,7 +190,7 @@ class srNotification extends ActiveRecord {
 			$notification = new srNotificationLanguage();
 			$notification->setLanguage($language);
 			if (!$this->getId()) {
-				$this->save();
+				$this->store();
 			}
 			$notification->setNotificationId($this->getId());
 			$this->notification_languages[$language] = $notification;
@@ -206,7 +213,7 @@ class srNotification extends ActiveRecord {
 			$notification = new srNotificationLanguage();
 			$notification->setLanguage($language);
 			if (!$this->getId()) {
-				$this->save();
+				$this->store();
 			}
 			$notification->setNotificationId($this->getId());
 			$this->notification_languages[$language] = $notification;

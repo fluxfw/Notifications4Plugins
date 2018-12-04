@@ -1,12 +1,15 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+namespace srag\Plugins\Notifications4Plugins\Notification;
 
+use ilNotifications4PluginsPlugin;
 use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
  * Class srNotificationService
+ *
+ * @package srag\Plugins\Notifications4Plugins\Notification
  *
  * @author Stefan Wanzenried <sw@studer-raimann.ch>
  */
@@ -66,11 +69,11 @@ class srNotificationService {
 		$this->notification->setDefaultLanguage($default_language);
 		$this->notification->setDescription($description);
 		$this->notification->setName($name);
-		$this->notification->save();
+		$this->notification->store();
 		foreach ($notifications as $notification) {
 			$this->notification->setText($notification['text'], $notification['language']);
 			$this->notification->setSubject($notification['subject'], $notification['language']);
 		}
-		$this->notification->save();
+		$this->notification->store();
 	}
 }

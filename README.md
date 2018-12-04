@@ -7,7 +7,9 @@ This plugin offers a quick and easy way to create notifications (subject & text)
 ### Create a notification
 The easiest way to create new notifications is to use the GUI of this plugin, here is an example how to do it with the API:
 ```php
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php');
+require_once __DIR__ . "Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php";
+
+use srag\Plugins\Notifications4Plugins\Notification\srNotification;
 
 $notification = new srNotification();
 $notification->setName('my_unique_name'); // Use the name as unique identifier to retrieve this object later
@@ -21,14 +23,17 @@ $notification->setText('You joined the course {{ course.getTitle }}', 'en');
 $notification->setSubject('Hallo {{ user.getFullname }}', 'de');
 $notification->setText('Sie sind nun Mitglied in folgendem Kurs {{ course.getTitle }}', 'de');
 
-$notification->save();
+$notification->store();
 ```
 
 ### Send a notification
 This plugin introduces a dedicated interface for sending notifications. Currently there is implemented one concrete class which does send notifications to external E-Mail addresses using the class `ilMimeMail` from ILIAS. There could be a sender for internal mails in ILIAS, SMS and so on.
 
 ```php
-require_once('./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php');
+require_once __DIR__ . "Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php";
+
+use srag\Plugins\Notifications4Plugins\Notification\srNotification;
+use srag\Plugins\Notifications4Plugins\NotificationSender\srNotificationMailSender;
 
 // Setup the sender object, in this case we send the notification as external mail to sw@studer-raimann.ch
 $sender = new srNotificationMailSender('sw@studer-raimann.ch', 'no-reply@studer-raimann.ch');

@@ -1,12 +1,16 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+namespace srag\Plugins\Notifications4Plugins\Notification;
 
+use ActiveRecord;
+use ilNotifications4PluginsPlugin;
 use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
  * Class srNotificationLanguage
+ *
+ * @package srag\Plugins\Notifications4Plugins\Notification
  *
  * @author Stefan Wanzenried <sw@studer-raimann.ch>
  */

@@ -1,8 +1,13 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+namespace srag\Plugins\Notifications4Plugins\Notifier;
 
+use ilNotifications4PluginsPlugin;
 use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Plugins\Notifications4Plugins\Notification\srNotification;
+use srag\Plugins\Notifications4Plugins\NotificationSender\srNotificationSender;
+use srag\Plugins\Notifications4Plugins\Parser\srNotificationParser;
+use srag\Plugins\Notifications4Plugins\Parser\srNotificationTwigParser;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
@@ -11,7 +16,9 @@ use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
  * Wrapper class to send notifications. You can also send notifications directly via the srNotification objects,
  * see srNotification::send() for more informations.
  *
- * @author Stefan Wanzenried <sw@studer-raimann.ch>
+ * @package srag\Plugins\Notifications4Plugins\Notifier
+ *
+ * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
 class srNotifier {
 

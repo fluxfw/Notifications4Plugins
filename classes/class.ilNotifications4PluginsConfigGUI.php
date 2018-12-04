@@ -3,6 +3,10 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Plugins\Notifications4Plugins\Config\srNotificationConfigFormGUI;
+use srag\Plugins\Notifications4Plugins\Config\srNotificationTableGUI;
+use srag\Plugins\Notifications4Plugins\Notification\srNotification;
+use srag\Plugins\Notifications4Plugins\Notification\srNotificationService;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**

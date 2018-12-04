@@ -1,7 +1,12 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+namespace srag\Plugins\Notifications4Plugins\NotificationSender;
 
+use ilMail;
+use ilMailbox;
+use ilMimeMail;
+use ilNotifications4PluginsPlugin;
+use ilObjUser;
 use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
@@ -9,6 +14,8 @@ use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
  * Class srNotificationVcalendarSender
  *
  * Sends the notification to an external E-Mail with calendar dates
+ *
+ * @package srag\Plugins\Notifications4Plugins\NotificationSender
  *
  * @author Martin Studer <ms@studer-raimann.ch>
  */

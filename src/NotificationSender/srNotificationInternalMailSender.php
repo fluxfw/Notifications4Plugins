@@ -1,7 +1,10 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+namespace srag\Plugins\Notifications4Plugins\NotificationSender;
 
+use ilMail;
+use ilNotifications4PluginsPlugin;
+use ilObjUser;
 use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
@@ -10,7 +13,9 @@ use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
  *
  * Sends the notification internal in ILIAS. Based on the settings, the mail is also forwarded to the users external e-mail address
  *
- * @author Stefan Wanzenried <sw@studer-raimann.ch>
+ * @package srag\Plugins\Notifications4Plugins\NotificationSender
+ *
+ * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
 class srNotificationInternalMailSender implements srNotificationSender {
 

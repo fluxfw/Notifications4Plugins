@@ -1,14 +1,20 @@
 <?php
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+namespace srag\Plugins\Notifications4Plugins\Config;
 
+use ilNotifications4PluginsConfigGUI;
+use ilNotifications4PluginsPlugin;
+use ilTable2GUI;
 use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Plugins\Notifications4Plugins\Notification\srNotification;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
  * Class srNotificationTableGUI
  *
- * @author Stefan Wanzenried <sw@studer-raimann.ch>
+ * @package srag\Plugins\Notifications4Plugins\Config
+ *
+ * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
 class srNotificationTableGUI extends ilTable2GUI {
 

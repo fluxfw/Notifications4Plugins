@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use srag\Plugins\Notifications4Plugins\Notification\srNotification;
+use srag\Plugins\Notifications4Plugins\Notification\srNotificationLanguage;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 use srag\RemovePluginDataConfirm\Notifications4Plugins\PluginUninstallTrait;
 

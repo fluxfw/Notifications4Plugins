@@ -1,7 +1,11 @@
 <?php
-require_once __DIR__ . '/../../vendor/autoload.php';
+
+namespace srag\Plugins\Notifications4Plugins\NotificationSender;
+
 /**
  * Interface srNotificationSender
+ *
+ * @package srag\Plugins\Notifications4Plugins\NotificationSender
  */
 interface srNotificationSender {
 
