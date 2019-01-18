@@ -1,5 +1,13 @@
 <?php
+
 require_once __DIR__ . '/../vendor/autoload.php';
+
+use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Plugins\Notifications4Plugins\Config\srNotificationConfigFormGUI;
+use srag\Plugins\Notifications4Plugins\Config\srNotificationTableGUI;
+use srag\Plugins\Notifications4Plugins\Notification\srNotification;
+use srag\Plugins\Notifications4Plugins\Notification\srNotificationService;
+use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
  * Class ilNotifications4PluginsConfigGUI
@@ -8,6 +16,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
  */
 class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 
+	use DICTrait;
+	use Notifications4PluginsTrait;
+	const PLUGIN_CLASS_NAME = ilNotifications4PluginsPlugin::class;
 	const CMD_ADD = 'add';
 	const CMD_CANCEL = 'cancel';
 	const CMD_CONFIGURE = 'configure';
@@ -18,31 +29,13 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	const CMD_INDEX = 'index';
 	const CMD_SAVE = 'save';
 	const CMD_UPDATE = 'update';
-	/**
-	 * @var ilNotifications4PluginsPlugin
-	 */
-	protected $pl;
-	/**
-	 * @var ilCtrl
-	 */
-	protected $ctrl;
-	/**
-	 * @var ilTemplate
-	 */
-	protected $tpl;
-	/**
-	 * @var ilToolbarGUI
-	 */
-	protected $toolbar;
 
 
+	/**
+	 * ilNotifications4PluginsConfigGUI constructor
+	 */
 	public function __construct() {
-		global $DIC;
 
-		$this->pl = ilNotifications4PluginsPlugin::getInstance();
-		$this->ctrl = $DIC->ctrl();
-		$this->tpl = $DIC->ui()->mainTemplate();
-		$this->toolbar = $DIC->toolbar();
 	}
 
 
@@ -50,7 +43,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	 * @param $cmd
 	 */
 	public function performCommand($cmd) {
-		$cmd = $this->ctrl->getCmd(self::CMD_INDEX);
+		$cmd = self::dic()->ctrl()->getCmd(self::CMD_INDEX);
 
 		switch ($cmd) {
 			case self::CMD_INDEX:
@@ -76,23 +69,23 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	 */
 	public function index() {
 		$button = ilLinkButton::getInstance();
-		$button->setUrl($this->ctrl->getLinkTarget($this, self::CMD_ADD));
-		$button->setCaption($this->pl->txt('add_notification'), false);
-		$this->toolbar->addButtonInstance($button);
+		$button->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_ADD));
+		$button->setCaption(self::plugin()->translate('add_notification'), false);
+		self::dic()->toolbar()->addButtonInstance($button);
 		$table = new srNotificationTableGUI($this, self::CMD_INDEX);
-		$this->tpl->setContent($table->getHTML());
+		self::output()->output($table);
 	}
 
 
 	public function add() {
 		$form = new srNotificationConfigFormGUI($this, new srNotification());
-		$this->tpl->setContent($form->getHTML());
+		self::output()->output($form);
 	}
 
 
 	public function edit() {
 		$form = new srNotificationConfigFormGUI($this, srNotification::findOrFail((int)$_GET['notification_id']));
-		$this->tpl->setContent($form->getHTML());
+		self::output()->output($form);
 	}
 
 
@@ -101,12 +94,12 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 		if ($form->checkInput()) {
 			$service = new srNotificationService();
 			$service->create($form->getInput('title'), $form->getInput('description'), $form->getInput('name'), $form->getInput('default_language'), $this->getNotificationData($form));
-			ilUtil::sendSuccess($this->pl->txt('created_notification'), true);
-			$this->ctrl->redirect($this);
+			ilUtil::sendSuccess(self::plugin()->translate('created_notification'), true);
+			self::dic()->ctrl()->redirect($this);
 		}
 
 		$form->setValuesByPost();
-		$this->tpl->setContent($form->getHTML());
+		self::output()->output($form);
 	}
 
 
@@ -117,32 +110,32 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 		if ($form->checkInput()) {
 			$service = new srNotificationService($notification);
 			$service->update($form->getInput('title'), $form->getInput('description'), $form->getInput('name'), $form->getInput('default_language'), $this->getNotificationData($form, $notification));
-			ilUtil::sendSuccess($this->pl->txt('updated_notification'), true);
-			$this->ctrl->redirect($this);
+			ilUtil::sendSuccess(self::plugin()->translate('updated_notification'), true);
+			self::dic()->ctrl()->redirect($this);
 		}
 
 		$form->setValuesByPost();
-		$this->tpl->setContent($form->getHTML());
+		self::output()->output($form);
 	}
 
 
 	public function confirmDelete() {
 		$notification = srNotification::findOrFail((int)$_GET['notification_id']);
 		$gui = new ilConfirmationGUI();
-		$gui->setHeaderText($this->pl->txt('delete_confirm'));
-		$gui->setFormAction($this->ctrl->getFormAction($this));
-		$gui->setCancel($this->pl->txt('cancel'), self::CMD_CANCEL);
-		$gui->setConfirm($this->pl->txt('delete'), self::CMD_DELETE);
+		$gui->setHeaderText(self::plugin()->translate('delete_confirm'));
+		$gui->setFormAction(self::dic()->ctrl()->getFormAction($this));
+		$gui->setCancel(self::plugin()->translate('cancel'), self::CMD_CANCEL);
+		$gui->setConfirm(self::plugin()->translate('delete'), self::CMD_DELETE);
 		$gui->addItem('notification_id', $notification->getId(), $notification->getTitle());
-		$this->tpl->setContent($gui->getHTML());
+		self::output()->output($gui);
 	}
 
 
 	public function delete() {
 		$notification = srNotification::findOrFail((int)$_POST['notification_id']);
 		$notification->delete();
-		ilUtil::sendSuccess($this->pl->txt('deleted_notification'), true);
-		$this->ctrl->redirect($this);
+		ilUtil::sendSuccess(self::plugin()->translate('deleted_notification'), true);
+		self::dic()->ctrl()->redirect($this);
 	}
 
 

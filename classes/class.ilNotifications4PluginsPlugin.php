@@ -1,5 +1,11 @@
 <?php
+
 require_once __DIR__ . '/../vendor/autoload.php';
+
+use srag\Plugins\Notifications4Plugins\Notification\srNotification;
+use srag\Plugins\Notifications4Plugins\Notification\srNotificationLanguage;
+use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
+use srag\RemovePluginDataConfirm\Notifications4Plugins\PluginUninstallTrait;
 
 /**
  * Class ilNotifications4PluginsPlugin
@@ -8,10 +14,14 @@ require_once __DIR__ . '/../vendor/autoload.php';
  */
 class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 
+	use PluginUninstallTrait;
+	use Notifications4PluginsTrait;
 	const PLUGIN_ID = 'notifications4pl';
 	const PLUGIN_NAME = 'Notifications4Plugins';
+	const PLUGIN_CLASS_NAME = self::class;
+	const REMOVE_PLUGIN_DATA_CONFIRM_CLASS_NAME = Notifications4PluginsConfirm::class;
 	/**
-	 * @var ilNotifications4PluginsPlugin
+	 * @var self
 	 */
 	protected static $instance;
 
@@ -19,7 +29,7 @@ class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 	/**
 	 * Singleton Access to this plugin
 	 *
-	 * @return ilNotifications4PluginsPlugin
+	 * @return self
 	 */
 	public static function getInstance() {
 		if (is_null(self::$instance)) {
@@ -31,17 +41,10 @@ class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 
 
 	/**
-	 * @var ilDB
+	 * ilNotifications4PluginsPlugin constructor
 	 */
-	protected $db;
-
-
 	public function __construct() {
 		parent::__construct();
-
-		global $DIC;
-
-		$this->db = $DIC->database();
 	}
 
 
@@ -60,12 +63,10 @@ class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 
 
 	/**
-	 * @return bool
+	 * @inheritdoc
 	 */
-	protected function beforeUninstall() {
-		$this->db->dropTable(srNotification::TABLE_NAME, false);
-		$this->db->dropTable(srNotificationLanguage::TABLE_NAME, false);
-
-		return true;
+	protected function deleteData()/*: void*/ {
+		self::dic()->database()->dropTable(srNotification::TABLE_NAME, false);
+		self::dic()->database()->dropTable(srNotificationLanguage::TABLE_NAME, false);
 	}
 }
