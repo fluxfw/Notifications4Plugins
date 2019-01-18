@@ -6,7 +6,7 @@ require_once __DIR__ . "/vendor/srag/dic/src/PHPVersionChecker.php";
 $id = "notifications4pl";
 
 // code version; must be changed for all code changes
-$version = "1.0.0";
+$version = "2.0.0";
 
 // ilias min and max version; must always reflect the versions that should
 // run with the plugin
