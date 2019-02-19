@@ -86,6 +86,9 @@ Your class must implement the interface `srNotificationsender` and implement the
     public function setSubject($subject);
 ```
 
+### Some screenshots
+TODO
+
 ### Dependencies
 * ILIAS 5.2 or ILIAS 5.3
 * PHP >=5.6
