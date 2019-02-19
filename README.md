@@ -71,7 +71,7 @@ $text = $notification->parseText(array(
 ```
 
 ### Implement a new sender object
-Your class must implement the interface `srNotificationsender` and implement the following methods:
+Your class must implement the interface `srNotificationSender` and implement the following methods:
 ```php
     /**
      * Send the notification
