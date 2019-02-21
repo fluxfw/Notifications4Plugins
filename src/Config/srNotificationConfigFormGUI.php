@@ -114,6 +114,7 @@ class srNotificationConfigFormGUI extends ilPropertyFormGUI {
 
 		$item = new ilTextAreaInputGUI(self::plugin()->translate('text'), 'text_' . $language);
 		$item->setValue($language ? $this->notification->getText($language) : '');
+		$item->setValue('https://twig.symfony.com/doc/1.x/templates.html');
 		$this->addItem($item);
 	}
 
