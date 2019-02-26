@@ -14,7 +14,7 @@ use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
  *
  * @package srag\Plugins\Notifications4Plugins\NotificationSender
  *
- * @author Stefan Wanzenried <sw@studer-raimann.ch>
+ * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
 class srNotificationMailSender implements srNotificationSender {
 
@@ -74,13 +74,11 @@ class srNotificationMailSender implements srNotificationSender {
 	public function send() {
 		$this->mailer->To($this->to);
 		$from = ($this->from) ? $this->from : self::dic()->ilias()->getSetting('mail_external_sender_noreply');
-		if (ILIAS_VERSION_NUMERIC >= "5.3") {
-			$senderFactory =self::dic()->mailMimeSenderFactory();
 
-			$this->mailer->From($senderFactory->userByEmailAddress($from));
-		} else {
-			$this->mailer->From($from);
-		}
+		$senderFactory = self::dic()->mailMimeSenderFactory();
+
+		$this->mailer->From($senderFactory->userByEmailAddress($from));
+
 		$this->mailer->Cc($this->cc);
 		$this->mailer->Bcc($this->bcc);
 		$this->mailer->Subject($this->subject);
