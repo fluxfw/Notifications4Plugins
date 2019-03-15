@@ -84,7 +84,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	 *
 	 */
 	public function add() {
-		$form = new NotificationFormGUI($this, self::notification()->newInstance());
+		$form = new NotificationFormGUI($this, self::notification()->factory()->newInstance());
 
 		self::output()->output($form);
 	}
@@ -104,7 +104,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	 *
 	 */
 	public function create() {
-		$form = new NotificationFormGUI($this, self::notification()->newInstance());
+		$form = new NotificationFormGUI($this, self::notification()->factory()->newInstance());
 
 		if ($form->checkInput()) {
 			$this->storeNotification($form->getInput('title'), $form->getInput('description'), $form->getInput('name'), $form->getInput('default_language'), $this->getNotificationData($form));
@@ -216,7 +216,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	 */
 	protected function storeNotification($title, $description, $name, $default_language, array $texts = array(), Notification $notification = null) {
 		if ($notification === null) {
-			$notification = self::notification()->newInstance();
+			$notification = self::notification()->factory()->newInstance();
 		}
 
 		$notification->setTitle($title);

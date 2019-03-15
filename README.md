@@ -85,7 +85,7 @@ self::sender()->send($sender, $notification, $placeholders, 'de');
 
 ### Create a notification
 ```php
-$notification = self::notification()->newInstance();
+$notification = self::notification()->factory()->newInstance();
 
 $notification->setName(self::MY_UNIQUE_NAME); // Use the name as unique identifier to retrieve this object later
 $notification->setDefaultLanguage('en'); // The text of the default language gets substituted if you try to get the notification of a langauge not available
