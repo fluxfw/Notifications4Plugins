@@ -11,8 +11,6 @@ Update, activate and config the plugin in the ILIAS Plugin Administration
 
 This plugin offers a quick and easy way to create notifications (subject & text) in any language in the configuration screen in ILIAS. The text of the notifications is parsed by default with the [Twig template engine!](https://twig.symfony.com/doc/1.x/templates.html), meaning the developer can replace placeholders and use if statements and loops. The API offers easy methods to send the notifications
 
-The easiest way to create new notifications is to use the GUI of this plugin
-
 ## Interface
 First include the `Notifications4Plugins` autoloader in your main plugin class file
 ```php
