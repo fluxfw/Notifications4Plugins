@@ -51,7 +51,7 @@ $notification = self::notification()->getNotificationById(self::MY_UNIQUE_ID);
 $notifications = self::notification()->getArrayForTable();
 
 // Get the notifications
-$notification = self::notification()->getNotifications();
+$notifications = self::notification()->getNotifications();
 ```
 
 ### Send a notification
