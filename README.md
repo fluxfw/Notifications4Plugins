@@ -15,7 +15,7 @@ This plugin offers a quick and easy way to create notifications (subject & text)
 First include the `Notifications4Plugins` autoloader in your main plugin class file
 ```php
 ...
-require_once __DIR__ . "Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php";
+require_once __DIR__ . "/../../Notifications4Plugins/vendor/autoload.php";
 ...
 ```
 
