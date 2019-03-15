@@ -59,6 +59,7 @@ final class Repository {
 	 * @return Parser
 	 */
 	public function getParserForNotification(Notification $notification) {
+		// Currently only one parser type
 		return $this->factory()->twig();
 	}
 
