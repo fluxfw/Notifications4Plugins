@@ -104,6 +104,7 @@ class NotificationLanguage extends ActiveRecord {
 	public function create() {
 		$this->created_at = date('Y-m-d H:i:s');
 		$this->updated_at = date('Y-m-d H:i:s');
+
 		parent::create();
 	}
 
@@ -113,6 +114,7 @@ class NotificationLanguage extends ActiveRecord {
 	 */
 	public function update() {
 		$this->updated_at = date('Y-m-d H:i:s');
+
 		parent::update();
 	}
 

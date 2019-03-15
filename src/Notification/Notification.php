@@ -5,9 +5,6 @@ namespace srag\Plugins\Notifications4Plugins\Notification;
 use ActiveRecord;
 use ilNotifications4PluginsPlugin;
 use srag\DIC\Notifications4Plugins\DICTrait;
-use srag\Plugins\Notifications4Plugins\Sender\Sender;
-use srag\Plugins\Notifications4Plugins\Parser\Parser;
-use srag\Plugins\Notifications4Plugins\Parser\twigParser;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
@@ -101,59 +98,9 @@ class Notification extends ActiveRecord {
 	 */
 	protected $default_language;
 	/**
-	 * @var Parser
-	 */
-	protected $parser;
-	/**
 	 * @var array
 	 */
 	protected $notification_languages;
-
-
-	/**
-	 * @param string $name
-	 *
-	 * @return Notification
-	 */
-	public static function getInstanceByName($name) {
-		return static::where(array( 'name' => $name ))->first();
-	}
-
-
-	/**
-	 *
-	 */
-	public function create() {
-		$this->created_at = date('Y-m-d H:i:s');
-		$this->updated_at = date('Y-m-d H:i:s');
-		parent::create();
-		foreach ($this->getNotificationLanguages() as $notification) {
-			$notification->store();
-		}
-	}
-
-
-	/**
-	 *
-	 */
-	public function update() {
-		$this->updated_at = date('Y-m-d H:i:s');
-		parent::update();
-		foreach ($this->getNotificationLanguages() as $notification) {
-			$notification->store();
-		}
-	}
-
-
-	/**
-	 *
-	 */
-	public function delete() {
-		parent::delete();
-		foreach ($this->getNotificationLanguages() as $notification) {
-			$notification->delete();
-		}
-	}
 
 
 	/**
@@ -200,7 +147,7 @@ class Notification extends ActiveRecord {
 			$notification = new NotificationLanguage();
 			$notification->setLanguage($language);
 			if (!$this->getId()) {
-				$this->store();
+				self::notification()->storeInstance($this);
 			}
 			$notification->setNotificationId($this->getId());
 			$this->notification_languages[$language] = $notification;
@@ -223,49 +170,12 @@ class Notification extends ActiveRecord {
 			$notification = new NotificationLanguage();
 			$notification->setLanguage($language);
 			if (!$this->getId()) {
-				$this->store();
+				self::notification()->storeInstance($this);
 			}
 			$notification->setNotificationId($this->getId());
 			$this->notification_languages[$language] = $notification;
 		}
 		$notification->setText($text);
-	}
-
-
-	/**
-	 * @param array  $replacements
-	 * @param string $language
-	 *
-	 * @return string
-	 */
-	public function parseText(array $replacements = array(), $language = '') {
-		return $this->getParser()->parse($this->getText($language), $replacements);
-	}
-
-
-	/**
-	 * @param array  $replacements
-	 * @param string $language
-	 *
-	 * @return string
-	 */
-	public function parseSubject(array $replacements = array(), $language = '') {
-		return $this->getParser()->parse($this->getSubject($language), $replacements);
-	}
-
-
-	/**
-	 * @param Sender $sender   A concrete srNotificationSender object, e.g. srNotificationMailSender
-	 * @param string $language Omit to choose the default language
-	 * @param array  $replacements
-	 *
-	 * @return bool
-	 */
-	public function send(Sender $sender, array $replacements = array(), $language = '') {
-		$sender->setMessage($this->parseText($replacements, $language));
-		$sender->setSubject($this->parseSubject($replacements, $language));
-
-		return $sender->send();
 	}
 
 
@@ -298,7 +208,7 @@ class Notification extends ActiveRecord {
 	/**
 	 * @return NotificationLanguage[]
 	 */
-	protected function getNotificationLanguages() {
+	public function getNotificationLanguages() {
 		if ($this->notification_languages === null) {
 			$notifications = NotificationLanguage::where(array( 'notification_id' => $this->getId() ))->get();
 			/** @var NotificationLanguage $notification */
@@ -313,34 +223,18 @@ class Notification extends ActiveRecord {
 
 
 	/**
-	 * Get the parser for the placeholders in subject and text, default is twig
-	 *
-	 * @return Parser
-	 */
-	protected function getParser() {
-		if (!$this->parser) {
-			$this->parser = new twigParser();
-		}
-
-		return $this->parser;
-	}
-
-
-	/**
-	 * Set a parser to parse the placeholders
-	 *
-	 * @param Parser $parser
-	 */
-	public function setParser(Parser $parser) {
-		$this->parser = $parser;
-	}
-
-
-	/**
 	 * @return int
 	 */
 	public function getId() {
 		return $this->id;
+	}
+
+
+	/**
+	 * @param int $id
+	 */
+	public function setId($id) {
+		$this->id = $id;
 	}
 
 
@@ -353,10 +247,26 @@ class Notification extends ActiveRecord {
 
 
 	/**
+	 * @param string $created_at
+	 */
+	public function setCreatedAt($created_at) {
+		$this->created_at = $created_at;
+	}
+
+
+	/**
 	 * @return string
 	 */
 	public function getUpdatedAt() {
 		return $this->updated_at;
+	}
+
+
+	/**
+	 * @param string $updated_at
+	 */
+	public function setUpdatedAt($updated_at) {
+		$this->updated_at = $updated_at;
 	}
 
 

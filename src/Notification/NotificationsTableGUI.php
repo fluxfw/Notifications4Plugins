@@ -138,18 +138,6 @@ class NotificationsTableGUI extends ilTable2GUI {
 	 * Build and set data for table
 	 */
 	protected function buildData() {
-		$data = array();
-		$notifications = Notification::get();
-		foreach ($notifications as $notification) {
-			$row = array();
-			$row['id'] = $notification->getId();
-			$row['title'] = $notification->getTitle();
-			$row['name'] = $notification->getName();
-			$row['description'] = $notification->getDescription();
-			$row['default_language'] = $notification->getDefaultLanguage();
-			$row['languages'] = implode(', ', $notification->getLanguages());
-			$data[] = $row;
-		}
-		$this->setData($data);
+		$this->setData(self::notification()->getArrayForTable());
 	}
 }

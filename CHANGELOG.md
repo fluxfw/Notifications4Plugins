@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.1.0]
+- Repository
+
 ## [2.0.2]
 - Refactor PHPDoc
 
