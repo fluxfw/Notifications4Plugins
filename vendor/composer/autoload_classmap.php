@@ -558,7 +558,7 @@ return array(
     'srag\\Plugins\\Notifications4Plugins\\Parser\\twigParser' => $baseDir . '/src/Parser/twigParser.php',
     'srag\\Plugins\\Notifications4Plugins\\Sender\\Factory' => $baseDir . '/src/Sender/Factory.php',
     'srag\\Plugins\\Notifications4Plugins\\Sender\\InternalMailSender' => $baseDir . '/src/Sender/InternalMailSender.php',
-    'srag\\Plugins\\Notifications4Plugins\\Sender\\MailSender' => $baseDir . '/src/Sender/MailSender.php',
+    'srag\\Plugins\\Notifications4Plugins\\Sender\\ExternalMailSender' => $baseDir . '/src/Sender/MailSender.php',
     'srag\\Plugins\\Notifications4Plugins\\Sender\\Repository' => $baseDir . '/src/Sender/Repository.php',
     'srag\\Plugins\\Notifications4Plugins\\Sender\\Sender' => $baseDir . '/src/Sender/Sender.php',
     'srag\\Plugins\\Notifications4Plugins\\Sender\\vcalendarSender' => $baseDir . '/src/Sender/vcalendarSender.php',

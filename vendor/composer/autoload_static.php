@@ -598,7 +598,7 @@ class ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c
         'srag\\Plugins\\Notifications4Plugins\\Parser\\twigParser' => __DIR__ . '/../..' . '/src/Parser/twigParser.php',
         'srag\\Plugins\\Notifications4Plugins\\Sender\\Factory' => __DIR__ . '/../..' . '/src/Sender/Factory.php',
         'srag\\Plugins\\Notifications4Plugins\\Sender\\InternalMailSender' => __DIR__ . '/../..' . '/src/Sender/InternalMailSender.php',
-        'srag\\Plugins\\Notifications4Plugins\\Sender\\MailSender' => __DIR__ . '/../..' . '/src/Sender/MailSender.php',
+        'srag\\Plugins\\Notifications4Plugins\\Sender\\ExternalMailSender' => __DIR__ . '/../..' . '/src/Sender/MailSender.php',
         'srag\\Plugins\\Notifications4Plugins\\Sender\\Repository' => __DIR__ . '/../..' . '/src/Sender/Repository.php',
         'srag\\Plugins\\Notifications4Plugins\\Sender\\Sender' => __DIR__ . '/../..' . '/src/Sender/Sender.php',
         'srag\\Plugins\\Notifications4Plugins\\Sender\\vcalendarSender' => __DIR__ . '/../..' . '/src/Sender/vcalendarSender.php',

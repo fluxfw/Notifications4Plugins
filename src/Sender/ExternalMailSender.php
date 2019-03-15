@@ -16,7 +16,7 @@ use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
  *
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
-class MailSender implements Sender {
+class ExternalMailSender implements Sender {
 
 	use DICTrait;
 	use Notifications4PluginsTrait;

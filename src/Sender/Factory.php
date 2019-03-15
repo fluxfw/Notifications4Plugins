@@ -46,24 +46,24 @@ final class Factory {
 
 
 	/**
+	 * @param string|array $to
+	 * @param string       $from
+	 *
+	 * @return ExternalMailSender
+	 */
+	public function externalMail($to = '', $from = '') {
+		return new ExternalMailSender($to, $from);
+	}
+
+
+	/**
 	 * @param int|string|ilObjUser $user_from
 	 * @param int|string|ilObjUser $user_to
 	 *
 	 * @return InternalMailSender
 	 */
-	public function internal($user_from = 0, $user_to = '') {
+	public function internalMail($user_from = 0, $user_to = '') {
 		return new InternalMailSender($user_from, $user_to);
-	}
-
-
-	/**
-	 * @param string|array $to
-	 * @param string       $from
-	 *
-	 * @return MailSender
-	 */
-	public function mail($to = '', $from = '') {
-		return new MailSender($to, $from);
 	}
 
 

@@ -33,6 +33,43 @@ use Notifications4PluginsTrait;
 ...
 ```
 
+### Get notification(s)
+Main
+```php
+// Get the notification by name
+$notification = self::notification()->getNotificationByName(self::MY_UNIQUE_NAME);
+
+// Get notifications for a selection
+$notifications = self::notification()->getArrayForSelection();
+```
+Other
+```php
+// Get the notification by id
+$notification = self::notification()->getNotificationById(self::MY_UNIQUE_ID);
+
+// Get notifications for a table
+$notifications = self::notification()->getArrayForTable();
+
+// Get the notifications
+$notification = self::notification()->getNotifications();
+```
+
+### Send a notification
+```php
+// Setup the sender object, in this case we send the notification as external mail to sw@studer-raimann.ch
+$sender = self::sender()->factory()->externalMail('sw@studer-raimann.ch', 'no-reply@studer-raimann.ch');
+
+// Prepare placeholders, note that the keys are the same 
+$placeholders = array(
+  'user' => new ilObjUser(6),
+  'course' => new ilObjCourse(12345)
+);
+
+// Sent the notification in english first (default langauge) and in german again
+self::sender()->send($sender, $notification, $placeholders);
+self::sender()->send($sender, $notification, $placeholders, 'de');
+```
+
 ### Create a notification
 ```php
 $notification = self::notifications()->newInstance();
@@ -51,43 +88,24 @@ $notification->setText('Sie sind nun Mitglied in folgendem Kurs {{ course.getTit
 self::notifications()->storeNotification($notification);
 ```
 
-### Send a notification
-This plugin introduces a dedicated interface for sending notifications. Currently there is implemented one concrete class which does send notifications to external E-Mail addresses using the class `ilMimeMail` from ILIAS. There could be a sender for internal mails in ILIAS, SMS and so on.
-
+### Delete a notification
 ```php
-...
-// Get the notification by name
-$notification = self::notifications()->getNotificationByName(self::MY_UNIQUE_NAME);
-
-// Setup the sender object, in this case we send the notification as external mail to sw@studer-raimann.ch
-$sender = self::senders()->factory()->mail('sw@studer-raimann.ch', 'no-reply@studer-raimann.ch');
-
-// Prepare placeholders, note that the keys are the same 
-$placeholders = array(
-  'user' => new ilObjUser(6),
-  'course' => new ilObjCourse(12345)
-);
-
-// Sent the notification in english first (default langauge) and in german again
-self::senders()->send($sender, $notification, $placeholders);
-self::senders()->send($sender, $notification, $placeholders, 'de');
+self::notification()->deleteNotification($notification);
 ```
 
 ### Get parsed subject and text of a notification
 You can get the parsed subject and text from a notification, for example to display it on screen.
 
 ```php
-$notification = self::notifications()->getNotificationByName(self::MY_UNIQUE_NAME);
-
 $placeholders = array(
   'course' => new ilObjCourse(1234),
   'user' => new ilObjUser(6)
 );
 
-$parser = self::parsers()->getParserForNotification($notification);
+$parser = self::parser()->getParserForNotification($notification);
 
-$subject = self::parsers()->parseSubject($parser, $notification, $placeholders);
-$text = self::parsers()->parseText($parser, $notification, $placeholders);
+$subject = self::parser()->parseSubject($parser, $notification, $placeholders);
+$text = self::parser()->parseText($parser, $notification, $placeholders);
 ```
 
 ### Implement a new sender object
