@@ -27,12 +27,10 @@ class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 
 
 	/**
-	 * Singleton Access to this plugin
-	 *
 	 * @return self
 	 */
 	public static function getInstance() {
-		if (is_null(self::$instance)) {
+		if (self::$instance === null) {
 			self::$instance = new self();
 		}
 
@@ -49,13 +47,7 @@ class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 
 
 	/**
-	 * Get Plugin Name. Must be same as in class name il<Name>Plugin
-	 * and must correspond to plugins subdirectory name.
-	 *
-	 * Must be overwritten in plugin class of plugin
-	 * (and should be made final)
-	 *
-	 * @return    string    Plugin Name
+	 * @return string
 	 */
 	public function getPluginName() {
 		return self::PLUGIN_NAME;

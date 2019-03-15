@@ -11,7 +11,7 @@ use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
  *
  * @package srag\Plugins\Notifications4Plugins\Notification
  *
- * @author Stefan Wanzenried <sw@studer-raimann.ch>
+ * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
 class srNotificationService {
 
@@ -25,9 +25,11 @@ class srNotificationService {
 
 
 	/**
+	 * srNotificationService constructor
+	 *
 	 * @param srNotification $notification
 	 */
-	public function __construct(srNotification $notification = NULL) {
+	public function __construct(srNotification $notification = null) {
 		$this->notification = $notification;
 	}
 
@@ -45,10 +47,10 @@ class srNotificationService {
 
 
 	/**
-	 * @param        $title
-	 * @param        $description
+	 * @param string $title
+	 * @param string $description
 	 * @param string $name
-	 * @param        $default_language
+	 * @param string $default_language
 	 * @param array  $notifications
 	 */
 	public function update($title, $description, $name, $default_language, array $notifications = array()) {
@@ -57,11 +59,11 @@ class srNotificationService {
 
 
 	/**
-	 * @param       $title
-	 * @param       $description
-	 * @param       $name
-	 * @param       $default_language
-	 * @param array $notifications
+	 * @param string $title
+	 * @param string $description
+	 * @param string $name
+	 * @param string $default_language
+	 * @param array  $notifications
 	 */
 	protected function createOrUpdate($title, $description, $name, $default_language, array $notifications = array()) {
 		$this->notification = ($this->notification) ? $this->notification : new srNotification();

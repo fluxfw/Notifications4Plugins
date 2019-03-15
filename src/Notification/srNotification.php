@@ -15,7 +15,7 @@ use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
  *
  * @package srag\Plugins\Notifications4Plugins\Notification
  *
- * @author Stefan Wanzenried <sw@studer-raimann.ch>
+ * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
 class srNotification extends ActiveRecord {
 
@@ -35,6 +35,7 @@ class srNotification extends ActiveRecord {
 
 	/**
 	 * @return string
+	 *
 	 * @deprecated
 	 */
 	public static function returnDbTableName() {
@@ -110,7 +111,7 @@ class srNotification extends ActiveRecord {
 
 
 	/**
-	 * @param $name
+	 * @param string $name
 	 *
 	 * @return srNotification
 	 */
@@ -119,6 +120,9 @@ class srNotification extends ActiveRecord {
 	}
 
 
+	/**
+	 *
+	 */
 	public function create() {
 		$this->created_at = date('Y-m-d H:i:s');
 		$this->updated_at = date('Y-m-d H:i:s');
@@ -129,6 +133,9 @@ class srNotification extends ActiveRecord {
 	}
 
 
+	/**
+	 *
+	 */
 	public function update() {
 		$this->updated_at = date('Y-m-d H:i:s');
 		parent::update();
@@ -138,6 +145,9 @@ class srNotification extends ActiveRecord {
 	}
 
 
+	/**
+	 *
+	 */
 	public function delete() {
 		parent::delete();
 		foreach ($this->getNotificationLanguages() as $notification) {
@@ -268,7 +278,7 @@ class srNotification extends ActiveRecord {
 		$language = ($language && in_array($language, $this->getLanguages())) ? $language : $this->getDefaultLanguage();
 		$notifications = $this->getNotificationLanguages();
 
-		return (isset($notifications[$language])) ? $notifications[$language] : NULL;
+		return (isset($notifications[$language])) ? $notifications[$language] : null;
 	}
 
 
@@ -289,7 +299,7 @@ class srNotification extends ActiveRecord {
 	 * @return srNotificationLanguage[]
 	 */
 	protected function getNotificationLanguages() {
-		if ($this->notification_languages === NULL) {
+		if ($this->notification_languages === null) {
 			$notifications = srNotificationLanguage::where(array( 'notification_id' => $this->getId() ))->get();
 			/** @var srNotificationLanguage $notification */
 			$this->notification_languages = array();

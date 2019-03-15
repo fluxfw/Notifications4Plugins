@@ -40,7 +40,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 
 
 	/**
-	 * @param $cmd
+	 * @param string $cmd
 	 */
 	public function performCommand($cmd) {
 		$cmd = self::dic()->ctrl()->getCmd(self::CMD_INDEX);
@@ -65,7 +65,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 
 
 	/**
-	 * Configure screen
+	 *
 	 */
 	public function index() {
 		$button = ilLinkButton::getInstance();
@@ -77,18 +77,27 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	public function add() {
 		$form = new srNotificationConfigFormGUI($this, new srNotification());
 		self::output()->output($form);
 	}
 
 
+	/**
+	 *
+	 */
 	public function edit() {
 		$form = new srNotificationConfigFormGUI($this, srNotification::findOrFail((int)$_GET['notification_id']));
 		self::output()->output($form);
 	}
 
 
+	/**
+	 *
+	 */
 	public function create() {
 		$form = new srNotificationConfigFormGUI($this, new srNotification());
 		if ($form->checkInput()) {
@@ -103,6 +112,9 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	public function update() {
 		/** @var srNotification $notification */
 		$notification = srNotification::findOrFail((int)$_POST['notification_id']);
@@ -119,6 +131,9 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	public function confirmDelete() {
 		$notification = srNotification::findOrFail((int)$_GET['notification_id']);
 		$gui = new ilConfirmationGUI();
@@ -131,6 +146,9 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	public function delete() {
 		$notification = srNotification::findOrFail((int)$_POST['notification_id']);
 		$notification->delete();
@@ -145,7 +163,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	 *
 	 * @return array
 	 */
-	protected function getNotificationData(srNotificationConfigFormGUI $form, srNotification $notification = NULL) {
+	protected function getNotificationData(srNotificationConfigFormGUI $form, srNotification $notification = null) {
 		$data = array();
 		// New language added
 		if ($form->getInput('language')) {

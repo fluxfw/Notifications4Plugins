@@ -48,13 +48,15 @@ class srNotifier {
 
 
 	/**
+	 * srNotifier constructor
+	 *
 	 * @param srNotification       $notification
 	 * @param srNotificationSender $sender
 	 * @param string               $language     If empty, the default language of the srNotification object is used
 	 * @param array                $replacements If empty, placeholders are not replaced
 	 * @param srNotificationParser $parser
 	 */
-	public function __construct(srNotification $notification, srNotificationSender $sender, $language = '', array $replacements = array(), srNotificationParser $parser = NULL) {
+	public function __construct(srNotification $notification, srNotificationSender $sender, $language = '', array $replacements = array(), srNotificationParser $parser = null) {
 		$this->notification = $notification;
 		$this->sender = $sender;
 		$this->replacements = $replacements;

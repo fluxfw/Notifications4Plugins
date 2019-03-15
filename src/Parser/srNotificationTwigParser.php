@@ -29,6 +29,8 @@ class srNotificationTwigParser implements srNotificationParser {
 
 
 	/**
+	 * srNotificationTwigParser constructor
+	 *
 	 * @param array $options
 	 */
 	public function __construct(array $options = array()) {
@@ -37,10 +39,7 @@ class srNotificationTwigParser implements srNotificationParser {
 
 
 	/**
-	 * @param string $text
-	 * @param array  $replacements
-	 *
-	 * @return string
+	 * @inheritdoc
 	 */
 	public function parse($text, array $replacements = array()) {
 		$loader = new Twig_Loader_String();

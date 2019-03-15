@@ -15,5 +15,4 @@ class ilNotifications4PluginsUIHookGUI extends ilUIHookPluginGUI {
 	use DICTrait;
 	use Notifications4PluginsTrait;
 	const PLUGIN_CLASS_NAME = ilNotifications4PluginsPlugin::class;
-	// This plugin does not modify the UI, but it has a config screen ;)
 }

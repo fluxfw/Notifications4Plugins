@@ -17,7 +17,7 @@ use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
  *
  * @package srag\Plugins\Notifications4Plugins\NotificationSender
  *
- * @author Martin Studer <ms@studer-raimann.ch>
+ * @author  Martin Studer <ms@studer-raimann.ch>
  */
 class srNotificationVcalendarSender implements srNotificationSender {
 
@@ -87,7 +87,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 
 
 	/**
-	 * srNotificationVcalendarSender constructor.
+	 * srNotificationVcalendarSender constructor
 	 *
 	 * @param string|array         $to        E-Mail address or array of addresses
 	 * @param int|string|ilObjUser $user_from Should be the user-ID from the sender, you can also pass the login
@@ -95,7 +95,6 @@ class srNotificationVcalendarSender implements srNotificationSender {
 	 * @param int                  $startTime Timestamp
 	 * @param int                  $endTime   Timestamp
 	 * @param int                  $sequence
-	 *
 	 */
 	public function __construct($to = '', $user_from = 0, $method = self::METHOD_REQUEST, $uid = '', $startTime = 0, $endTime = 0, $sequence = 0) {
 
@@ -114,9 +113,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 
 
 	/**
-	 * Send the notification
-	 *
-	 * @return bool
+	 * @inheritdoc
 	 */
 	public function send() {
 		$this->mailer = new ilMail($this->getUserFrom());
@@ -147,41 +144,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 
 
 	/**
-	 * Add an attachment
-	 *
-	 * @param string $file Full path of the file to attach
-	 *
-	 * @return $this
-	 */
-	public function addAttachment($file) {
-		if (is_file($file)) {
-			$this->attachments[] = $file;
-		}
-
-		return $this;
-	}
-
-
-	/**
-	 * Set the message to send
-	 *
-	 * @param string $message
-	 *
-	 * @return $this
-	 */
-	public function setMessage($message) {
-		$this->message = $message;
-
-		return $this;
-	}
-
-
-	/**
-	 * Set the subject for the message
-	 *
-	 * @param string $subject
-	 *
-	 * @return $this
+	 * @inheritdoc
 	 */
 	public function setSubject($subject) {
 		$this->subject = $subject;
@@ -191,14 +154,38 @@ class srNotificationVcalendarSender implements srNotificationSender {
 
 
 	/**
-	 * Set the location for the message
-	 *
-	 * @param string location
-	 *
-	 * @return $this
+	 * @inheritdoc
 	 */
-	public function setLocation($location) {
-		$this->location = $location;
+	public function setMessage($message) {
+		$this->message = $message;
+
+		return $this;
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function setFrom($from) {
+		$this->setUserFrom($from);
+
+		return $this;
+	}
+
+
+	/**
+	 * @return array|string
+	 */
+	public function getTo() {
+		return $this->to;
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function setTo($to) {
+		$this->to = $to;
 
 		return $this;
 	}
@@ -213,9 +200,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 
 
 	/**
-	 * @param array|string $cc
-	 *
-	 * @return $this
+	 * @inheritdoc
 	 */
 	public function setCc($cc) {
 		$this->cc = $cc;
@@ -233,7 +218,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 
 
 	/**
-	 * @param array|string $bcc
+	 * @inheritdoc
 	 */
 	public function setBcc($bcc) {
 		$this->bcc = $bcc;
@@ -241,20 +226,22 @@ class srNotificationVcalendarSender implements srNotificationSender {
 
 
 	/**
-	 * @return array|string
+	 * @inheritdoc
 	 */
-	public function getTo() {
-		return $this->to;
-	}
-
-
-	/**
-	 * @param array|string $to
-	 *
-	 * @return $this
-	 */
-	public function setTo($to) {
-		$this->to = $to;
+	public function reset() {
+		$this->from = '';
+		$this->to = '';
+		$this->subject = '';
+		$this->message = '';
+		$this->uid = '';
+		$this->method = self::METHOD_REQUEST;
+		$this->sequence = 0;
+		$this->startTime = 0;
+		$this->endTime = 0;
+		$this->attachments = array();
+		$this->cc = array();
+		$this->bcc = array();
+		$this->mailer = new ilMimeMail();
 
 		return $this;
 	}
@@ -265,18 +252,6 @@ class srNotificationVcalendarSender implements srNotificationSender {
 	 */
 	public function getUserFrom() {
 		return $this->user_from;
-	}
-
-
-	/**
-	 * @param int|string|ilObjUser $from
-	 *
-	 * @return $this
-	 */
-	public function setFrom($from) {
-		$this->setUserFrom($from);
-
-		return $this;
 	}
 
 
@@ -300,6 +275,11 @@ class srNotificationVcalendarSender implements srNotificationSender {
 	}
 
 
+	/**
+	 * @param string $mime_boundary
+	 *
+	 * @return string
+	 */
 	public function getIcalEvent($mime_boundary) {
 		$iluser = new ilObjUser($this->getUserFrom());
 
@@ -337,23 +317,31 @@ class srNotificationVcalendarSender implements srNotificationSender {
 
 
 	/**
-	 * Reset internal state of object, e.g. clear all data (from, to, subject, message etc.)
+	 * Add an attachment
+	 *
+	 * @param string $file Full path of the file to attach
 	 *
 	 * @return $this
 	 */
-	public function reset() {
-		$this->from = '';
-		$this->to = '';
-		$this->subject = '';
-		$this->message = '';
-		$this->uid = '';
-		$this->method = self::METHOD_REQUEST;
-		$this->sequence = 0;
-		$this->startTime = 0;
-		$this->endTime = 0;
-		$this->attachments = array();
-		$this->cc = array();
-		$this->bcc = array();
-		$this->mailer = new ilMimeMail();
+	public function addAttachment($file) {
+		if (is_file($file)) {
+			$this->attachments[] = $file;
+		}
+
+		return $this;
+	}
+
+
+	/**
+	 * Set the location for the message
+	 *
+	 * @param string location
+	 *
+	 * @return $this
+	 */
+	public function setLocation($location) {
+		$this->location = $location;
+
+		return $this;
 	}
 }

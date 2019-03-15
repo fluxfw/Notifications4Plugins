@@ -111,7 +111,7 @@ Please use it for further development!
 
 ### Adjustment suggestions
 * Adjustment suggestions by pull requests
-* Adjustment suggestions which are not yet worked out in detail by Jira tasks under https://jira.studer-raimann.ch/projects/PLNOTIFICATION__
+* Adjustment suggestions which are not yet worked out in detail by Jira tasks under https://jira.studer-raimann.ch/projects/PLNOTIFICATION
 * Bug reports under https://jira.studer-raimann.ch/projects/PLNOTIFICATION
 * For external users you can report it at https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLNOTIFICATION
 

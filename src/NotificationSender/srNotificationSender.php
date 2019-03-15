@@ -6,6 +6,8 @@ namespace srag\Plugins\Notifications4Plugins\NotificationSender;
  * Interface srNotificationSender
  *
  * @package srag\Plugins\Notifications4Plugins\NotificationSender
+ *
+ * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
 interface srNotificationSender {
 
@@ -18,43 +20,55 @@ interface srNotificationSender {
 
 
 	/**
-	 * Set the message to send
-	 *
-	 * @param string $message
-	 */
-	public function setMessage($message);
-
-
-	/**
 	 * Set the subject for the message
 	 *
 	 * @param string $subject
+	 *
+	 * @return $this
 	 */
 	public function setSubject($subject);
 
 
 	/**
-	 * @param mixed $from
+	 * Set the message to send
+	 *
+	 * @param string $message
+	 *
+	 * @return $this
+	 */
+	public function setMessage($message);
+
+
+	/**
+	 * @param string $from
+	 *
+	 * @return $this
 	 */
 	public function setFrom($from);
 
 
 	/**
-	 * @param mixed $to
+	 * @param array|string $to
+	 *
+	 * @return $this
 	 */
 	public function setTo($to);
 
 
 	/**
-	 * @param mixed $bcc
+	 * @param array|string $cc
+	 *
+	 * @return $this
 	 */
-	public function setBcc($bcc);
+	public function setCc($cc);
 
 
 	/**
-	 * @param mixed $cc
+	 * @param array|string $bcc
+	 *
+	 * @return $this
 	 */
-	public function setCc($cc);
+	public function setBcc($bcc);
 
 
 	/**
