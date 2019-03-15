@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\Plugins\Notifications4Plugins\NotificationSender;
+namespace srag\Plugins\Notifications4Plugins\Sender;
 
 use ilMail;
 use ilMailbox;
@@ -11,15 +11,15 @@ use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
- * Class srNotificationVcalendarSender
+ * Class vcalendarSender
  *
  * Sends the notification to an external E-Mail with calendar dates
  *
- * @package srag\Plugins\Notifications4Plugins\NotificationSender
+ * @package srag\Plugins\Notifications4Plugins\Sender
  *
  * @author  Martin Studer <ms@studer-raimann.ch>
  */
-class srNotificationVcalendarSender implements srNotificationSender {
+class vcalendarSender implements Sender {
 
 	use DICTrait;
 	use Notifications4PluginsTrait;
@@ -87,7 +87,7 @@ class srNotificationVcalendarSender implements srNotificationSender {
 
 
 	/**
-	 * srNotificationVcalendarSender constructor
+	 * vcalendarSender constructor
 	 *
 	 * @param string|array         $to        E-Mail address or array of addresses
 	 * @param int|string|ilObjUser $user_from Should be the user-ID from the sender, you can also pass the login

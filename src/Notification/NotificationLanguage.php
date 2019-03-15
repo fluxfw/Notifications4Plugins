@@ -8,13 +8,13 @@ use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
- * Class srNotificationLanguage
+ * Class NotificationLanguage
  *
  * @package srag\Plugins\Notifications4Plugins\Notification
  *
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
-class srNotificationLanguage extends ActiveRecord {
+class NotificationLanguage extends ActiveRecord {
 
 	use DICTrait;
 	use Notifications4PluginsTrait;
@@ -104,6 +104,7 @@ class srNotificationLanguage extends ActiveRecord {
 	public function create() {
 		$this->created_at = date('Y-m-d H:i:s');
 		$this->updated_at = date('Y-m-d H:i:s');
+
 		parent::create();
 	}
 
@@ -113,6 +114,7 @@ class srNotificationLanguage extends ActiveRecord {
 	 */
 	public function update() {
 		$this->updated_at = date('Y-m-d H:i:s');
+
 		parent::update();
 	}
 

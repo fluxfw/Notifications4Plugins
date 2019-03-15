@@ -3,10 +3,10 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use srag\DIC\Notifications4Plugins\DICTrait;
-use srag\Plugins\Notifications4Plugins\Config\srNotificationConfigFormGUI;
-use srag\Plugins\Notifications4Plugins\Config\srNotificationTableGUI;
-use srag\Plugins\Notifications4Plugins\Notification\srNotification;
-use srag\Plugins\Notifications4Plugins\Notification\srNotificationService;
+use srag\Plugins\Notifications4Plugins\Notification\Notification;
+use srag\Plugins\Notifications4Plugins\Notification\NotificationFormGUI;
+use srag\Plugins\Notifications4Plugins\Notification\NotificationService;
+use srag\Plugins\Notifications4Plugins\Notification\NotificationsTableGUI;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
@@ -71,8 +71,11 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 		$button = ilLinkButton::getInstance();
 		$button->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_ADD));
 		$button->setCaption(self::plugin()->translate('add_notification'), false);
+
 		self::dic()->toolbar()->addButtonInstance($button);
-		$table = new srNotificationTableGUI($this, self::CMD_INDEX);
+
+		$table = new NotificationsTableGUI($this, self::CMD_INDEX);
+
 		self::output()->output($table);
 	}
 
@@ -81,7 +84,8 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	 *
 	 */
 	public function add() {
-		$form = new srNotificationConfigFormGUI($this, new srNotification());
+		$form = new NotificationFormGUI($this, self::notification()->newInstance());
+
 		self::output()->output($form);
 	}
 
@@ -90,7 +94,8 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	 *
 	 */
 	public function edit() {
-		$form = new srNotificationConfigFormGUI($this, srNotification::findOrFail((int)$_GET['notification_id']));
+		$form = new NotificationFormGUI($this, self::notification()->getNotificationById($_GET['notification_id']));
+
 		self::output()->output($form);
 	}
 
@@ -99,15 +104,18 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	 *
 	 */
 	public function create() {
-		$form = new srNotificationConfigFormGUI($this, new srNotification());
+		$form = new NotificationFormGUI($this, self::notification()->newInstance());
+
 		if ($form->checkInput()) {
-			$service = new srNotificationService();
-			$service->create($form->getInput('title'), $form->getInput('description'), $form->getInput('name'), $form->getInput('default_language'), $this->getNotificationData($form));
+			$this->storeNotification($form->getInput('title'), $form->getInput('description'), $form->getInput('name'), $form->getInput('default_language'), $this->getNotificationData($form));
+
 			ilUtil::sendSuccess(self::plugin()->translate('created_notification'), true);
+
 			self::dic()->ctrl()->redirect($this);
 		}
 
 		$form->setValuesByPost();
+
 		self::output()->output($form);
 	}
 
@@ -116,17 +124,20 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	 *
 	 */
 	public function update() {
-		/** @var srNotification $notification */
-		$notification = srNotification::findOrFail((int)$_POST['notification_id']);
-		$form = new srNotificationConfigFormGUI($this, $notification);
+		$notification = self::notification()->getNotificationById($_POST['notification_id']);
+
+		$form = new NotificationFormGUI($this, $notification);
+
 		if ($form->checkInput()) {
-			$service = new srNotificationService($notification);
-			$service->update($form->getInput('title'), $form->getInput('description'), $form->getInput('name'), $form->getInput('default_language'), $this->getNotificationData($form, $notification));
+			$this->storeNotification($form->getInput('title'), $form->getInput('description'), $form->getInput('name'), $form->getInput('default_language'), $this->getNotificationData($form, $notification), $notification);
+
 			ilUtil::sendSuccess(self::plugin()->translate('updated_notification'), true);
+
 			self::dic()->ctrl()->redirect($this);
 		}
 
 		$form->setValuesByPost();
+
 		self::output()->output($form);
 	}
 
@@ -135,13 +146,16 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	 *
 	 */
 	public function confirmDelete() {
-		$notification = srNotification::findOrFail((int)$_GET['notification_id']);
+		$notification = self::notification()->getNotificationById($_GET['notification_id']);
+
 		$gui = new ilConfirmationGUI();
+
 		$gui->setHeaderText(self::plugin()->translate('delete_confirm'));
 		$gui->setFormAction(self::dic()->ctrl()->getFormAction($this));
 		$gui->setCancel(self::plugin()->translate('cancel'), self::CMD_CANCEL);
 		$gui->setConfirm(self::plugin()->translate('delete'), self::CMD_DELETE);
 		$gui->addItem('notification_id', $notification->getId(), $notification->getTitle());
+
 		self::output()->output($gui);
 	}
 
@@ -150,20 +164,23 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	 *
 	 */
 	public function delete() {
-		$notification = srNotification::findOrFail((int)$_POST['notification_id']);
-		$notification->delete();
+		$notification = self::notification()->getNotificationById($_POST['notification_id']);
+
+		self::notification()->deleteNotification($notification);
+
 		ilUtil::sendSuccess(self::plugin()->translate('deleted_notification'), true);
+
 		self::dic()->ctrl()->redirect($this);
 	}
 
 
 	/**
-	 * @param srNotificationConfigFormGUI $form
-	 * @param srNotification              $notification
+	 * @param NotificationFormGUI $form
+	 * @param Notification        $notification
 	 *
 	 * @return array
 	 */
-	protected function getNotificationData(srNotificationConfigFormGUI $form, srNotification $notification = null) {
+	protected function getNotificationData(NotificationFormGUI $form, Notification $notification = null) {
 		$data = array();
 		// New language added
 		if ($form->getInput('language')) {
@@ -186,5 +203,37 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 		}
 
 		return $data;
+	}
+
+
+	/**
+	 * @param string            $title
+	 * @param string            $description
+	 * @param string            $name
+	 * @param string            $default_language
+	 * @param array             $texts
+	 * @param Notification|null $notification
+	 */
+	protected function storeNotification($title, $description, $name, $default_language, array $texts = array(), Notification $notification = null) {
+		if ($notification === null) {
+			$notification = self::notification()->newInstance();
+		}
+
+		$notification->setTitle($title);
+
+		$notification->setDefaultLanguage($default_language);
+
+		$notification->setDescription($description);
+
+		$notification->setName($name);
+
+		self::notification()->storeInstance($notification);
+
+		foreach ($texts as $text) {
+			$notification->setText($text['text'], $text['language']);
+			$notification->setSubject($text['subject'], $text['language']);
+		}
+
+		self::notification()->storeInstance($notification);
 	}
 }

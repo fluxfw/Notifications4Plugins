@@ -1,15 +1,15 @@
 <?php
 
-namespace srag\Plugins\Notifications4Plugins\NotificationSender;
+namespace srag\Plugins\Notifications4Plugins\Sender;
 
 /**
- * Interface srNotificationSender
+ * Interface Sender
  *
- * @package srag\Plugins\Notifications4Plugins\NotificationSender
+ * @package srag\Plugins\Notifications4Plugins\Sender
  *
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
-interface srNotificationSender {
+interface Sender {
 
 	/**
 	 * Send the notification

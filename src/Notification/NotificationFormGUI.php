@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\Plugins\Notifications4Plugins\Config;
+namespace srag\Plugins\Notifications4Plugins\Notification;
 
 use ilFormSectionHeaderGUI;
 use ilHiddenInputGUI;
@@ -11,17 +11,17 @@ use ilPropertyFormGUI;
 use ilTextAreaInputGUI;
 use ilTextInputGUI;
 use srag\DIC\Notifications4Plugins\DICTrait;
-use srag\Plugins\Notifications4Plugins\Notification\srNotification;
+use srag\Plugins\Notifications4Plugins\Notification\Notification;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
- * Class srNotificationConfigFormGUI
+ * Class NotificationFormGUI
  *
- * @package srag\Plugins\Notifications4Plugins\Config
+ * @package srag\Plugins\Notifications4Plugins\Notification
  *
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
-class srNotificationConfigFormGUI extends ilPropertyFormGUI {
+class NotificationFormGUI extends ilPropertyFormGUI {
 
 	use DICTrait;
 	use Notifications4PluginsTrait;
@@ -31,18 +31,18 @@ class srNotificationConfigFormGUI extends ilPropertyFormGUI {
 	 */
 	protected $parent_gui;
 	/**
-	 * @var srNotification
+	 * @var Notification
 	 */
 	protected $notification;
 
 
 	/**
-	 * srNotificationConfigFormGUI constructor
+	 * NotificationFormGUI constructor
 	 *
 	 * @param ilNotifications4PluginsConfigGUI $parent_gui
-	 * @param srNotification                   $notification
+	 * @param Notification                     $notification
 	 */
-	public function __construct(ilNotifications4PluginsConfigGUI $parent_gui, srNotification $notification) {
+	public function __construct(ilNotifications4PluginsConfigGUI $parent_gui, Notification $notification) {
 		parent::__construct();
 
 		$this->parent_gui = $parent_gui;

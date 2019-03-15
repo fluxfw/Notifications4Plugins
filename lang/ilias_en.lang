@@ -20,7 +20,7 @@ delete#:#Delete
 delete_confirm#:#Are you sure you want to delete the Notification?
 deleted_notification#:#Deleted Notification
 edit#:#Edit
-ID#:#ID
+id#:#ID
 removeplugindataconfirm_cancel#:#Cancel
 removeplugindataconfirm_confirm_remove_data#:#Do you want to remove the %1$s data as well? At most, you just want to disable the %1$s plugin?
 removeplugindataconfirm_deactivate#:#Just deactivate %1$s plugin
