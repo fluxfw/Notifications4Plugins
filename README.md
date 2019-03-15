@@ -39,7 +39,7 @@ Main
 // Get the notification by name
 $notification = self::notification()->getNotificationByName(self::MY_UNIQUE_NAME);
 
-// Get notifications for a selection
+// Get notifications for a selection list
 $notifications = self::notification()->getArrayForSelection();
 ```
 Other
