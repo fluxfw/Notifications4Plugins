@@ -50,7 +50,7 @@ $sender = new srNotificationMailSender('sw@studer-raimann.ch', 'no-reply@studer-
 // Prepare placeholders, note that the keys are the same 
 $placeholders = array(
   'user' => new ilObjUser(6),
-  'course' => new ilObjCourse(12345),
+  'course' => new ilObjCourse(12345)
 );
 
 // Get the notification by name and sent it in english first (default langauge) and in german again
@@ -66,7 +66,7 @@ You can get the parsed subject and text from a notification, for example to disp
 $notification = srNotification::getInstanceByName('my_unique_name');
 $text = $notification->parseText(array(
   'course' => new ilObjCourse(1234),
-  'user' => new ilObjUser(6),
+  'user' => new ilObjUser(6)
 ));
 ```
 
@@ -111,7 +111,7 @@ Please use it for further development!
 
 ### Adjustment suggestions
 * Adjustment suggestions by pull requests
-* Adjustment suggestions which are not yet worked out in detail by Jira tasks under https://jira.studer-raimann.ch/projects/PLNOTIFICATION__
+* Adjustment suggestions which are not yet worked out in detail by Jira tasks under https://jira.studer-raimann.ch/projects/PLNOTIFICATION
 * Bug reports under https://jira.studer-raimann.ch/projects/PLNOTIFICATION
 * For external users you can report it at https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_PLNOTIFICATION
 

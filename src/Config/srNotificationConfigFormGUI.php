@@ -27,7 +27,7 @@ class srNotificationConfigFormGUI extends ilPropertyFormGUI {
 	use Notifications4PluginsTrait;
 	const PLUGIN_CLASS_NAME = ilNotifications4PluginsPlugin::class;
 	/**
-	 * @var
+	 * @var ilNotifications4PluginsConfigGUI
 	 */
 	protected $parent_gui;
 	/**
@@ -37,10 +37,12 @@ class srNotificationConfigFormGUI extends ilPropertyFormGUI {
 
 
 	/**
-	 * @param                $parent_gui
-	 * @param srNotification $notification
+	 * srNotificationConfigFormGUI constructor
+	 *
+	 * @param ilNotifications4PluginsConfigGUI $parent_gui
+	 * @param srNotification                   $notification
 	 */
-	public function __construct($parent_gui, srNotification $notification) {
+	public function __construct(ilNotifications4PluginsConfigGUI $parent_gui, srNotification $notification) {
 		parent::__construct();
 
 		$this->parent_gui = $parent_gui;
@@ -50,6 +52,9 @@ class srNotificationConfigFormGUI extends ilPropertyFormGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function initForm() {
 		$this->setTitle(self::plugin()->translate('general'));
 
@@ -120,6 +125,9 @@ class srNotificationConfigFormGUI extends ilPropertyFormGUI {
 	}
 
 
+	/**
+	 *
+	 */
 	protected function addCommandButtons() {
 		$method = $this->notification->getId() ? ilNotifications4PluginsConfigGUI::CMD_UPDATE : ilNotifications4PluginsConfigGUI::CMD_CREATE;
 		$this->addCommandButton($method, self::plugin()->translate(ilNotifications4PluginsConfigGUI::CMD_SAVE));

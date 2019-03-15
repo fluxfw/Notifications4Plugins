@@ -52,10 +52,12 @@ class srNotificationTableGUI extends ilTable2GUI {
 
 
 	/**
-	 * @param        $a_parent_obj
-	 * @param string $a_parent_cmd
+	 * srNotificationTableGUI constructor
+	 *
+	 * @param ilNotifications4PluginsConfigGUI $a_parent_obj
+	 * @param string                           $a_parent_cmd
 	 */
-	public function __construct($a_parent_obj, $a_parent_cmd = "") {
+	public function __construct(ilNotifications4PluginsConfigGUI $a_parent_obj, $a_parent_cmd = "") {
 		parent::__construct($a_parent_obj, $a_parent_cmd, '');
 
 		$this->setRowTemplate('tpl.row_generic.html', self::plugin()->directory());
@@ -80,7 +82,6 @@ class srNotificationTableGUI extends ilTable2GUI {
 
 	/**
 	 * Add selected columns to table
-	 *
 	 */
 	protected function addColumns() {
 		foreach ($this->columns as $col) {
@@ -136,7 +137,6 @@ class srNotificationTableGUI extends ilTable2GUI {
 
 	/**
 	 * Build and set data for table
-	 *
 	 */
 	protected function buildData() {
 		$data = array();

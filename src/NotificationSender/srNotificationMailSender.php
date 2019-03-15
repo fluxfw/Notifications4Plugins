@@ -56,6 +56,8 @@ class srNotificationMailSender implements srNotificationSender {
 
 
 	/**
+	 * srNotificationMailSender constructor
+	 *
 	 * @param string|array $to   E-Mail address or array of addresses
 	 * @param string       $from E-Mail from address. If omitted, the ILIAS setting 'external noreply address' is used
 	 */
@@ -67,9 +69,7 @@ class srNotificationMailSender implements srNotificationSender {
 
 
 	/**
-	 * Send the notification
-	 *
-	 * @return bool
+	 * @inheritdoc
 	 */
 	public function send() {
 		$this->mailer->To($this->to);
@@ -108,11 +108,17 @@ class srNotificationMailSender implements srNotificationSender {
 
 
 	/**
-	 * Set the message to send
-	 *
-	 * @param string $message
-	 *
-	 * @return $this
+	 * @inheritdoc
+	 */
+	public function setSubject($subject) {
+		$this->subject = $subject;
+
+		return $this;
+	}
+
+
+	/**
+	 * @inheritdoc
 	 */
 	public function setMessage($message) {
 		$this->message = $message;
@@ -122,14 +128,36 @@ class srNotificationMailSender implements srNotificationSender {
 
 
 	/**
-	 * Set the subject for the message
-	 *
-	 * @param string $subject
-	 *
-	 * @return $this
+	 * @return string
 	 */
-	public function setSubject($subject) {
-		$this->subject = $subject;
+	public function getFrom() {
+		return $this->from;
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function setFrom($from) {
+		$this->from = $from;
+
+		return $this;
+	}
+
+
+	/**
+	 * @return array|string
+	 */
+	public function getTo() {
+		return $this->to;
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function setTo($to) {
+		$this->to = $to;
 
 		return $this;
 	}
@@ -144,9 +172,7 @@ class srNotificationMailSender implements srNotificationSender {
 
 
 	/**
-	 * @param array|string $cc
-	 *
-	 * @return $this
+	 * @inheritdoc
 	 */
 	public function setCc($cc) {
 		$this->cc = $cc;
@@ -164,7 +190,7 @@ class srNotificationMailSender implements srNotificationSender {
 
 
 	/**
-	 * @param array|string $bcc
+	 * @inheritdoc
 	 */
 	public function setBcc($bcc) {
 		$this->bcc = $bcc;
@@ -172,49 +198,7 @@ class srNotificationMailSender implements srNotificationSender {
 
 
 	/**
-	 * @return array|string
-	 */
-	public function getTo() {
-		return $this->to;
-	}
-
-
-	/**
-	 * @param array|string $to
-	 *
-	 * @return $this
-	 */
-	public function setTo($to) {
-		$this->to = $to;
-
-		return $this;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getFrom() {
-		return $this->from;
-	}
-
-
-	/**
-	 * @param string $from
-	 *
-	 * @return $this
-	 */
-	public function setFrom($from) {
-		$this->from = $from;
-
-		return $this;
-	}
-
-
-	/**
-	 * Reset internal state of object, e.g. clear all data (from, to, subject, message etc.)
-	 *
-	 * @return $this
+	 * @inheritdoc
 	 */
 	public function reset() {
 		$this->from = '';
@@ -225,5 +209,7 @@ class srNotificationMailSender implements srNotificationSender {
 		$this->cc = array();
 		$this->bcc = array();
 		$this->mailer = new ilMimeMail();
+
+		return $this;
 	}
 }

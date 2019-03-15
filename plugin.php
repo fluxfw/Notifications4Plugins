@@ -2,17 +2,9 @@
 
 require_once __DIR__ . "/vendor/srag/dic/src/PHPVersionChecker.php";
 
-// alphanumerical ID of the plugin; never change this
 $id = "notifications4pl";
-
-// code version; must be changed for all code changes
-$version = "2.0.1";
-
-// ilias min and max version; must always reflect the versions that should
-// run with the plugin
+$version = "2.0.2";
 $ilias_min_version = "5.3.0";
 $ilias_max_version = "5.4.999";
-
-// optional, but useful: Add one or more responsible persons and a contact email
 $responsible = "studer + raimann ag - Team Custom 1";
 $responsible_mail = "support-custom1@studer-raimann.ch";

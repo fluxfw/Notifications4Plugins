@@ -6,6 +6,8 @@ namespace srag\Plugins\Notifications4Plugins\Parser;
  * Interface srNotificationParser
  *
  * @package srag\Plugins\Notifications4Plugins\Parser
+ *
+ * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
 interface srNotificationParser {
 
