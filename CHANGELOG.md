@@ -1,5 +1,8 @@
 # Changelog
 
+## [3.0.1]
+- New development interface
+
 ## [3.0.0]
 - New development interface
 

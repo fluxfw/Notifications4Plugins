@@ -11,7 +11,6 @@ use ilPropertyFormGUI;
 use ilTextAreaInputGUI;
 use ilTextInputGUI;
 use srag\DIC\Notifications4Plugins\DICTrait;
-use srag\Plugins\Notifications4Plugins\Notification\Notification;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**

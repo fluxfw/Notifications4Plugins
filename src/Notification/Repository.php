@@ -57,6 +57,14 @@ final class Repository {
 
 
 	/**
+	 * @return Factory
+	 */
+	public function factory() {
+		return Factory::getInstance();
+	}
+
+
+	/**
 	 * @return array
 	 */
 	public function getArrayForSelection() {
@@ -138,16 +146,6 @@ final class Repository {
 		$notifications = Notification::get();
 
 		return $notifications;
-	}
-
-
-	/**
-	 * @return Notification
-	 */
-	public function newInstance() {
-		$notification = new Notification();
-
-		return $notification;
 	}
 
 
