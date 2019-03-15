@@ -1,4 +1,9 @@
 # Notifications4Plugins
+This plugin offers a quick and easy way to create and send notifications in any language. The notifications are usually configured in the config screen of Notifications4Plugins and can then be sent for instance as an email by other plugins dynamic
+
+The text of the notifications is parsed by default with the [Twig template engine!](https://twig.symfony.com/doc/1.x/templates.html), meaning the developer can replace placeholders and use if statements and loops
+
+The development interface offers easy methods to create, modify and send notifications
 
 ### Install Notifications4Plugins-Plugin
 Start at your ILIAS root directory
@@ -9,19 +14,80 @@ git clone https://github.com/studer-raimann/Notifications4Plugins.git Notificati
 ```
 Update, activate and config the plugin in the ILIAS Plugin Administration
 
-This plugin offers a quick and easy way to create notifications (subject & text) in any language in the configuration screen in ILIAS. The text of the notifications is parsed by default with the [Twig template engine!](https://twig.symfony.com/doc/1.x/templates.html), meaning the developer can replace placeholders and use if statements and loops. The API offers easy methods to send the notifications.
+## Development interface
+First include the `Notifications4Plugins` autoloader relative in your main plugin class file
+```php
+...
+require_once __DIR__ . "/../../Notifications4Plugins/vendor/autoload.php";
+...
+```
 
-## API
+Your class in this you want to use Notifications4Plugins needs to use the Trait `Notifications4PluginsTrait`
+```php
+...
+use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
+...
+class x {
+...
+use Notifications4PluginsTrait;
+...
+```
+
+### Get notification(s)
+Main
+```php
+// Get the notification by name
+$notification = self::notification()->getNotificationByName(self::MY_UNIQUE_NAME);
+
+// Get notifications for a selection list (For instance the options for an `ilSelectInputGUI`)
+$notifications = self::notification()->getArrayForSelection();
+```
+Other
+```php
+// Get the notification by id
+$notification = self::notification()->getNotificationById(self::MY_UNIQUE_ID);
+
+// Get notifications for a table
+$notifications = self::notification()->getArrayForTable();
+
+// Get the notifications
+$notifications = self::notification()->getNotifications();
+```
+
+### Send a notification
+```php
+// Send the notification as external mail
+$sender = self::sender()->factory()->externalMail('to_email', 'from_email');
+
+// Send the notification as internal mail
+$sender = self::sender()->factory()->internalMail('from_user', 'to_user');
+
+// vcalendar
+$sender = self::sender()->factory()->vcalendar(...);
+
+// Implement a custom sender object
+// Your class must implement the interface `srag\Plugins\Notifications4Plugins\Sender\Sender`
+```
+
+```php
+// Prepare placeholders, note that the keys are the same like deklared in the notification template
+$placeholders = array(
+  'user' => new ilObjUser(6),
+  'course' => new ilObjCourse(12345)
+);
+```
+
+```php
+// Sent the notification in english first (default langauge) and in german again
+self::sender()->send($sender, $notification, $placeholders);
+self::sender()->send($sender, $notification, $placeholders, 'de');
+```
 
 ### Create a notification
-The easiest way to create new notifications is to use the GUI of this plugin, here is an example how to do it with the API:
 ```php
-require_once __DIR__ . "Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php";
+$notification = self::notification()->newInstance();
 
-use srag\Plugins\Notifications4Plugins\Notification\srNotification;
-
-$notification = new srNotification();
-$notification->setName('my_unique_name'); // Use the name as unique identifier to retrieve this object later
+$notification->setName(self::MY_UNIQUE_NAME); // Use the name as unique identifier to retrieve this object later
 $notification->setDefaultLanguage('en'); // The text of the default language gets substituted if you try to get the notification of a langauge not available
 $notification->setTitle('My first notification');
 $notification->setDescription("I'm a description");
@@ -32,67 +98,27 @@ $notification->setText('You joined the course {{ course.getTitle }}', 'en');
 $notification->setSubject('Hallo {{ user.getFullname }}', 'de');
 $notification->setText('Sie sind nun Mitglied in folgendem Kurs {{ course.getTitle }}', 'de');
 
-$notification->store();
+self::notification()->storeInstance($notification);
 ```
 
-### Send a notification
-This plugin introduces a dedicated interface for sending notifications. Currently there is implemented one concrete class which does send notifications to external E-Mail addresses using the class `ilMimeMail` from ILIAS. There could be a sender for internal mails in ILIAS, SMS and so on.
-
+### Delete a notification
 ```php
-require_once __DIR__ . "Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php";
-
-use srag\Plugins\Notifications4Plugins\Notification\srNotification;
-use srag\Plugins\Notifications4Plugins\NotificationSender\srNotificationMailSender;
-
-// Setup the sender object, in this case we send the notification as external mail to sw@studer-raimann.ch
-$sender = new srNotificationMailSender('sw@studer-raimann.ch', 'no-reply@studer-raimann.ch');
-
-// Prepare placeholders, note that the keys are the same 
-$placeholders = array(
-  'user' => new ilObjUser(6),
-  'course' => new ilObjCourse(12345)
-);
-
-// Get the notification by name and sent it in english first (default langauge) and in german again
-$notification = srNotification::getInstanceByName('my_unique_name');
-$notification->send($sender, $placeholders);
-$notification->send($sender, $placeholders, 'de');
+self::notification()->deleteNotification($notification);
 ```
 
 ### Get parsed subject and text of a notification
 You can get the parsed subject and text from a notification, for example to display it on screen.
 
 ```php
-$notification = srNotification::getInstanceByName('my_unique_name');
-$text = $notification->parseText(array(
+$placeholders = array(
   'course' => new ilObjCourse(1234),
   'user' => new ilObjUser(6)
-));
-```
+);
 
-### Implement a new sender object
-Your class must implement the interface `srNotificationSender` and implement the following methods:
-```php
-    /**
-     * Send the notification
-     *
-     * @return bool
-     */
-    public function send();
+$parser = self::parser()->getParserForNotification($notification);
 
-    /**
-     * Set the message to send
-     *
-     * @param string $message
-     */
-    public function setMessage($message);
-
-    /**
-     * Set the subject for the message
-     *
-     * @param string $subject
-     */
-    public function setSubject($subject);
+$subject = self::parser()->parseSubject($parser, $notification, $placeholders);
+$text = self::parser()->parseText($parser, $notification, $placeholders);
 ```
 
 ### Some screenshots

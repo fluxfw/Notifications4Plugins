@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\Plugins\Notifications4Plugins\NotificationSender;
+namespace srag\Plugins\Notifications4Plugins\Sender;
 
 use ilMail;
 use ilNotifications4PluginsPlugin;
@@ -9,15 +9,15 @@ use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
- * Class srNotificationInternalMailSender
+ * Class InternalMailSender
  *
  * Sends the notification internal in ILIAS. Based on the settings, the mail is also forwarded to the users external e-mail address
  *
- * @package srag\Plugins\Notifications4Plugins\NotificationSender
+ * @package srag\Plugins\Notifications4Plugins\Sender
  *
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
-class srNotificationInternalMailSender implements srNotificationSender {
+class InternalMailSender implements Sender {
 
 	use DICTrait;
 	use Notifications4PluginsTrait;
@@ -67,7 +67,7 @@ class srNotificationInternalMailSender implements srNotificationSender {
 
 
 	/**
-	 * srNotificationInternalMailSender constructor
+	 * InternalMailSender constructor
 	 *
 	 * @param int|string|ilObjUser $user_from Should be the user-ID from the sender, you can also pass the login
 	 * @param int|string|ilObjUser $user_to   Should be the login of the receiver, you can also pass a user-ID

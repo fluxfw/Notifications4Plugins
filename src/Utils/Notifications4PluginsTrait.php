@@ -2,6 +2,10 @@
 
 namespace srag\Plugins\Notifications4Plugins\Utils;
 
+use srag\Plugins\Notifications4Plugins\Notification\Repository as NotificationRepository;
+use srag\Plugins\Notifications4Plugins\Parser\Repository as ParserRepository;
+use srag\Plugins\Notifications4Plugins\Sender\Repository as SenderRepository;
+
 /**
  * Trait Notifications4PluginsTrait
  *
@@ -11,4 +15,26 @@ namespace srag\Plugins\Notifications4Plugins\Utils;
  */
 trait Notifications4PluginsTrait {
 
+	/**
+	 * @return NotificationRepository
+	 */
+	protected static function notification() {
+		return NotificationRepository::getInstance();
+	}
+
+
+	/**
+	 * @return ParserRepository
+	 */
+	protected static function parser() {
+		return ParserRepository::getInstance();
+	}
+
+
+	/**
+	 * @return SenderRepository
+	 */
+	protected static function sender() {
+		return SenderRepository::getInstance();
+	}
 }
