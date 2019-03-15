@@ -56,15 +56,28 @@ $notification = self::notification()->getNotifications();
 
 ### Send a notification
 ```php
-// Setup the sender object, in this case we send the notification as external mail to sw@studer-raimann.ch
-$sender = self::sender()->factory()->externalMail('sw@studer-raimann.ch', 'no-reply@studer-raimann.ch');
+// Send the notification as external mail
+$sender = self::sender()->factory()->externalMail('to_email', 'from_email');
 
-// Prepare placeholders, note that the keys are the same 
+// Send the notification as internal mail
+$sender = self::sender()->factory()->internalMail('from_user', 'to_user');
+
+// vcalendar
+$sender = self::sender()->factory()->vcalendar(...);
+
+// Implement a custom sender object
+// Your class must implement the interface `srag\Plugins\Notifications4Plugins\Sender\Sender`
+```
+
+```php
+// Prepare placeholders, note that the keys are the same like deklared in the notification template
 $placeholders = array(
   'user' => new ilObjUser(6),
   'course' => new ilObjCourse(12345)
 );
+```
 
+```php
 // Sent the notification in english first (default langauge) and in german again
 self::sender()->send($sender, $notification, $placeholders);
 self::sender()->send($sender, $notification, $placeholders, 'de');
@@ -72,7 +85,7 @@ self::sender()->send($sender, $notification, $placeholders, 'de');
 
 ### Create a notification
 ```php
-$notification = self::notifications()->newInstance();
+$notification = self::notification()->newInstance();
 
 $notification->setName(self::MY_UNIQUE_NAME); // Use the name as unique identifier to retrieve this object later
 $notification->setDefaultLanguage('en'); // The text of the default language gets substituted if you try to get the notification of a langauge not available
@@ -85,7 +98,7 @@ $notification->setText('You joined the course {{ course.getTitle }}', 'en');
 $notification->setSubject('Hallo {{ user.getFullname }}', 'de');
 $notification->setText('Sie sind nun Mitglied in folgendem Kurs {{ course.getTitle }}', 'de');
 
-self::notifications()->storeNotification($notification);
+self::notification()->storeInstance($notification);
 ```
 
 ### Delete a notification
@@ -107,9 +120,6 @@ $parser = self::parser()->getParserForNotification($notification);
 $subject = self::parser()->parseSubject($parser, $notification, $placeholders);
 $text = self::parser()->parseText($parser, $notification, $placeholders);
 ```
-
-### Implement a new sender object
-Your class must implement the interface `srag\Plugins\Notifications4Plugins\Sender\Sender`
 
 ### Some screenshots
 TODO
