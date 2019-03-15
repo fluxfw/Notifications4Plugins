@@ -3,7 +3,7 @@ This plugin offers a quick and easy way to create and send notifications in any 
 
 The text of the notifications is parsed by default with the [Twig template engine!](https://twig.symfony.com/doc/1.x/templates.html), meaning the developer can replace placeholders and use if statements and loops
 
-The development interface offers easy methods to send the notifications
+The development interface offers easy methods to create, modify and send notifications
 
 ### Install Notifications4Plugins-Plugin
 Start at your ILIAS root directory
