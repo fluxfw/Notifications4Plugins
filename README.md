@@ -18,9 +18,9 @@ The easiest way to create new notifications is to use the GUI of this plugin, he
 ```php
 require_once __DIR__ . "Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php";
 
-use srag\Plugins\Notifications4Plugins\Notification\srNotification;
+use srag\Plugins\Notifications4Plugins\Notification\Notification;
 
-$notification = new srNotification();
+$notification = new Notification();
 $notification->setName('my_unique_name'); // Use the name as unique identifier to retrieve this object later
 $notification->setDefaultLanguage('en'); // The text of the default language gets substituted if you try to get the notification of a langauge not available
 $notification->setTitle('My first notification');
@@ -41,11 +41,11 @@ This plugin introduces a dedicated interface for sending notifications. Currentl
 ```php
 require_once __DIR__ . "Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Notifications4Plugins/vendor/autoload.php";
 
-use srag\Plugins\Notifications4Plugins\Notification\srNotification;
-use srag\Plugins\Notifications4Plugins\NotificationSender\srNotificationMailSender;
+use srag\Plugins\Notifications4Plugins\Notification\Notification;
+use srag\Plugins\Notifications4Plugins\Sender\MailSender;
 
 // Setup the sender object, in this case we send the notification as external mail to sw@studer-raimann.ch
-$sender = new srNotificationMailSender('sw@studer-raimann.ch', 'no-reply@studer-raimann.ch');
+$sender = new MailSender('sw@studer-raimann.ch', 'no-reply@studer-raimann.ch');
 
 // Prepare placeholders, note that the keys are the same 
 $placeholders = array(
@@ -54,7 +54,7 @@ $placeholders = array(
 );
 
 // Get the notification by name and sent it in english first (default langauge) and in german again
-$notification = srNotification::getInstanceByName('my_unique_name');
+$notification = Notification::getInstanceByName('my_unique_name');
 $notification->send($sender, $placeholders);
 $notification->send($sender, $placeholders, 'de');
 ```
@@ -63,7 +63,7 @@ $notification->send($sender, $placeholders, 'de');
 You can get the parsed subject and text from a notification, for example to display it on screen.
 
 ```php
-$notification = srNotification::getInstanceByName('my_unique_name');
+$notification = Notification::getInstanceByName('my_unique_name');
 $text = $notification->parseText(array(
   'course' => new ilObjCourse(1234),
   'user' => new ilObjUser(6)
@@ -71,7 +71,7 @@ $text = $notification->parseText(array(
 ```
 
 ### Implement a new sender object
-Your class must implement the interface `srNotificationSender` and implement the following methods:
+Your class must implement the interface `srag\Plugins\Notifications4Plugins\Sender\Sender` and implement the following methods:
 ```php
     /**
      * Send the notification

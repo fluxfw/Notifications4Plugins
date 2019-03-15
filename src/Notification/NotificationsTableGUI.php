@@ -1,22 +1,21 @@
 <?php
 
-namespace srag\Plugins\Notifications4Plugins\Config;
+namespace srag\Plugins\Notifications4Plugins\Notification;
 
 use ilNotifications4PluginsConfigGUI;
 use ilNotifications4PluginsPlugin;
 use ilTable2GUI;
 use srag\DIC\Notifications4Plugins\DICTrait;
-use srag\Plugins\Notifications4Plugins\Notification\srNotification;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
- * Class srNotificationTableGUI
+ * Class NotificationsTableGUI
  *
- * @package srag\Plugins\Notifications4Plugins\Config
+ * @package srag\Plugins\Notifications4Plugins\Notification
  *
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
-class srNotificationTableGUI extends ilTable2GUI {
+class NotificationsTableGUI extends ilTable2GUI {
 
 	use DICTrait;
 	use Notifications4PluginsTrait;
@@ -52,7 +51,7 @@ class srNotificationTableGUI extends ilTable2GUI {
 
 
 	/**
-	 * srNotificationTableGUI constructor
+	 * NotificationsTableGUI constructor
 	 *
 	 * @param ilNotifications4PluginsConfigGUI $a_parent_obj
 	 * @param string                           $a_parent_cmd
@@ -140,7 +139,7 @@ class srNotificationTableGUI extends ilTable2GUI {
 	 */
 	protected function buildData() {
 		$data = array();
-		$notifications = srNotification::get();
+		$notifications = Notification::get();
 		foreach ($notifications as $notification) {
 			$row = array();
 			$row['id'] = $notification->getId();

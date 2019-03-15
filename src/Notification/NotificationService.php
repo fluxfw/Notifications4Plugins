@@ -7,29 +7,29 @@ use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
- * Class srNotificationService
+ * Class NotificationService
  *
  * @package srag\Plugins\Notifications4Plugins\Notification
  *
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
-class srNotificationService {
+class NotificationService {
 
 	use DICTrait;
 	use Notifications4PluginsTrait;
 	const PLUGIN_CLASS_NAME = ilNotifications4PluginsPlugin::class;
 	/**
-	 * @var srNotification
+	 * @var Notification
 	 */
 	protected $notification;
 
 
 	/**
-	 * srNotificationService constructor
+	 * NotificationService constructor
 	 *
-	 * @param srNotification $notification
+	 * @param Notification $notification
 	 */
-	public function __construct(srNotification $notification = null) {
+	public function __construct(Notification $notification = null) {
 		$this->notification = $notification;
 	}
 
@@ -66,7 +66,7 @@ class srNotificationService {
 	 * @param array  $notifications
 	 */
 	protected function createOrUpdate($title, $description, $name, $default_language, array $notifications = array()) {
-		$this->notification = ($this->notification) ? $this->notification : new srNotification();
+		$this->notification = ($this->notification) ? $this->notification : new Notification();
 		$this->notification->setTitle($title);
 		$this->notification->setDefaultLanguage($default_language);
 		$this->notification->setDescription($description);

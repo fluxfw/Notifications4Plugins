@@ -8,13 +8,13 @@ use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
- * Class srNotificationLanguage
+ * Class NotificationLanguage
  *
  * @package srag\Plugins\Notifications4Plugins\Notification
  *
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
-class srNotificationLanguage extends ActiveRecord {
+class NotificationLanguage extends ActiveRecord {
 
 	use DICTrait;
 	use Notifications4PluginsTrait;

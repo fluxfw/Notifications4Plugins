@@ -3,13 +3,13 @@
 namespace srag\Plugins\Notifications4Plugins\Parser;
 
 /**
- * Interface srNotificationParser
+ * Interface Parser
  *
  * @package srag\Plugins\Notifications4Plugins\Parser
  *
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
-interface srNotificationParser {
+interface Parser {
 
 	/**
 	 * @param string $text

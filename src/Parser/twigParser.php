@@ -9,13 +9,13 @@ use Twig_Environment;
 use Twig_Loader_String;
 
 /**
- * Class srNotificationTwigParser
+ * Class twigParser
  *
  * @package srag\Plugins\Notifications4Plugins\Parser
  *
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
-class srNotificationTwigParser implements srNotificationParser {
+class twigParser implements Parser {
 
 	use DICTrait;
 	use Notifications4PluginsTrait;
@@ -29,7 +29,7 @@ class srNotificationTwigParser implements srNotificationParser {
 
 
 	/**
-	 * srNotificationTwigParser constructor
+	 * twigParser constructor
 	 *
 	 * @param array $options
 	 */

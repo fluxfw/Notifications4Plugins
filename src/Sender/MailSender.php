@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\Plugins\Notifications4Plugins\NotificationSender;
+namespace srag\Plugins\Notifications4Plugins\Sender;
 
 use ilMimeMail;
 use ilNotifications4PluginsPlugin;
@@ -8,15 +8,15 @@ use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
- * Class srNotificationMailSender
+ * Class MailSender
  *
  * Sends the notification to an external E-Mail address using the ILIAS mailer class
  *
- * @package srag\Plugins\Notifications4Plugins\NotificationSender
+ * @package srag\Plugins\Notifications4Plugins\Sender
  *
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
-class srNotificationMailSender implements srNotificationSender {
+class MailSender implements Sender {
 
 	use DICTrait;
 	use Notifications4PluginsTrait;
@@ -56,7 +56,7 @@ class srNotificationMailSender implements srNotificationSender {
 
 
 	/**
-	 * srNotificationMailSender constructor
+	 * MailSender constructor
 	 *
 	 * @param string|array $to   E-Mail address or array of addresses
 	 * @param string       $from E-Mail from address. If omitted, the ILIAS setting 'external noreply address' is used

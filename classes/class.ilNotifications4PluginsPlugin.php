@@ -2,8 +2,8 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use srag\Plugins\Notifications4Plugins\Notification\srNotification;
-use srag\Plugins\Notifications4Plugins\Notification\srNotificationLanguage;
+use srag\Plugins\Notifications4Plugins\Notification\Notification;
+use srag\Plugins\Notifications4Plugins\Notification\NotificationLanguage;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 use srag\RemovePluginDataConfirm\Notifications4Plugins\PluginUninstallTrait;
 
@@ -58,7 +58,7 @@ class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 	 * @inheritdoc
 	 */
 	protected function deleteData()/*: void*/ {
-		self::dic()->database()->dropTable(srNotification::TABLE_NAME, false);
-		self::dic()->database()->dropTable(srNotificationLanguage::TABLE_NAME, false);
+		self::dic()->database()->dropTable(Notification::TABLE_NAME, false);
+		self::dic()->database()->dropTable(NotificationLanguage::TABLE_NAME, false);
 	}
 }
