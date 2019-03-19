@@ -3,6 +3,7 @@
 namespace srag\Plugins\Notifications4Plugins\Notification;
 
 use ActiveRecord;
+use arConnector;
 use ilNotifications4PluginsPlugin;
 use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
@@ -43,64 +44,78 @@ class Notification extends ActiveRecord {
 	/**
 	 * @var int
 	 *
-	 * @db_has_field    true
-	 * @db_fieldtype    integer
-	 * @db_length       8
-	 * @db_is_primary   true
-	 * @db_sequence     true
+	 * @con_has_field    true
+	 * @con_fieldtype    integer
+	 * @con_length       8
+	 * @con_is_notnull   true
+	 * @con_is_primary   true
+	 * @con_sequence     true
 	 */
-	protected $id = 0;
+	protected $id;
 	/**
 	 * @var string
 	 *
-	 * @db_has_field    true
-	 * @db_fieldtype    timestamp
+	 * @con_has_field    true
+	 * @con_fieldtype    timestamp
 	 */
 	protected $created_at;
 	/**
 	 * @var string
 	 *
-	 * @db_has_field    true
-	 * @db_fieldtype    timestamp
+	 * @con_has_field    true
+	 * @con_fieldtype    timestamp
 	 */
 	protected $updated_at;
 	/**
 	 * @var string
 	 *
-	 * @db_has_field    true
-	 * @db_fieldtype    text
-	 * @db_length       1024
+	 * @con_has_field    true
+	 * @con_fieldtype    text
+	 * @con_length       1024
 	 */
-	protected $title;
+	protected $title = "";
 	/**
 	 * @var string
 	 *
-	 * @db_has_field    true
-	 * @db_fieldtype    text
-	 * @db_is_unique    true
-	 * @db_length       1024
+	 * @con_has_field    true
+	 * @con_fieldtype    text
+	 * @con_is_unique    true
+	 * @con_length       1024
 	 */
-	protected $name;
+	protected $name = "";
 	/**
 	 * @var string
 	 *
-	 * @db_has_field    true
-	 * @db_fieldtype    text
-	 * @db_length       4000
+	 * @con_has_field    true
+	 * @con_fieldtype    text
+	 * @con_length       4000
 	 */
-	protected $description;
+	protected $description = "";
 	/**
 	 * @var string
 	 *
-	 * @db_has_field    true
-	 * @db_fieldtype    text
-	 * @db_length       2
+	 * @con_has_field    true
+	 * @con_fieldtype    text
+	 * @con_length       2
 	 */
-	protected $default_language;
+	protected $default_language = "";
 	/**
 	 * @var array
 	 */
-	protected $notification_languages;
+	protected $notification_languages = array();
+
+
+	/**
+	 * Notification constructor
+	 *
+	 * @param int              $primary_key_value
+	 * @param arConnector|null $connector
+	 */
+	public function __construct(/*int*/
+		$primary_key_value = 0, /*?*/
+		arConnector $connector = null) {
+		parent::__construct($primary_key_value, $connector);
+	}
 
 
 	/**
