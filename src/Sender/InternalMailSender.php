@@ -72,7 +72,7 @@ class InternalMailSender implements Sender {
 	 * @param int|string|ilObjUser $user_from Should be the user-ID from the sender, you can also pass the login
 	 * @param int|string|ilObjUser $user_to   Should be the login of the receiver, you can also pass a user-ID
 	 */
-	public function __construct($user_from = 0, $user_to = '') {
+	public function __construct($user_from = 0, $user_to = "") {
 		if ($user_from) {
 			$this->setUserFrom($user_from);
 		}

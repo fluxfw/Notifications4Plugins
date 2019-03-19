@@ -61,7 +61,8 @@ class ExternalMailSender implements Sender {
 	 * @param string|array $to   E-Mail address or array of addresses
 	 * @param string       $from E-Mail from address. If omitted, the ILIAS setting 'external noreply address' is used
 	 */
-	public function __construct($to = '', $from = '') {
+	public function __construct($to = "", /*string*/
+		$from = "") {
 		$this->to = $to;
 		$this->from = $from;
 		$this->mailer = new ilMimeMail();
