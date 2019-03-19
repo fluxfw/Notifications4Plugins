@@ -92,6 +92,7 @@ class vcalendarSender implements Sender {
 	 * @param string|array         $to        E-Mail address or array of addresses
 	 * @param int|string|ilObjUser $user_from Should be the user-ID from the sender, you can also pass the login
 	 * @param string               $method
+	 * @param string               $uid
 	 * @param int                  $startTime Timestamp
 	 * @param int                  $endTime   Timestamp
 	 * @param int                  $sequence

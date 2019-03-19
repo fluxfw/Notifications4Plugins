@@ -18,7 +18,7 @@ trait Notifications4PluginsTrait {
 	/**
 	 * @return NotificationRepository
 	 */
-	protected static function notification() {
+	protected static function notification()/*: NotificationRepository*/ {
 		return NotificationRepository::getInstance();
 	}
 
@@ -26,7 +26,7 @@ trait Notifications4PluginsTrait {
 	/**
 	 * @return ParserRepository
 	 */
-	protected static function parser() {
+	protected static function parser()/*: ParserRepository*/ {
 		return ParserRepository::getInstance();
 	}
 
@@ -34,7 +34,7 @@ trait Notifications4PluginsTrait {
 	/**
 	 * @return SenderRepository
 	 */
-	protected static function sender() {
+	protected static function sender()/*: SenderRepository*/ {
 		return SenderRepository::getInstance();
 	}
 }

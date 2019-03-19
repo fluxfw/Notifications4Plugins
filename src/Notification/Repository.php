@@ -27,7 +27,7 @@ final class Repository {
 	/**
 	 * @return self
 	 */
-	public static function getInstance() {
+	public static function getInstance()/*: self*/ {
 		if (self::$instance === null) {
 			self::$instance = new self();
 		}
@@ -47,7 +47,7 @@ final class Repository {
 	/**
 	 * @param Notification $notification
 	 */
-	public function deleteNotification(Notification $notification) {
+	public function deleteNotification(Notification $notification)/*: void*/ {
 		$notification->delete();
 
 		foreach ($notification->getNotificationLanguages() as $language) {
@@ -59,7 +59,7 @@ final class Repository {
 	/**
 	 * @return Factory
 	 */
-	public function factory() {
+	public function factory()/*: Factory*/ {
 		return Factory::getInstance();
 	}
 
@@ -67,7 +67,7 @@ final class Repository {
 	/**
 	 * @return array
 	 */
-	public function getArrayForSelection() {
+	public function getArrayForSelection()/*: array*/ {
 		$notifications = $this->getNotifications();
 
 		$array = array();
@@ -83,19 +83,19 @@ final class Repository {
 	/**
 	 * @return array
 	 */
-	public function getArrayForTable() {
+	public function getArrayForTable()/*: array*/ {
 		$data = array();
 
 		$notifications = $this->getNotifications();
 
 		foreach ($notifications as $notification) {
 			$row = array();
-			$row['id'] = $notification->getId();
-			$row['title'] = $notification->getTitle();
-			$row['name'] = $notification->getName();
-			$row['description'] = $notification->getDescription();
-			$row['default_language'] = $notification->getDefaultLanguage();
-			$row['languages'] = implode(', ', $notification->getLanguages());
+			$row["id"] = $notification->getId();
+			$row["title"] = $notification->getTitle();
+			$row["name"] = $notification->getName();
+			$row["description"] = $notification->getDescription();
+			$row["default_language"] = $notification->getDefaultLanguage();
+			$row["languages"] = implode(", ", $notification->getLanguages());
 			$data[] = $row;
 		}
 
@@ -108,12 +108,13 @@ final class Repository {
 	 *
 	 * @return Notification|null
 	 */
-	public function getNotificationById($id) {
+	public function getNotificationById(/*int*/
+		$id)/*: ?Notification*/ {
 		/**
 		 * @var Notification|null $notification
 		 */
 
-		$notification = Notification::where(array( 'id' => $id ))->first();
+		$notification = Notification::where(array( "id" => $id ))->first();
 
 		return $notification;
 	}
@@ -124,12 +125,13 @@ final class Repository {
 	 *
 	 * @return Notification|null
 	 */
-	public function getNotificationByName($name) {
+	public function getNotificationByName(/*string*/
+		$name)/*: ?Notification*/ {
 		/**
 		 * @var Notification|null $notification
 		 */
 
-		$notification = Notification::where(array( 'name' => $name ))->first();
+		$notification = Notification::where(array( "name" => $name ))->first();
 
 		return $notification;
 	}
@@ -138,7 +140,7 @@ final class Repository {
 	/**
 	 * @return Notification[]
 	 */
-	public function getNotifications() {
+	public function getNotifications()/*: array*/ {
 		/**
 		 * @var Notification[] $notifications
 		 */
@@ -152,8 +154,8 @@ final class Repository {
 	/**
 	 * @param Notification $notification
 	 */
-	public function storeInstance(Notification $notification) {
-		$date = date('Y-m-d H:i:s');
+	public function storeInstance(Notification $notification)/*: void*/ {
+		$date = date("Y-m-d H:i:s");
 
 		if (empty($notification->getId())) {
 			$notification->setCreatedAt($date);

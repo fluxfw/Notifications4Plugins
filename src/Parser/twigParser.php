@@ -41,7 +41,8 @@ class twigParser implements Parser {
 	/**
 	 * @inheritdoc
 	 */
-	public function parse($text, array $replacements = array()) {
+	public function parse(/*string*/
+		$text, array $replacements = array())/*: string*/ {
 		$loader = new Twig_Loader_String();
 		$twig = new Twig_Environment($loader, $this->options);
 

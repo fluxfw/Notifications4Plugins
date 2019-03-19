@@ -28,7 +28,7 @@ final class Repository {
 	/**
 	 * @return self
 	 */
-	public static function getInstance() {
+	public static function getInstance()/*: self*/ {
 		if (self::$instance === null) {
 			self::$instance = new self();
 		}
@@ -48,7 +48,7 @@ final class Repository {
 	/**
 	 * @return Factory
 	 */
-	public function factory() {
+	public function factory()/*: Factory*/ {
 		return Factory::getInstance();
 	}
 
@@ -61,7 +61,8 @@ final class Repository {
 	 *
 	 * @return bool
 	 */
-	public function send(Sender $sender, Notification $notification, array $replacements = array(), $language = '') {
+	public function send(Sender $sender, Notification $notification, array $replacements = array(), /*string*/
+		$language = "")/*: bool*/ {
 		$parser = self::parser()->getParserForNotification($notification);
 
 		$sender->setSubject(self::parser()->parseSubject($parser, $notification, $replacements, $language));

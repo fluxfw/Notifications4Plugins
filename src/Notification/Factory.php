@@ -27,7 +27,7 @@ final class Factory {
 	/**
 	 * @return self
 	 */
-	public static function getInstance() {
+	public static function getInstance()/*: self*/ {
 		if (self::$instance === null) {
 			self::$instance = new self();
 		}
@@ -47,7 +47,7 @@ final class Factory {
 	/**
 	 * @return Notification
 	 */
-	public function newInstance() {
+	public function newInstance()/*: Notification*/ {
 		$notification = new Notification();
 
 		return $notification;
