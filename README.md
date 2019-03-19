@@ -22,7 +22,7 @@ require_once __DIR__ . "/../../Notifications4Plugins/vendor/autoload.php";
 ...
 ```
 
-Your class in this you want to use Notifications4Plugins needs to use the Trait `Notifications4PluginsTrait`
+Your class in this you want to use Notifications4Plugins needs to use the trait `Notifications4PluginsTrait`
 ```php
 ...
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
