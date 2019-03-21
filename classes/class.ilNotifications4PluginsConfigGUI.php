@@ -58,7 +58,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 			case self::CMD_DELETE:
 			case self::CMD_CONFIRM_DELETE:
 			case self::CMD_ADD:
-				$this->$cmd();
+				$this->{$cmd}();
 				break;
 		}
 	}
