@@ -36,14 +36,7 @@
       "srag\\Plugins\\Notifications4Plugins\\": "src/"
     },
     "classmap": [
-      "./classes/",
-      "../../../../../../../Services/UIComponent",
-      "../../../../../../../Services/Component",
-      "../../../../../../../Services/Utilities",
-      "../../../../../../../Services/ActiveRecord",
-      "../../../../../../../Services/Table",
-      "../../../../../../../Services/Form",
-      "../../../../../../../Services/Mail"
+      "classes/"
     ]
   },
   "scripts": {
