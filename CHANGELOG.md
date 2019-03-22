@@ -1,7 +1,6 @@
 # Changelog
 
 ## [3.0.2]
-- Fix languages GUI not show stored languages
 - Fix destroy HTML on body text
 - Using some new ILIAS 5.3 UI's
 
