@@ -3,6 +3,7 @@
 ## [3.0.2]
 - Fix languages GUI not show stored languages
 - Fix destroy HTML on body text
+- Using some new ILIAS 5.3 UI's
 
 ## [3.0.1]
 - New development interface
