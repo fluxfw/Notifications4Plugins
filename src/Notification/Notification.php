@@ -100,9 +100,9 @@ class Notification extends ActiveRecord {
 	 */
 	protected $default_language = "";
 	/**
-	 * @var array
+	 * @var array|null
 	 */
-	protected $notification_languages = array();
+	protected $notification_languages = null;
 
 
 	/**
