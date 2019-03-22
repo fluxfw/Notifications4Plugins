@@ -115,22 +115,24 @@ class NotificationsTableGUI extends ilTable2GUI {
 	 * @param array $a_set
 	 */
 	protected function fillRow($a_set) {
+		$this->tpl->setCurrentBlock('td');
+
 		foreach ($this->columns as $col) {
 			if ($this->isColumnSelected($col)) {
-				$this->tpl->setCurrentBlock('td');
 				$this->tpl->setVariable('VALUE', $this->getFormattedValue($a_set[$col], $col));
+
 				$this->tpl->parseCurrentBlock();
 			}
 		}
 
 		self::dic()->ctrl()->setParameterByClass(ilNotifications4PluginsConfigGUI::class, 'notification_id', $a_set['id']);
-		$edit = self::dic()->ctrl()->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_EDIT);
-		$delete = self::dic()->ctrl()
-			->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_CONFIRM_DELETE);
-		$this->tpl->setCurrentBlock('td');
-		$this->tpl->setVariable('VALUE', "<a href='{$edit}'>" . self::plugin()->translate('edit') . "</a> / <a href='{$delete}'>" . self::plugin()
-				->translate('delete') . "</a>");
-		$this->tpl->parseCurrentBlock();
+
+		$this->tpl->setVariable("VALUE", self::output()->getHTML(self::dic()->ui()->factory()->dropdown()->standard([
+			self::dic()->ui()->factory()->button()->shy(self::plugin()->translate('edit'), self::dic()->ctrl()
+				->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_EDIT)),
+			self::dic()->ui()->factory()->button()->shy(self::plugin()->translate('delete'), self::dic()->ctrl()
+				->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_CONFIRM_DELETE))
+		])->withLabel((self::plugin()->translate("actions")))));
 	}
 
 

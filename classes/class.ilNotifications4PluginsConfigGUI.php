@@ -5,7 +5,6 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Plugins\Notifications4Plugins\Notification\Notification;
 use srag\Plugins\Notifications4Plugins\Notification\NotificationFormGUI;
-use srag\Plugins\Notifications4Plugins\Notification\NotificationService;
 use srag\Plugins\Notifications4Plugins\Notification\NotificationsTableGUI;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
@@ -58,7 +57,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 			case self::CMD_DELETE:
 			case self::CMD_CONFIRM_DELETE:
 			case self::CMD_ADD:
-				$this->$cmd();
+				$this->{$cmd}();
 				break;
 		}
 	}
@@ -186,7 +185,8 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 		if ($form->getInput('language')) {
 			$new = array();
 			$new['subject'] = $form->getInput('subject_');
-			$new['text'] = $form->getInput('text_');
+			//$new['text'] = $form->getInput('text_');
+			$new['text'] = filter_input(INPUT_POST, 'text_');
 			$new['language'] = $form->getInput('language');
 			$data[] = $new;
 		}
@@ -196,7 +196,8 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 			foreach ($notification->getLanguages() as $language) {
 				$update = array();
 				$update['subject'] = $form->getInput('subject_' . $language);
-				$update['text'] = $form->getInput('text_' . $language);
+				//$update['text'] = $form->getInput('text_' . $language);
+				$update['text'] = filter_input(INPUT_POST, 'text_' . $language);
 				$update['language'] = $language;
 				$data[] = $update;
 			}

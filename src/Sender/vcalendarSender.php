@@ -92,11 +92,17 @@ class vcalendarSender implements Sender {
 	 * @param string|array         $to        E-Mail address or array of addresses
 	 * @param int|string|ilObjUser $user_from Should be the user-ID from the sender, you can also pass the login
 	 * @param string               $method
+	 * @param string               $uid
 	 * @param int                  $startTime Timestamp
 	 * @param int                  $endTime   Timestamp
 	 * @param int                  $sequence
 	 */
-	public function __construct($to = '', $user_from = 0, $method = self::METHOD_REQUEST, $uid = '', $startTime = 0, $endTime = 0, $sequence = 0) {
+	public function __construct($to = "", $user_from = 0, /*string*/
+		$method = self::METHOD_REQUEST, /*string*/
+		$uid = "", /*int*/
+		$startTime = 0, /*int*/
+		$endTime = 0, /*int*/
+		$sequence = 0) {
 
 		$this->to = $to;
 

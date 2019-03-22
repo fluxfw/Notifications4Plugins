@@ -17,5 +17,7 @@ interface Parser {
 	 *
 	 * @return string
 	 */
-	public function parse($text, array $replacements = array());
+	public function parse(/*string*/
+		$text, array $replacements = array())/*: string*/
+	;
 }

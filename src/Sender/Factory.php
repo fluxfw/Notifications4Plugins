@@ -28,7 +28,7 @@ final class Factory {
 	/**
 	 * @return self
 	 */
-	public static function getInstance() {
+	public static function getInstance()/*: self*/ {
 		if (self::$instance === null) {
 			self::$instance = new self();
 		}
@@ -51,7 +51,8 @@ final class Factory {
 	 *
 	 * @return ExternalMailSender
 	 */
-	public function externalMail($to = '', $from = '') {
+	public function externalMail($to = "", /*string*/
+		$from = "")/*: ExternalMailSender*/ {
 		return new ExternalMailSender($to, $from);
 	}
 
@@ -62,7 +63,7 @@ final class Factory {
 	 *
 	 * @return InternalMailSender
 	 */
-	public function internalMail($user_from = 0, $user_to = '') {
+	public function internalMail($user_from = 0, $user_to = "")/*: InternalMailSender*/ {
 		return new InternalMailSender($user_from, $user_to);
 	}
 
@@ -71,13 +72,19 @@ final class Factory {
 	 * @param string|array         $to
 	 * @param int|string|ilObjUser $user_from
 	 * @param string               $method
+	 * @param string               $uid
 	 * @param int                  $startTime
 	 * @param int                  $endTime
 	 * @param int                  $sequence
 	 *
 	 * @return vcalendarSender
 	 */
-	public function vcalendar($to = '', $user_from = 0, $method = vcalendarSender::METHOD_REQUEST, $uid = '', $startTime = 0, $endTime = 0, $sequence = 0) {
+	public function vcalendar($to = "", $user_from = 0, /*string*/
+		$method = vcalendarSender::METHOD_REQUEST, /*string*/
+		$uid = "", /*int*/
+		$startTime = 0, /*int*/
+		$endTime = 0, /*int*/
+		$sequence = 0)/*: vcalendarSender*/ {
 		return new vcalendarSender($to, $user_from, $method, $uid, $startTime, $endTime, $sequence);
 	}
 }
