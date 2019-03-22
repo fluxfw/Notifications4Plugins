@@ -185,7 +185,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 		if ($form->getInput('language')) {
 			$new = array();
 			$new['subject'] = $form->getInput('subject_');
-			$new['text'] = $form->getInput('text_');
+			$new['text'] = filter_input(INPUT_POST, 'text_');
 			$new['language'] = $form->getInput('language');
 			$data[] = $new;
 		}
@@ -195,7 +195,7 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 			foreach ($notification->getLanguages() as $language) {
 				$update = array();
 				$update['subject'] = $form->getInput('subject_' . $language);
-				$update['text'] = $form->getInput('text_' . $language);
+				$update['text'] = filter_input(INPUT_POST, 'text_' . $language);
 				$update['language'] = $language;
 				$data[] = $update;
 			}

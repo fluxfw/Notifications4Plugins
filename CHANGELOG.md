@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.0.2]
+- Fix languages GUI not show stored languages
+- Fix destroy HTML on body text
+
 ## [3.0.1]
 - New development interface
 
