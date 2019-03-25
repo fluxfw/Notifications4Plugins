@@ -145,7 +145,7 @@ final class Repository {
 		 * @var Notification[] $notifications
 		 */
 
-		$notifications = Notification::get();
+		$notifications = Notification::orderBy("title", "ASC")->get();
 
 		return $notifications;
 	}
@@ -168,5 +168,13 @@ final class Repository {
 		foreach ($notification->getNotificationLanguages() as $language) {
 			$language->store();
 		}
+	}
+
+
+	/**
+	 * @return UI
+	 */
+	public function ui()/*: UI*/ {
+		return UI::getInstance();
 	}
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## [x]
+- Sort notifications
+- Template selection UI
+- Notifications4PluginsException
+- ExternalMailSender: First $from then $to
+
 ## [3.0.2]
 - Fix destroy HTML on body text
 - Using some new ILIAS 5.3 UI's

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . "/../vendor/autoload.php";
 
 use srag\Plugins\Notifications4Plugins\Notification\Notification;
 use srag\Plugins\Notifications4Plugins\Notification\NotificationLanguage;

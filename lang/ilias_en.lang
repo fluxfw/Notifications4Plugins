@@ -21,6 +21,8 @@ delete_confirm#:#Are you sure you want to delete the Notification?
 deleted_notification#:#Deleted Notification
 edit#:#Edit
 id#:#ID
+template_selection#:#%1$s template
+template_selection_info#:#Following placeholders can be used in the %1$s template. Below, its data type is displayed. How to use them in %1$s, please refer to its documentation
 removeplugindataconfirm_cancel#:#Cancel
 removeplugindataconfirm_confirm_remove_data#:#Do you want to remove the %1$s data as well? At most, you just want to disable the %1$s plugin?
 removeplugindataconfirm_deactivate#:#Just deactivate %1$s plugin

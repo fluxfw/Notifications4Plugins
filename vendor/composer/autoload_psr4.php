@@ -10,4 +10,5 @@ return array(
     'srag\\Plugins\\Notifications4Plugins\\' => array($baseDir . '/src'),
     'srag\\LibrariesNamespaceChanger\\' => array($vendorDir . '/srag/librariesnamespacechanger/src'),
     'srag\\DIC\\Notifications4Plugins\\' => array($vendorDir . '/srag/dic/src'),
+    'srag\\CustomInputGUIs\\Notifications4Plugins\\' => array($vendorDir . '/srag/custominputguis/src'),
 );

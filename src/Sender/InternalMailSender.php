@@ -3,6 +3,7 @@
 namespace srag\Plugins\Notifications4Plugins\Sender;
 
 use ilMail;
+use ilMailError;
 use ilNotifications4PluginsPlugin;
 use ilObjUser;
 use srag\DIC\Notifications4Plugins\DICTrait;
@@ -84,14 +85,20 @@ class InternalMailSender implements Sender {
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @throws ilMailError
 	 */
-	public function send() {
+	public function send()/*: void*/ {
 		$this->mailer = new ilMail($this->getUserFrom());
+
 		$this->mailer->setSaveInSentbox($this->isSaveInSentBox());
 
-		// Inverted logic: sendMail returns an empty string on success and a error message otherwise ;)
-		return !$this->mailer->sendMail($this->getUserTo(), $this->getCc(), $this->getBcc(), $this->getSubject(), $this->getMessage(), array(), // No attachments supported atm
-			array( 'normal' ));
+		$errors = $this->mailer->sendMail($this->getUserTo(), $this->getCc(), $this->getBcc(), $this->getSubject(), $this->getMessage(), array(), array( 'normal' ));
+
+		if (count($errors) > 0) {
+			// Throw first exception
+			throw $errors[0];
+		}
 	}
 
 
@@ -267,7 +274,7 @@ class InternalMailSender implements Sender {
 				$user_from = ilObjUser::_lookupId($user_from);
 			}
 		}
-		$this->user_from = (int)$user_from;
+		$this->user_from = intval($user_from);
 
 		return $this;
 	}

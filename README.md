@@ -57,7 +57,7 @@ $notifications = self::notification()->getNotifications();
 ### Send a notification
 ```php
 // Send the notification as external mail
-$sender = self::sender()->factory()->externalMail('to_email', 'from_email');
+$sender = self::sender()->factory()->externalMail('from_email', 'to_email');
 
 // Send the notification as internal mail
 $sender = self::sender()->factory()->internalMail('from_user', 'to_user');
@@ -121,6 +121,14 @@ $subject = self::parser()->parseSubject($parser, $notification, $placeholders);
 $text = self::parser()->parseText($parser, $notification, $placeholders);
 ```
 
+### UI
+// Template selection
+self::notification()->ui()->templateSelection('post_key', array(
+  'user' => 'object ' . ilObjUser::class,
+  'course' => 'object ' . ilObjCourse::class,
+  'id' => 'int'
+));
+
 ### Some screenshots
 TODO
 
@@ -128,6 +136,7 @@ TODO
 * ILIAS 5.3 or ILIAS 5.4
 * PHP >=5.6
 * [composer](https://getcomposer.org)
+* [srag/custominputguis](https://packagist.org/packages/srag/custominputguis)
 * [srag/dic](https://packagist.org/packages/srag/dic)
 * [srag/librariesnamespacechanger](https://packagist.org/packages/srag/librariesnamespacechanger)
 * [srag/removeplugindataconfirm](https://packagist.org/packages/srag/removeplugindataconfirm)

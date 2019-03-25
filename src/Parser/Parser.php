@@ -2,6 +2,8 @@
 
 namespace srag\Plugins\Notifications4Plugins\Parser;
 
+use srag\Notifications4Plugins\Exception\Notifications4PluginsException;
+
 /**
  * Interface Parser
  *
@@ -13,11 +15,13 @@ interface Parser {
 
 	/**
 	 * @param string $text
-	 * @param array  $replacements
+	 * @param array  $placeholders
 	 *
 	 * @return string
+	 *
+	 * @throws Notifications4PluginsException
 	 */
 	public function parse(/*string*/
-		$text, array $replacements = array())/*: string*/
+		$text, array $placeholders = array())/*: string*/
 	;
 }

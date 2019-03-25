@@ -46,14 +46,14 @@ final class Factory {
 
 
 	/**
-	 * @param string|array $to
 	 * @param string       $from
+	 * @param string|array $to
 	 *
 	 * @return ExternalMailSender
 	 */
-	public function externalMail($to = "", /*string*/
-		$from = "")/*: ExternalMailSender*/ {
-		return new ExternalMailSender($to, $from);
+	public function externalMail(/*string*/
+		$from = "", $to = "")/*: ExternalMailSender*/ {
+		return new ExternalMailSender($from, $to);
 	}
 
 
@@ -69,8 +69,8 @@ final class Factory {
 
 
 	/**
-	 * @param string|array         $to
 	 * @param int|string|ilObjUser $user_from
+	 * @param string|array         $to
 	 * @param string               $method
 	 * @param string               $uid
 	 * @param int                  $startTime
@@ -79,12 +79,12 @@ final class Factory {
 	 *
 	 * @return vcalendarSender
 	 */
-	public function vcalendar($to = "", $user_from = 0, /*string*/
+	public function vcalendar($user_from = 0, $to = "",  /*string*/
 		$method = vcalendarSender::METHOD_REQUEST, /*string*/
 		$uid = "", /*int*/
 		$startTime = 0, /*int*/
 		$endTime = 0, /*int*/
 		$sequence = 0)/*: vcalendarSender*/ {
-		return new vcalendarSender($to, $user_from, $method, $uid, $startTime, $endTime, $sequence);
+		return new vcalendarSender($user_from, $to, $method, $uid, $startTime, $endTime, $sequence);
 	}
 }

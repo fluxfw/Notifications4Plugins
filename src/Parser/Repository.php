@@ -4,6 +4,7 @@ namespace srag\Plugins\Notifications4Plugins\Parser;
 
 use ilNotifications4PluginsPlugin;
 use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Notifications4Plugins\Exception\Notifications4PluginsException;
 use srag\Plugins\Notifications4Plugins\Notification\Notification;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
@@ -67,27 +68,31 @@ final class Repository {
 	/**
 	 * @param Parser       $parser
 	 * @param Notification $notification
-	 * @param array        $replacements
+	 * @param array        $placeholders
 	 * @param string       $language
 	 *
 	 * @return string
+	 *
+	 * @throws Notifications4PluginsException
 	 */
-	public function parseSubject(Parser $parser, Notification $notification, array $replacements = array(),/*string*/
+	public function parseSubject(Parser $parser, Notification $notification, array $placeholders = array(),/*string*/
 		$language = "")/*: string*/ {
-		return $parser->parse($notification->getSubject($language), $replacements);
+		return $parser->parse($notification->getSubject($language), $placeholders);
 	}
 
 
 	/**
 	 * @param Parser       $parser
 	 * @param Notification $notification
-	 * @param array        $replacements
+	 * @param array        $placeholders
 	 * @param string       $language
 	 *
 	 * @return string
+	 *
+	 * @throws Notifications4PluginsException
 	 */
-	public function parseText(Parser $parser, Notification $notification, array $replacements = array(),/*string*/
+	public function parseText(Parser $parser, Notification $notification, array $placeholders = array(),/*string*/
 		$language = "")/*: string*/ {
-		return $parser->parse($notification->getText($language), $replacements);
+		return $parser->parse($notification->getText($language), $placeholders);
 	}
 }

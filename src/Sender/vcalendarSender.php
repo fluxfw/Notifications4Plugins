@@ -8,6 +8,7 @@ use ilMimeMail;
 use ilNotifications4PluginsPlugin;
 use ilObjUser;
 use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Notifications4Plugins\Exception\Notifications4PluginsException;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
@@ -43,15 +44,15 @@ class vcalendarSender implements Sender {
 	 */
 	protected $mailer;
 	/**
-	 * @var string|array
-	 */
-	protected $to;
-	/**
 	 * User-ID or login of sender
 	 *
 	 * @var int|string
 	 */
 	protected $user_from = 0;
+	/**
+	 * @var string|array
+	 */
+	protected $to;
 	/**
 	 * @var string
 	 */
@@ -89,26 +90,26 @@ class vcalendarSender implements Sender {
 	/**
 	 * vcalendarSender constructor
 	 *
-	 * @param string|array         $to        E-Mail address or array of addresses
 	 * @param int|string|ilObjUser $user_from Should be the user-ID from the sender, you can also pass the login
+	 * @param string|array         $to        E-Mail address or array of addresses
 	 * @param string               $method
 	 * @param string               $uid
 	 * @param int                  $startTime Timestamp
 	 * @param int                  $endTime   Timestamp
 	 * @param int                  $sequence
 	 */
-	public function __construct($to = "", $user_from = 0, /*string*/
+	public function __construct($user_from = 0, $to = "",  /*string*/
 		$method = self::METHOD_REQUEST, /*string*/
 		$uid = "", /*int*/
 		$startTime = 0, /*int*/
 		$endTime = 0, /*int*/
 		$sequence = 0) {
 
-		$this->to = $to;
-
 		if ($user_from) {
 			$this->setUserFrom($user_from);
 		}
+
+		$this->to = $to;
 
 		$this->method = $method;
 		$this->uid = $uid;
@@ -121,7 +122,7 @@ class vcalendarSender implements Sender {
 	/**
 	 * @inheritdoc
 	 */
-	public function send() {
+	public function send()/*: void*/ {
 		$this->mailer = new ilMail($this->getUserFrom());
 
 		$mbox = new ilMailbox($this->getUserFrom());
@@ -141,11 +142,14 @@ class vcalendarSender implements Sender {
 		$headers .= "Content-Type: multipart/alternative; boundary=\"$mime_boundary\"\n";
 		$headers .= "Content-class: urn:content-classes:calendarmessage\n";
 
-		if (!(int)self::dic()->settings()->get('prevent_smtp_globally')) {
-			$mailsent = mail($this->to, $this->subject, $this->getIcalEvent($mime_boundary), $headers);
+		$result = false;
+		if (!intval(self::dic()->settings()->get('prevent_smtp_globally'))) {
+			$result = mail($this->to, $this->subject, $this->getIcalEvent($mime_boundary), $headers);
 		}
 
-		return ($mailsent) ? (true) : (false);
+		if (!$result) {
+			throw new Notifications4PluginsException("Mailer not returns true");
+		}
 	}
 
 
@@ -275,7 +279,7 @@ class vcalendarSender implements Sender {
 				$user_from = ilObjUser::_lookupId($user_from);
 			}
 		}
-		$this->user_from = (int)$user_from;
+		$this->user_from = intval($user_from);
 
 		return $this;
 	}

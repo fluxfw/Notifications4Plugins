@@ -4,6 +4,7 @@ namespace srag\Plugins\Notifications4Plugins\Sender;
 
 use ilNotifications4PluginsPlugin;
 use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Notifications4Plugins\Exception\Notifications4PluginsException;
 use srag\Plugins\Notifications4Plugins\Notification\Notification;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
@@ -56,19 +57,19 @@ final class Repository {
 	/**
 	 * @param Sender       $sender   A concrete srNotificationSender object, e.g. srNotificationMailSender
 	 * @param Notification $notification
+	 * @param array        $placeholders
 	 * @param string       $language Omit to choose the default language
-	 * @param array        $replacements
 	 *
-	 * @return bool
+	 * @throws Notifications4PluginsException
 	 */
-	public function send(Sender $sender, Notification $notification, array $replacements = array(), /*string*/
-		$language = "")/*: bool*/ {
+	public function send(Sender $sender, Notification $notification, array $placeholders = array(), /*string*/
+		$language = "")/*: void*/ {
 		$parser = self::parser()->getParserForNotification($notification);
 
-		$sender->setSubject(self::parser()->parseSubject($parser, $notification, $replacements, $language));
+		$sender->setSubject(self::parser()->parseSubject($parser, $notification, $placeholders, $language));
 
-		$sender->setMessage(self::parser()->parseText($parser, $notification, $replacements, $language));
+		$sender->setMessage(self::parser()->parseText($parser, $notification, $placeholders, $language));
 
-		return $sender->send();
+		$sender->send();
 	}
 }
