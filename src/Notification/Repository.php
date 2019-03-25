@@ -57,6 +57,16 @@ final class Repository {
 
 
 	/**
+	 * @param array $placeholders
+	 *
+	 * @return string
+	 */
+	public function describePlaceholders(array $placeholders)/*: string*/ {
+		return self::output()->getHTML(self::dic()->ui()->factory()->listing()->descriptive($placeholders));
+	}
+
+
+	/**
 	 * @return Factory
 	 */
 	public function factory()/*: Factory*/ {

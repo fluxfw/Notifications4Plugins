@@ -52,6 +52,12 @@ $notifications = self::notification()->getArrayForTable();
 
 // Get the notifications
 $notifications = self::notification()->getNotifications();
+
+// Describe placeholders
+self::notification()->describePlaceholders(array(
+  'user' => "object " . ilObjUser::class,
+  'course' => "object " . ilObjCourse::class
+));
 ```
 
 ### Send a notification

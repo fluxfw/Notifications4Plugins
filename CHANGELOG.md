@@ -2,6 +2,7 @@
 
 ## [x]
 - Sort notifications
+- describePlaceholders
 
 ## [3.0.2]
 - Fix destroy HTML on body text
