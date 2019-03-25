@@ -55,8 +55,9 @@ $notifications = self::notification()->getNotifications();
 
 // Describe placeholders
 self::notification()->describePlaceholders(array(
-  'user' => "object " . ilObjUser::class,
-  'course' => "object " . ilObjCourse::class
+  'user' => 'object ' . ilObjUser::class,
+  'course' => 'object ' . ilObjCourse::class,
+  'id' => 'int'
 ));
 ```
 
