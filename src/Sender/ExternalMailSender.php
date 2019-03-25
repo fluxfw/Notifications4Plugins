@@ -90,7 +90,7 @@ class ExternalMailSender implements Sender {
 		$sent = $this->mailer->Send();
 
 		if (!$sent) {
-			throw new Notifications4PluginsException("Mailer returns not true");
+			throw new Notifications4PluginsException("Mailer not returns true");
 		}
 	}
 

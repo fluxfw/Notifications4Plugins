@@ -148,7 +148,7 @@ class vcalendarSender implements Sender {
 		}
 
 		if (!$result) {
-			throw new Notifications4PluginsException("Mailer returns not true");
+			throw new Notifications4PluginsException("Mailer not returns true");
 		}
 	}
 
