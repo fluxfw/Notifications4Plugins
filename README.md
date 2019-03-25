@@ -57,7 +57,7 @@ $notifications = self::notification()->getNotifications();
 ### Send a notification
 ```php
 // Send the notification as external mail
-$sender = self::sender()->factory()->externalMail('to_email', 'from_email');
+$sender = self::sender()->factory()->externalMail('from_email', 'to_email');
 
 // Send the notification as internal mail
 $sender = self::sender()->factory()->internalMail('from_user', 'to_user');

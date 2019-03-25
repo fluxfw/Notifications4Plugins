@@ -31,13 +31,13 @@ class ExternalMailSender implements Sender {
 	 */
 	protected $subject = '';
 	/**
-	 * @var string|array
-	 */
-	protected $to;
-	/**
 	 * @var string
 	 */
 	protected $from = '';
+	/**
+	 * @var string|array
+	 */
+	protected $to;
 	/**
 	 * @var ilMimeMail
 	 */
@@ -59,13 +59,13 @@ class ExternalMailSender implements Sender {
 	/**
 	 * MailSender constructor
 	 *
-	 * @param string|array $to   E-Mail address or array of addresses
 	 * @param string       $from E-Mail from address. If omitted, the ILIAS setting 'external noreply address' is used
+	 * @param string|array $to   E-Mail address or array of addresses
 	 */
-	public function __construct($to = "", /*string*/
-		$from = "") {
-		$this->to = $to;
+	public function __construct( /*string*/
+		$from = "", $to = "") {
 		$this->from = $from;
+		$this->to = $to;
 		$this->mailer = new ilMimeMail();
 	}
 
@@ -74,15 +74,18 @@ class ExternalMailSender implements Sender {
 	 * @inheritdoc
 	 */
 	public function send()/*: void*/ {
-		$this->mailer->To($this->to);
 		$from = ($this->from) ? $this->from : self::dic()->ilias()->getSetting('mail_external_sender_noreply');
-
 		$this->mailer->From(self::dic()->mailMimeSenderFactory()->userByEmailAddress($from));
+
+		$this->mailer->To($this->to);
 
 		$this->mailer->Cc($this->cc);
 		$this->mailer->Bcc($this->bcc);
+
 		$this->mailer->Subject($this->subject);
+
 		$this->mailer->Body($this->message);
+
 		foreach ($this->attachments as $attachment) {
 			$this->mailer->Attach($attachment);
 		}
