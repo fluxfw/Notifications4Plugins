@@ -122,7 +122,7 @@ class vcalendarSender implements Sender {
 	/**
 	 * @inheritdoc
 	 */
-	public function send() {
+	public function send()/*: void*/ {
 		$this->mailer = new ilMail($this->getUserFrom());
 
 		$mbox = new ilMailbox($this->getUserFrom());

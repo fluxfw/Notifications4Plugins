@@ -88,7 +88,7 @@ class InternalMailSender implements Sender {
 	 *
 	 * @throws ilMailError
 	 */
-	public function send() {
+	public function send()/*: void*/ {
 		$this->mailer = new ilMail($this->getUserFrom());
 		$this->mailer->setSaveInSentbox($this->isSaveInSentBox());
 
