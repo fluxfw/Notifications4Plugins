@@ -1,5 +1,8 @@
 # Changelog
 
+## [x]
+- Sort notifications
+
 ## [3.0.2]
 - Fix destroy HTML on body text
 - Using some new ILIAS 5.3 UI's
