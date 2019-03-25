@@ -3,6 +3,7 @@
 ## [x]
 - Sort notifications
 - Template selection UI
+- Fix possible config crash
 
 ## [3.0.2]
 - Fix destroy HTML on body text
