@@ -3,6 +3,7 @@
 ## [x]
 - Sort notifications
 - Template selection UI
+- Notifications4PluginsException
 
 ## [3.0.2]
 - Fix destroy HTML on body text

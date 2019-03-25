@@ -5,6 +5,7 @@ namespace srag\Plugins\Notifications4Plugins\Sender;
 use ilMimeMail;
 use ilNotifications4PluginsPlugin;
 use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Notifications4Plugins\Exception\Notifications4PluginsException;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
@@ -76,9 +77,7 @@ class ExternalMailSender implements Sender {
 		$this->mailer->To($this->to);
 		$from = ($this->from) ? $this->from : self::dic()->ilias()->getSetting('mail_external_sender_noreply');
 
-		$senderFactory = self::dic()->mailMimeSenderFactory();
-
-		$this->mailer->From($senderFactory->userByEmailAddress($from));
+		$this->mailer->From(self::dic()->mailMimeSenderFactory()->userByEmailAddress($from));
 
 		$this->mailer->Cc($this->cc);
 		$this->mailer->Bcc($this->bcc);
@@ -88,7 +87,11 @@ class ExternalMailSender implements Sender {
 			$this->mailer->Attach($attachment);
 		}
 
-		return $this->mailer->Send();
+		$sent = $this->mailer->Send();
+
+		if (!$sent) {
+			throw new Notifications4PluginsException("Mailer returns not true");
+		}
 	}
 
 

@@ -8,6 +8,7 @@ use ilMimeMail;
 use ilNotifications4PluginsPlugin;
 use ilObjUser;
 use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Notifications4Plugins\Exception\Notifications4PluginsException;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
@@ -141,11 +142,14 @@ class vcalendarSender implements Sender {
 		$headers .= "Content-Type: multipart/alternative; boundary=\"$mime_boundary\"\n";
 		$headers .= "Content-class: urn:content-classes:calendarmessage\n";
 
-		if (!(int)self::dic()->settings()->get('prevent_smtp_globally')) {
-			$mailsent = mail($this->to, $this->subject, $this->getIcalEvent($mime_boundary), $headers);
+		$result = false;
+		if (!intval(self::dic()->settings()->get('prevent_smtp_globally'))) {
+			$result = mail($this->to, $this->subject, $this->getIcalEvent($mime_boundary), $headers);
 		}
 
-		return ($mailsent) ? (true) : (false);
+		if (!$result) {
+			throw new Notifications4PluginsException("Mailer returns not true");
+		}
 	}
 
 
@@ -275,7 +279,7 @@ class vcalendarSender implements Sender {
 				$user_from = ilObjUser::_lookupId($user_from);
 			}
 		}
-		$this->user_from = (int)$user_from;
+		$this->user_from = intval($user_from);
 
 		return $this;
 	}

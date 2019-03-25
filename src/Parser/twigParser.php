@@ -6,6 +6,7 @@ use ilNotifications4PluginsPlugin;
 use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 use Twig_Environment;
+use Twig_Error;
 use Twig_Loader_String;
 
 /**
@@ -40,12 +41,15 @@ class twigParser implements Parser {
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @throws Twig_Error
 	 */
 	public function parse(/*string*/
-		$text, array $replacements = array())/*: string*/ {
+		$text, array $placeholders = array())/*: string*/ {
 		$loader = new Twig_Loader_String();
+
 		$twig = new Twig_Environment($loader, $this->options);
 
-		return $twig->render($text, $replacements);
+		return $twig->render($text, $placeholders);
 	}
 }
