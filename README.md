@@ -52,13 +52,6 @@ $notifications = self::notification()->getArrayForTable();
 
 // Get the notifications
 $notifications = self::notification()->getNotifications();
-
-// Describe placeholders
-self::notification()->describePlaceholders(array(
-  'user' => 'object ' . ilObjUser::class,
-  'course' => 'object ' . ilObjCourse::class,
-  'id' => 'int'
-));
 ```
 
 ### Send a notification
@@ -128,6 +121,14 @@ $subject = self::parser()->parseSubject($parser, $notification, $placeholders);
 $text = self::parser()->parseText($parser, $notification, $placeholders);
 ```
 
+### UI
+// Template selection
+self::notification()->ui()->templateSelection('post_key', array(
+  'user' => 'object ' . ilObjUser::class,
+  'course' => 'object ' . ilObjCourse::class,
+  'id' => 'int'
+));
+
 ### Some screenshots
 TODO
 
@@ -135,6 +136,7 @@ TODO
 * ILIAS 5.3 or ILIAS 5.4
 * PHP >=5.6
 * [composer](https://getcomposer.org)
+* [srag/custominputguis](https://packagist.org/packages/srag/custominputguis)
 * [srag/dic](https://packagist.org/packages/srag/dic)
 * [srag/librariesnamespacechanger](https://packagist.org/packages/srag/librariesnamespacechanger)
 * [srag/removeplugindataconfirm](https://packagist.org/packages/srag/removeplugindataconfirm)

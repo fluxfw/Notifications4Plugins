@@ -81,12 +81,13 @@ For output HTML or GUI use:
 /**
  * Output HTML or GUI
  * 
- * @param string|object $html HTML code or some GUI instance
- * @param bool $main Display main skin?
+ * @param string|object $html          HTML code or some GUI instance
+ * @param bool          $show          Show main template?
+ * @param bool          $main_template Display main skin?
  *
  * @throws DICException
  */
-self::output()->output($value, $main = true)/*: void*/;
+self::output()->output($value, $show = false, $main_template = true)/*: void*/;
 ```
 
 For output JSON:
@@ -159,9 +160,9 @@ If you really need the ILIAS plugin object use but avoid this:
 /**
  * Get ILIAS plugin object instance
  *
- * @return ilPlugin ILIAS plugin object instance
+ * Please avoid to use ILIAS plugin object instance and instead use methods in this class!
  *
- * @deprecated Please avoid to use ILIAS plugin object instance and instead use methods in this class!
+ * @return ilPlugin ILIAS plugin object instance
  */
 self::plugin()->getPluginObject()/*: ilPlugin*/;
 ```
@@ -196,17 +197,7 @@ Please avoid to store in variables or class variables.
 Please use it for further development!
 
 ### Adjustment suggestions
-* Adjustment suggestions by pull requests on https://git.studer-raimann.ch/ILIAS/Plugins/DIC/tree/develop
+* Adjustment suggestions by pull requests
 * Adjustment suggestions which are not yet worked out in detail by Jira tasks under https://jira.studer-raimann.ch/projects/LDIC
 * Bug reports under https://jira.studer-raimann.ch/projects/LDIC
-* For external users please send an email to support-custom1@studer-raimann.ch
-
-### Development
-If you want development in this library you should install this library like follow:
-
-Start at your ILIAS root directory
-```bash
-mkdir -p Customizing/global/libraries
-cd Customizing/global/libraries
-git clone -b develop git@git.studer-raimann.ch:ILIAS/Plugins/DIC.git DIC
-```
+* For external users you can report it at https://plugins.studer-raimann.ch/goto.php?target=uihk_srsu_LDIC

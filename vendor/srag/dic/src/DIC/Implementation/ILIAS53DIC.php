@@ -150,6 +150,14 @@ final class ILIAS53DIC extends AbstractDIC {
 	/**
 	 * @inheritdoc
 	 */
+	public function globalScreen()/*: GlobalScreenService*/ {
+		throw new DICException("GlobalScreenService not exists in ILIAS 5.3 or below!");
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
 	public function help()/*: ilHelpGUI*/ {
 		return $this->dic["ilHelp"];
 	}
@@ -304,6 +312,14 @@ final class ILIAS53DIC extends AbstractDIC {
 	 */
 	public function pluginAdmin()/*: ilPluginAdmin*/ {
 		return $this->dic["ilPluginAdmin"];
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function question()/*: AsqFactory*/ {
+		throw new DICException("AsqFactory not exists in ILIAS 5.4 or below!");
 	}
 
 

@@ -2,7 +2,7 @@
 
 ## [x]
 - Sort notifications
-- describePlaceholders
+- Template selection UI
 
 ## [3.0.2]
 - Fix destroy HTML on body text

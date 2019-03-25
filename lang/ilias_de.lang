@@ -21,6 +21,8 @@ delete_confirm#:#Sind Sie sicher, dass Sie die Benachrichtigung löschen wollen?
 deleted_notification#:#Benachrichtigung gelöscht
 edit#:#Bearbeiten
 id#:#ID
+template_selection#:#%1$s Vorlage
+template_selection_info#:#Folgende Platzhalter können in der %1$s-Vorlage verwendet werden. Unterhalb wird dessen Datentyp angezeigt. Wie Sie diese in %1$s verwenden können, schauen Sie bitte in dessen Dokumentation nach
 removeplugindataconfirm_cancel#:#Abbrechen
 removeplugindataconfirm_confirm_remove_data#:#Möchten Sie die %1$s-Daten auch entfernen? Allenfalls möchten Sie das %1$s-Plugin nur deaktivieren?
 removeplugindataconfirm_deactivate#:#%1$s-Plugin nur deaktivieren

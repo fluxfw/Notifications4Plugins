@@ -57,16 +57,6 @@ final class Repository {
 
 
 	/**
-	 * @param array $placeholders
-	 *
-	 * @return string
-	 */
-	public function describePlaceholders(array $placeholders)/*: string*/ {
-		return self::output()->getHTML(self::dic()->ui()->factory()->listing()->descriptive($placeholders));
-	}
-
-
-	/**
 	 * @return Factory
 	 */
 	public function factory()/*: Factory*/ {
@@ -178,5 +168,13 @@ final class Repository {
 		foreach ($notification->getNotificationLanguages() as $language) {
 			$language->store();
 		}
+	}
+
+
+	/**
+	 * @return UI
+	 */
+	public function ui()/*: UI*/ {
+		return UI::getInstance();
 	}
 }

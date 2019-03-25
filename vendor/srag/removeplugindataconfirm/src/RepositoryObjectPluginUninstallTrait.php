@@ -2,6 +2,8 @@
 
 namespace srag\RemovePluginDataConfirm\Notifications4Plugins;
 
+use srag\RemovePluginDataConfirm\Notifications4Plugins\Exception\RemovePluginDataConfirmException;
+
 /**
  * Trait RepositoryObjectPluginUninstallTrait
  *
