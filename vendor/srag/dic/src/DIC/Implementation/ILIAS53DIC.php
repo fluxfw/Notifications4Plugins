@@ -25,8 +25,6 @@ final class ILIAS53DIC extends AbstractDIC {
 	 * ILIAS53DIC constructor
 	 *
 	 * @param Container $dic
-	 *
-	 * @internal
 	 */
 	public function __construct(Container $dic) {
 		parent::__construct();

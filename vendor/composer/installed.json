@@ -1,24 +1,24 @@
 [
     {
         "name": "srag/custominputguis",
-        "version": "v0.19.7",
-        "version_normalized": "0.19.7.0",
+        "version": "v0.19.9",
+        "version_normalized": "0.19.9.0",
         "source": {
             "type": "git",
             "url": "https://github.com/studer-raimann/CustomInputGUIs.git",
-            "reference": "95f2ffa2d774e753c05028bbdb8d71348dad46de"
+            "reference": "ad4420a2a53a82bbf109682ce6ebc9a01fd49202"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/CustomInputGUIs/zipball/95f2ffa2d774e753c05028bbdb8d71348dad46de",
-            "reference": "95f2ffa2d774e753c05028bbdb8d71348dad46de",
+            "url": "https://api.github.com/repos/studer-raimann/CustomInputGUIs/zipball/ad4420a2a53a82bbf109682ce6ebc9a01fd49202",
+            "reference": "ad4420a2a53a82bbf109682ce6ebc9a01fd49202",
             "shasum": ""
         },
         "require": {
             "php": ">=5.6",
             "srag/dic": ">=0.1.0"
         },
-        "time": "2019-03-19T14:43:37+00:00",
+        "time": "2019-03-26T09:38:29+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -50,23 +50,23 @@
     },
     {
         "name": "srag/dic",
-        "version": "v0.14.13",
-        "version_normalized": "0.14.13.0",
+        "version": "v0.15.4",
+        "version_normalized": "0.15.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/studer-raimann/DIC.git",
-            "reference": "7b8b2082622901cee63570b3e96be8a693f07279"
+            "reference": "9f90f54f36a00a793fc08a7916dfdb06ebe3a76c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/7b8b2082622901cee63570b3e96be8a693f07279",
-            "reference": "7b8b2082622901cee63570b3e96be8a693f07279",
+            "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/9f90f54f36a00a793fc08a7916dfdb06ebe3a76c",
+            "reference": "9f90f54f36a00a793fc08a7916dfdb06ebe3a76c",
             "shasum": ""
         },
         "require": {
             "php": ">=5.6"
         },
-        "time": "2019-02-26T08:34:09+00:00",
+        "time": "2019-03-26T13:15:41+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -142,24 +142,24 @@
     },
     {
         "name": "srag/removeplugindataconfirm",
-        "version": "v0.3.6",
-        "version_normalized": "0.3.6.0",
+        "version": "v0.4.1",
+        "version_normalized": "0.4.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/studer-raimann/RemovePluginDataConfirm.git",
-            "reference": "c9bab84437a3029ca919da727d7f315c6de3c675"
+            "reference": "fc1f1828c05ac2548d3b4022d53422cf1335ffc2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/RemovePluginDataConfirm/zipball/c9bab84437a3029ca919da727d7f315c6de3c675",
-            "reference": "c9bab84437a3029ca919da727d7f315c6de3c675",
+            "url": "https://api.github.com/repos/studer-raimann/RemovePluginDataConfirm/zipball/fc1f1828c05ac2548d3b4022d53422cf1335ffc2",
+            "reference": "fc1f1828c05ac2548d3b4022d53422cf1335ffc2",
             "shasum": ""
         },
         "require": {
             "php": ">=5.6",
             "srag/dic": ">=0.1.0"
         },
-        "time": "2019-01-22T09:18:04+00:00",
+        "time": "2019-03-26T13:17:27+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

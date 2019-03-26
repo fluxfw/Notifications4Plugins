@@ -133,7 +133,7 @@ self::notification()->ui()->templateSelection('post_key', array(
 TODO
 
 ### Dependencies
-* ILIAS 5.3 or ILIAS 5.4
+* ILIAS 5.3.14 or ILIAS 5.4
 * PHP >=5.6
 * [composer](https://getcomposer.org)
 * [srag/custominputguis](https://packagist.org/packages/srag/custominputguis)

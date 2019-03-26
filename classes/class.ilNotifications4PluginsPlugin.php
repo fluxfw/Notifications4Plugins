@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
+use srag\DIC\Notifications4Plugins\Util\LibraryLanguageInstaller;
 use srag\Plugins\Notifications4Plugins\Notification\Notification;
 use srag\Plugins\Notifications4Plugins\Notification\NotificationLanguage;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
@@ -51,6 +52,17 @@ class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 	 */
 	public function getPluginName() {
 		return self::PLUGIN_NAME;
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function updateLanguages(array $a_lang_keys = null) {
+		parent::updateLanguages($a_lang_keys);
+
+		LibraryLanguageInstaller::getInstance()->withPlugin(self::plugin())->withLibraryLanguageDirectory(__DIR__
+			. "/../vendor/srag/removeplugindataconfirm/lang")->updateLanguages();
 	}
 
 

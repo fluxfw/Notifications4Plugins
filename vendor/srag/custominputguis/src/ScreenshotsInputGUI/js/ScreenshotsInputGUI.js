@@ -84,7 +84,6 @@ il.ScreenshotsInputGUI.prototype = {
 	 */
 	$screenshots: null,
 
-
 	/**
 	 * @type {jQuery|null}
 	 */
