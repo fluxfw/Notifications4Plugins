@@ -34,11 +34,10 @@ class NotificationFormGUI extends ActiveRecordObjectFormGUI {
 	 * NotificationFormGUI constructor
 	 *
 	 * @param object       $parent
+	 * @param string       $tab_id
 	 * @param Notification $object
-	 * @param bool         $object_auto_store
 	 */
-	public function __construct($parent, $tab_id, $object = null,/*bool*/
-		$object_auto_store = false) {
+	public function __construct(NotificationFormGUI $parent, string $tab_id, Notification $object) {
 		parent::__construct($parent, $tab_id, $object, false);
 	}
 
@@ -153,10 +152,6 @@ class NotificationFormGUI extends ActiveRecordObjectFormGUI {
 	 * @inheritdoc
 	 */
 	public function storeForm(): bool {
-		if ($this->object === null) {
-			$this->object = self::notification()->factory()->newInstance();
-		}
-
 		if (!parent::storeForm()) {
 			return false;
 		}
