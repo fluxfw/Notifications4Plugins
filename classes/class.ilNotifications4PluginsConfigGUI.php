@@ -61,7 +61,7 @@ class ilNotifications4PluginsConfigGUI extends ActiveRecordConfigGUI {
 	/**
 	 *
 	 */
-	public function addNotification() {
+	public function addNotification()/*: void*/ {
 		self::dic()->tabs()->activateTab(self::TAB_NOTIFICATIONS);
 
 		$notification = self::notification()->factory()->newInstance();
@@ -75,7 +75,7 @@ class ilNotifications4PluginsConfigGUI extends ActiveRecordConfigGUI {
 	/**
 	 *
 	 */
-	public function createNotification() {
+	public function createNotification()/*: void*/ {
 		self::dic()->tabs()->activateTab(self::TAB_NOTIFICATIONS);
 
 		$notification = self::notification()->factory()->newInstance();
@@ -99,7 +99,7 @@ class ilNotifications4PluginsConfigGUI extends ActiveRecordConfigGUI {
 	/**
 	 *
 	 */
-	public function editNotification() {
+	public function editNotification()/*: void*/ {
 		self::dic()->tabs()->activateTab(self::TAB_NOTIFICATIONS);
 
 		$notification_id = intval(filter_input(INPUT_GET, self::GET_PARAM));
@@ -114,7 +114,7 @@ class ilNotifications4PluginsConfigGUI extends ActiveRecordConfigGUI {
 	/**
 	 *
 	 */
-	public function updateNotification() {
+	public function updateNotification()/*: void*/ {
 		self::dic()->tabs()->activateTab(self::TAB_NOTIFICATIONS);
 
 		$notification_id = intval(filter_input(INPUT_GET, self::GET_PARAM));
@@ -139,7 +139,7 @@ class ilNotifications4PluginsConfigGUI extends ActiveRecordConfigGUI {
 	/**
 	 *
 	 */
-	public function duplicateNotification() {
+	public function duplicateNotification()/*: void*/ {
 		$notification_id = intval(filter_input(INPUT_GET, self::GET_PARAM));
 		$notification = self::notification()->getNotificationById($notification_id);
 
@@ -157,7 +157,7 @@ class ilNotifications4PluginsConfigGUI extends ActiveRecordConfigGUI {
 	/**
 	 *
 	 */
-	public function deleteNotificationConfirm() {
+	public function deleteNotificationConfirm()/*: void*/ {
 		self::dic()->tabs()->activateTab(self::TAB_NOTIFICATIONS);
 
 		$notification_id = intval(filter_input(INPUT_GET, self::GET_PARAM));
@@ -185,7 +185,7 @@ class ilNotifications4PluginsConfigGUI extends ActiveRecordConfigGUI {
 	/**
 	 *
 	 */
-	public function deleteNotification() {
+	public function deleteNotification()/*: void*/ {
 		$notification_id = intval(filter_input(INPUT_GET, self::GET_PARAM));
 		$notification = self::notification()->getNotificationById($notification_id);
 

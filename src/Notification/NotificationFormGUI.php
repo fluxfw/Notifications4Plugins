@@ -184,8 +184,7 @@ class NotificationFormGUI extends ActiveRecordObjectFormGUI {
 				$language = $this->getInput("language");
 
 				if (!empty($language)) {
-					//$this->object->setText(strval($value), strval($language));
-					$this->object->setText(strval(filter_input(INPUT_POST, "text_" . $language)), strval($language));
+					$this->object->setText(strval($value), strval($language));
 				}
 				break;
 
@@ -198,8 +197,8 @@ class NotificationFormGUI extends ActiveRecordObjectFormGUI {
 			case (strpos($key, "text") === 0):
 				$language = substr($key, strlen("text") + 1);
 
-				//$this->object->setText(strval($value), strval($language));
-				$this->object->setText(strval(filter_input(INPUT_POST, "text_" . $language)), strval($language));
+				$this->object->setText(strval($value), strval($language));
+
 				break;
 
 			default:
