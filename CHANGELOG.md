@@ -1,5 +1,9 @@
 # Changelog
 
+## [x]
+- Duplicate notifications
+- More refactoring
+__
 ## [3.1.0]
 - Sort notifications
 - Template selection UI

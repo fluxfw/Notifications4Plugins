@@ -2,10 +2,10 @@
 
 namespace srag\Plugins\Notifications4Plugins\Notification;
 
+use ilLinkButton;
 use ilNotifications4PluginsConfigGUI;
 use ilNotifications4PluginsPlugin;
-use ilTable2GUI;
-use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\ActiveRecordConfig\Notifications4Plugins\ActiveRecordConfigTableGUI;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
@@ -13,133 +13,113 @@ use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
  *
  * @package srag\Plugins\Notifications4Plugins\Notification
  *
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
-class NotificationsTableGUI extends ilTable2GUI {
+class NotificationsTableGUI extends ActiveRecordConfigTableGUI {
 
-	use DICTrait;
 	use Notifications4PluginsTrait;
 	const PLUGIN_CLASS_NAME = ilNotifications4PluginsPlugin::class;
-	/**
-	 * @var array
-	 */
-	protected $filter = array();
-	/**
-	 * All possible columns to display
-	 *
-	 * @var array
-	 */
-	protected static $available_columns = array(
-		'title',
-		'description',
-		'name',
-		'default_language',
-		'languages',
-	);
-	/**
-	 * Columns displayed by table
-	 *
-	 * @var array
-	 */
-	protected $columns = array(
-		'title',
-		'description',
-		'name',
-		'default_language',
-		'languages',
-	);
+	const LANG_MODULE = ilNotifications4PluginsConfigGUI::LANG_MODULE_NOTIFICATIONS4PLUGIN;
 
 
 	/**
-	 * NotificationsTableGUI constructor
-	 *
-	 * @param ilNotifications4PluginsConfigGUI $a_parent_obj
-	 * @param string                           $a_parent_cmd
+	 * @inheritdoc
 	 */
-	public function __construct(ilNotifications4PluginsConfigGUI $a_parent_obj, $a_parent_cmd = "") {
-		parent::__construct($a_parent_obj, $a_parent_cmd, '');
+	protected function getColumnValue(/*string*/
+		$column, /*array*/
+		$row, /*bool*/
+		$raw_export = false): string {
+		switch ($column) {
+			default:
+				$column = $row[$column];
+				break;
+		}
 
-		$this->setRowTemplate('tpl.row_generic.html', self::plugin()->directory());
-		$this->setFormAction(self::dic()->ctrl()->getFormAction($a_parent_obj));
-		$this->addColumns();
-		$this->buildData();
+		return strval($column);
 	}
 
 
 	/**
-	 * @return array
+	 * @inheritdoc
 	 */
-	public function getSelectableColumns() {
-		$columns = array();
-		foreach ($this->columns as $column) {
-			$columns[$column] = array( 'txt' => self::plugin()->translate($column), 'default' => true );
-		}
+	public function getSelectableColumns2(): array {
+		$columns = [
+			"title" => "title",
+			"description" => "description",
+			"name" => "name",
+			"default_language" => "default_language",
+			"languages" => "languages"
+		];
+
+		$columns = array_map(function (string $key): array {
+			return [
+				"id" => $key,
+				"default" => true,
+				"sort" => ($key !== "languages")
+			];
+		}, $columns);
 
 		return $columns;
 	}
 
 
 	/**
-	 * Add selected columns to table
+	 * @inheritdoc
 	 */
-	protected function addColumns() {
-		foreach ($this->columns as $col) {
-			if (in_array($col, self::$available_columns) && $this->isColumnSelected($col)) {
-				$this->addColumn(self::plugin()->translate($col), $col);
-			}
-		}
+	protected function initColumns()/*: void*/ {
+		parent::initColumns();
 
-		$this->addColumn(self::plugin()->translate('actions'));
+		$this->addColumn($this->txt("actions"));
+
+		$this->setDefaultOrderField("title");
+		$this->setDefaultOrderDirection("asc");
 	}
 
 
 	/**
-	 * Return the formatted value
-	 *
-	 * @param string $value
-	 * @param string $col
-	 *
-	 * @return string
+	 * @inheritdoc
 	 */
-	protected function getFormattedValue($value, $col) {
-		switch ($col) {
-			default:
-				$value = ($value) ? $value : "&nbsp;";
-		}
-
-		return $value;
+	protected function initCommands()/*: void*/ {
+		$add_notification = ilLinkButton::getInstance();
+		$add_notification->setCaption($this->txt("add_notification"), false);
+		$add_notification->setUrl(self::dic()->ctrl()->getLinkTarget($this->parent_obj, ilNotifications4PluginsConfigGUI::CMD_ADD_NOTIFICATION));
+		self::dic()->toolbar()->addButtonInstance($add_notification);
 	}
 
 
 	/**
-	 * @param array $a_set
+	 * @inheritdoc
 	 */
-	protected function fillRow($a_set) {
-		$this->tpl->setCurrentBlock('td');
-
-		foreach ($this->columns as $col) {
-			if ($this->isColumnSelected($col)) {
-				$this->tpl->setVariable('VALUE', $this->getFormattedValue($a_set[$col], $col));
-
-				$this->tpl->parseCurrentBlock();
-			}
-		}
-
-		self::dic()->ctrl()->setParameterByClass(ilNotifications4PluginsConfigGUI::class, 'notification_id', $a_set['id']);
-
-		$this->tpl->setVariable("VALUE", self::output()->getHTML(self::dic()->ui()->factory()->dropdown()->standard([
-			self::dic()->ui()->factory()->button()->shy(self::plugin()->translate('edit'), self::dic()->ctrl()
-				->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_EDIT)),
-			self::dic()->ui()->factory()->button()->shy(self::plugin()->translate('delete'), self::dic()->ctrl()
-				->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_CONFIRM_DELETE))
-		])->withLabel((self::plugin()->translate("actions")))));
-	}
-
-
-	/**
-	 * Build and set data for table
-	 */
-	protected function buildData() {
+	protected function initData()/*: void*/ {
 		$this->setData(self::notification()->getArrayForTable());
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	protected function initId()/*: void*/ {
+		$this->setId("notifications4plugin");
+	}
+
+
+	/**
+	 * @param array $row
+	 */
+	protected function fillRow(/*array*/
+		$row)/*: void*/ {
+		self::dic()->ctrl()->setParameterByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::GET_PARAM, $row["id"]);
+
+		parent::fillRow($row);
+
+		$this->tpl->setVariable("COLUMN", self::output()->getHTML(self::dic()->ui()->factory()->dropdown()->standard([
+			self::dic()->ui()->factory()->button()->shy($this->txt("edit"), self::dic()->ctrl()
+				->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_EDIT_NOTIFICATION)),
+			self::dic()->ui()->factory()->button()->shy($this->txt("duplicate"), self::dic()->ctrl()
+				->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_DUPLICATE_NOTIFICATION)),
+			self::dic()->ui()->factory()->button()->shy($this->txt("delete"), self::dic()->ctrl()
+				->getLinkTargetByClass(ilNotifications4PluginsConfigGUI::class, ilNotifications4PluginsConfigGUI::CMD_DELETE_NOTIFICATION_CONFIRM))
+		])->withLabel($this->txt("actions"))));
 	}
 }

@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\ActiveRecordConfig\Notifications4Plugins\ActiveRecordConfigGUI;
 use srag\Plugins\Notifications4Plugins\Notification\Notification;
 use srag\Plugins\Notifications4Plugins\Notification\NotificationFormGUI;
 use srag\Plugins\Notifications4Plugins\Notification\NotificationsTableGUI;
@@ -11,79 +11,62 @@ use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 /**
  * Class ilNotifications4PluginsConfigGUI
  *
+ * @author studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author Stefan Wanzenried <sw@studer-raimann.ch>
  */
-class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
+class ilNotifications4PluginsConfigGUI extends ActiveRecordConfigGUI {
 
-	use DICTrait;
 	use Notifications4PluginsTrait;
 	const PLUGIN_CLASS_NAME = ilNotifications4PluginsPlugin::class;
-	const CMD_ADD = 'add';
-	const CMD_CANCEL = 'cancel';
-	const CMD_CONFIGURE = 'configure';
-	const CMD_CONFIRM_DELETE = 'confirmDelete';
-	const CMD_CREATE = 'create';
-	const CMD_DELETE = 'delete';
-	const CMD_EDIT = 'edit';
-	const CMD_INDEX = 'index';
-	const CMD_SAVE = 'save';
-	const CMD_UPDATE = 'update';
+	const TAB_NOTIFICATIONS = "notifications";
+	const LANG_MODULE_NOTIFICATIONS4PLUGIN = "notifications4plugin";
+	const CMD_ADD_NOTIFICATION = "addNotification";
+	const CMD_CREATE_NOTIFICATION = "createNotification";
+	const CMD_DELETE_NOTIFICATION = "deleteNotification";
+	const CMD_DELETE_NOTIFICATION_CONFIRM = "deleteNotificationConfirm";
+	const CMD_DUPLICATE_NOTIFICATION = "duplicateNotification";
+	const CMD_EDIT_NOTIFICATION = "editNotification";
+	const CMD_UPDATE_NOTIFICATION = "updateNotification";
+	const GET_PARAM = "notification_id";
+	/**
+	 * @var array
+	 */
+	protected static $tabs = [ self::TAB_NOTIFICATIONS => NotificationsTableGUI::class ];
+	/**
+	 * @var array
+	 */
+	protected static $custom_commands = [
+		self::CMD_ADD_NOTIFICATION,
+		self::CMD_CREATE_NOTIFICATION,
+		self::CMD_DELETE_NOTIFICATION,
+		self::CMD_DELETE_NOTIFICATION_CONFIRM,
+		self::CMD_DUPLICATE_NOTIFICATION,
+		self::CMD_EDIT_NOTIFICATION,
+		self::CMD_UPDATE_NOTIFICATION,
+	];
 
 
 	/**
-	 * ilNotifications4PluginsConfigGUI constructor
+	 * @param Notification $notification
+	 *
+	 * @return NotificationFormGUI
 	 */
-	public function __construct() {
+	protected function getNotificationForm(Notification $notification): NotificationFormGUI {
+		$form = new NotificationFormGUI($this, self::TAB_NOTIFICATIONS, $notification);
 
-	}
-
-
-	/**
-	 * @param string $cmd
-	 */
-	public function performCommand($cmd) {
-		$cmd = self::dic()->ctrl()->getCmd(self::CMD_INDEX);
-
-		switch ($cmd) {
-			case self::CMD_INDEX:
-			case self::CMD_CANCEL:
-			case self::CMD_CONFIGURE:
-				$this->index();
-				break;
-			case self::CMD_SAVE:
-			case self::CMD_EDIT:
-			case self::CMD_CREATE:
-			case self::CMD_UPDATE:
-			case self::CMD_DELETE:
-			case self::CMD_CONFIRM_DELETE:
-			case self::CMD_ADD:
-				$this->{$cmd}();
-				break;
-		}
+		return $form;
 	}
 
 
 	/**
 	 *
 	 */
-	public function index() {
-		$button = ilLinkButton::getInstance();
-		$button->setUrl(self::dic()->ctrl()->getLinkTarget($this, self::CMD_ADD));
-		$button->setCaption(self::plugin()->translate('add_notification'), false);
+	public function addNotification() {
+		self::dic()->tabs()->activateTab(self::TAB_NOTIFICATIONS);
 
-		self::dic()->toolbar()->addButtonInstance($button);
+		$notification = self::notification()->factory()->newInstance();
 
-		$table = new NotificationsTableGUI($this, self::CMD_INDEX);
-
-		self::output()->output($table);
-	}
-
-
-	/**
-	 *
-	 */
-	public function add() {
-		$form = new NotificationFormGUI($this, self::notification()->factory()->newInstance());
+		$form = $this->getNotificationForm($notification);
 
 		self::output()->output($form);
 	}
@@ -92,28 +75,37 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	/**
 	 *
 	 */
-	public function edit() {
-		$form = new NotificationFormGUI($this, self::notification()->getNotificationById($_GET['notification_id']));
+	public function createNotification() {
+		self::dic()->tabs()->activateTab(self::TAB_NOTIFICATIONS);
 
-		self::output()->output($form);
-	}
+		$notification = self::notification()->factory()->newInstance();
 
+		$form = $this->getNotificationForm($notification);
 
-	/**
-	 *
-	 */
-	public function create() {
-		$form = new NotificationFormGUI($this, self::notification()->factory()->newInstance());
+		if (!$form->storeForm()) {
+			self::output()->output($form);
 
-		if ($form->checkInput()) {
-			$this->storeNotification($form->getInput('title'), $form->getInput('description'), $form->getInput('name'), $form->getInput('default_language'), $this->getNotificationData($form));
-
-			ilUtil::sendSuccess(self::plugin()->translate('created_notification'), true);
-
-			self::dic()->ctrl()->redirect($this);
+			return;
 		}
 
-		$form->setValuesByPost();
+		ilUtil::sendSuccess(self::plugin()->translate("added_notification", self::LANG_MODULE_NOTIFICATIONS4PLUGIN, [
+			$form->getObject()->getTitle()
+		]), true);
+
+		$this->redirectToTab(self::TAB_NOTIFICATIONS);
+	}
+
+
+	/**
+	 *
+	 */
+	public function editNotification() {
+		self::dic()->tabs()->activateTab(self::TAB_NOTIFICATIONS);
+
+		$notification_id = intval(filter_input(INPUT_GET, self::GET_PARAM));
+		$notification = self::notification()->getNotificationById($notification_id);
+
+		$form = $this->getNotificationForm($notification);
 
 		self::output()->output($form);
 	}
@@ -122,119 +114,86 @@ class ilNotifications4PluginsConfigGUI extends ilPluginConfigGUI {
 	/**
 	 *
 	 */
-	public function update() {
-		$notification = self::notification()->getNotificationById($_POST['notification_id']);
+	public function updateNotification() {
+		self::dic()->tabs()->activateTab(self::TAB_NOTIFICATIONS);
 
-		$form = new NotificationFormGUI($this, $notification);
+		$notification_id = intval(filter_input(INPUT_GET, self::GET_PARAM));
+		$notification = self::notification()->getNotificationById($notification_id);
 
-		if ($form->checkInput()) {
-			$this->storeNotification($form->getInput('title'), $form->getInput('description'), $form->getInput('name'), $form->getInput('default_language'), $this->getNotificationData($form, $notification), $notification);
+		$form = $this->getNotificationForm($notification);
 
-			ilUtil::sendSuccess(self::plugin()->translate('updated_notification'), true);
+		if (!$form->storeForm()) {
+			self::output()->output($form);
 
-			self::dic()->ctrl()->redirect($this);
+			return;
 		}
 
-		$form->setValuesByPost();
+		ilUtil::sendSuccess(self::plugin()->translate("saved_notification", self::LANG_MODULE_NOTIFICATIONS4PLUGIN, [
+			$form->getObject()->getTitle()
+		]), true);
 
-		self::output()->output($form);
+		$this->redirectToTab(self::TAB_NOTIFICATIONS);
 	}
 
 
 	/**
 	 *
 	 */
-	public function confirmDelete() {
-		$notification = self::notification()->getNotificationById($_GET['notification_id']);
+	public function duplicateNotification() {
+		$notification_id = intval(filter_input(INPUT_GET, self::GET_PARAM));
+		$notification = self::notification()->getNotificationById($notification_id);
 
-		$gui = new ilConfirmationGUI();
+		$cloned_notification = self::notification()->duplicateNotification($notification);
 
-		$gui->setHeaderText(self::plugin()->translate('delete_confirm'));
-		$gui->setFormAction(self::dic()->ctrl()->getFormAction($this));
-		$gui->setCancel(self::plugin()->translate('cancel'), self::CMD_CANCEL);
-		$gui->setConfirm(self::plugin()->translate('delete'), self::CMD_DELETE);
-		$gui->addItem('notification_id', $notification->getId(), $notification->getTitle());
+		self::notification()->storeInstance($cloned_notification);
 
-		self::output()->output($gui);
+		ilUtil::sendSuccess(self::plugin()
+			->translate("duplicated_notification", self::LANG_MODULE_NOTIFICATIONS4PLUGIN, [ $notification->getTitle() ]), true);
+
+		$this->redirectToTab(self::TAB_NOTIFICATIONS);
 	}
 
 
 	/**
 	 *
 	 */
-	public function delete() {
-		$notification = self::notification()->getNotificationById($_POST['notification_id']);
+	public function deleteNotificationConfirm() {
+		self::dic()->tabs()->activateTab(self::TAB_NOTIFICATIONS);
+
+		$notification_id = intval(filter_input(INPUT_GET, self::GET_PARAM));
+		$notification = self::notification()->getNotificationById($notification_id);
+
+		$confirmation = new ilConfirmationGUI();
+
+		self::dic()->ctrl()->setParameter($this, self::GET_PARAM, $notification->getId());
+		$confirmation->setFormAction(self::dic()->ctrl()->getFormAction($this));
+		self::dic()->ctrl()->setParameter($this, self::GET_PARAM, null);
+
+		$confirmation->setHeaderText(self::plugin()
+			->translate("delete_notification_confirm", self::LANG_MODULE_NOTIFICATIONS4PLUGIN, [ $notification->getTitle() ]));
+
+		$confirmation->addItem(self::GET_PARAM, $notification->getId(), $notification->getTitle());
+
+		$confirmation->setConfirm(self::plugin()->translate("delete", self::LANG_MODULE_NOTIFICATIONS4PLUGIN), self::CMD_DELETE_NOTIFICATION);
+		$confirmation->setCancel(self::plugin()
+			->translate("cancel", self::LANG_MODULE_NOTIFICATIONS4PLUGIN), $this->getCmdForTab(self::TAB_NOTIFICATIONS));
+
+		self::output()->output($confirmation);
+	}
+
+
+	/**
+	 *
+	 */
+	public function deleteNotification() {
+		$notification_id = intval(filter_input(INPUT_GET, self::GET_PARAM));
+		$notification = self::notification()->getNotificationById($notification_id);
 
 		self::notification()->deleteNotification($notification);
 
-		ilUtil::sendSuccess(self::plugin()->translate('deleted_notification'), true);
+		ilUtil::sendSuccess(self::plugin()
+			->translate("deleted_notification", self::LANG_MODULE_NOTIFICATIONS4PLUGIN, [ $notification->getTitle() ]), true);
 
-		self::dic()->ctrl()->redirect($this);
-	}
-
-
-	/**
-	 * @param NotificationFormGUI $form
-	 * @param Notification        $notification
-	 *
-	 * @return array
-	 */
-	protected function getNotificationData(NotificationFormGUI $form, Notification $notification = null) {
-		$data = array();
-		// New language added
-		if ($form->getInput('language')) {
-			$new = array();
-			$new['subject'] = $form->getInput('subject_');
-			//$new['text'] = $form->getInput('text_');
-			$new['text'] = filter_input(INPUT_POST, 'text_');
-			$new['language'] = $form->getInput('language');
-			$data[] = $new;
-		}
-
-		// Update existing
-		if ($notification) {
-			foreach ($notification->getLanguages() as $language) {
-				$update = array();
-				$update['subject'] = $form->getInput('subject_' . $language);
-				//$update['text'] = $form->getInput('text_' . $language);
-				$update['text'] = filter_input(INPUT_POST, 'text_' . $language);
-				$update['language'] = $language;
-				$data[] = $update;
-			}
-		}
-
-		return $data;
-	}
-
-
-	/**
-	 * @param string            $title
-	 * @param string            $description
-	 * @param string            $name
-	 * @param string            $default_language
-	 * @param array             $texts
-	 * @param Notification|null $notification
-	 */
-	protected function storeNotification($title, $description, $name, $default_language, array $texts = array(), Notification $notification = null) {
-		if ($notification === null) {
-			$notification = self::notification()->factory()->newInstance();
-		}
-
-		$notification->setTitle($title);
-
-		$notification->setDefaultLanguage($default_language);
-
-		$notification->setDescription($description);
-
-		$notification->setName($name);
-
-		self::notification()->storeInstance($notification);
-
-		foreach ($texts as $text) {
-			$notification->setText($text['text'], $text['language']);
-			$notification->setSubject($text['subject'], $text['language']);
-		}
-
-		self::notification()->storeInstance($notification);
+		$this->redirectToTab(self::TAB_NOTIFICATIONS);
 	}
 }

@@ -9,6 +9,7 @@ use srag\Notifications4Plugins\Exception\Notifications4PluginsException;
  *
  * @package srag\Plugins\Notifications4Plugins\Sender
  *
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
 interface Sender {
@@ -18,7 +19,8 @@ interface Sender {
 	 *
 	 * @throws Notifications4PluginsException
 	 */
-	public function send()/*: void*/;
+	public function send()/*: void*/
+	;
 
 
 	/**

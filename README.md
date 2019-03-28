@@ -134,8 +134,9 @@ TODO
 
 ### Dependencies
 * ILIAS 5.3.14 or ILIAS 5.4
-* PHP >=5.6
+* PHP >=7.0
 * [composer](https://getcomposer.org)
+* [srag/activerecordconfig](https://packagist.org/packages/srag/activerecordconfig)
 * [srag/custominputguis](https://packagist.org/packages/srag/custominputguis)
 * [srag/dic](https://packagist.org/packages/srag/dic)
 * [srag/librariesnamespacechanger](https://packagist.org/packages/srag/librariesnamespacechanger)

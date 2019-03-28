@@ -29,7 +29,7 @@ final class Repository {
 	/**
 	 * @return self
 	 */
-	public static function getInstance()/*: self*/ {
+	public static function getInstance(): self {
 		if (self::$instance === null) {
 			self::$instance = new self();
 		}
@@ -49,7 +49,7 @@ final class Repository {
 	/**
 	 * @return Factory
 	 */
-	public function factory()/*: Factory*/ {
+	public function factory(): Factory {
 		return Factory::getInstance();
 	}
 
@@ -62,8 +62,7 @@ final class Repository {
 	 *
 	 * @throws Notifications4PluginsException
 	 */
-	public function send(Sender $sender, Notification $notification, array $placeholders = array(), /*string*/
-		$language = "")/*: void*/ {
+	public function send(Sender $sender, Notification $notification, array $placeholders = array(), string $language = "")/*: void*/ {
 		$parser = self::parser()->getParserForNotification($notification);
 
 		$sender->setSubject(self::parser()->parseSubject($parser, $notification, $placeholders, $language));

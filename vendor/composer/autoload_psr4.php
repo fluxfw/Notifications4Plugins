@@ -11,4 +11,5 @@ return array(
     'srag\\LibrariesNamespaceChanger\\' => array($vendorDir . '/srag/librariesnamespacechanger/src'),
     'srag\\DIC\\Notifications4Plugins\\' => array($vendorDir . '/srag/dic/src'),
     'srag\\CustomInputGUIs\\Notifications4Plugins\\' => array($vendorDir . '/srag/custominputguis/src'),
+    'srag\\ActiveRecordConfig\\' => array($vendorDir . '/srag/activerecordconfig/src'),
 );

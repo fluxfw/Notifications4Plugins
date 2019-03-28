@@ -4,8 +4,10 @@ namespace srag\Plugins\Notifications4Plugins\Notification;
 
 use ActiveRecord;
 use arConnector;
+use ilDateTime;
 use ilNotifications4PluginsPlugin;
 use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Plugins\Notifications4Plugins\Notification\Language\NotificationLanguage;
 use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 
 /**
@@ -13,20 +15,21 @@ use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
  *
  * @package srag\Plugins\Notifications4Plugins\Notification
  *
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
 class Notification extends ActiveRecord {
 
 	use DICTrait;
 	use Notifications4PluginsTrait;
-	const TABLE_NAME = 'sr_notification';
+	const TABLE_NAME = "sr_notification";
 	const PLUGIN_CLASS_NAME = ilNotifications4PluginsPlugin::class;
 
 
 	/**
 	 * @return string
 	 */
-	public function getConnectorContainerName()/*: string*/ {
+	public function getConnectorContainerName(): string {
 		return self::TABLE_NAME;
 	}
 
@@ -36,7 +39,7 @@ class Notification extends ActiveRecord {
 	 *
 	 * @deprecated
 	 */
-	public static function returnDbTableName()/*: string*/ {
+	public static function returnDbTableName(): string {
 		return self::TABLE_NAME;
 	}
 
@@ -56,31 +59,10 @@ class Notification extends ActiveRecord {
 	 * @var string
 	 *
 	 * @con_has_field    true
-	 * @con_fieldtype    timestamp
-	 */
-	protected $created_at;
-	/**
-	 * @var string
-	 *
-	 * @con_has_field    true
-	 * @con_fieldtype    timestamp
-	 */
-	protected $updated_at;
-	/**
-	 * @var string
-	 *
-	 * @con_has_field    true
-	 * @con_fieldtype    text
-	 * @con_length       1024
-	 */
-	protected $title = "";
-	/**
-	 * @var string
-	 *
-	 * @con_has_field    true
 	 * @con_fieldtype    text
 	 * @con_is_unique    true
 	 * @con_length       1024
+	 * @con_is_notnull   true
 	 */
 	protected $name = "";
 	/**
@@ -88,7 +70,17 @@ class Notification extends ActiveRecord {
 	 *
 	 * @con_has_field    true
 	 * @con_fieldtype    text
+	 * @con_length       1024
+	 * @con_is_notnull   true
+	 */
+	protected $title = "";
+	/**
+	 * @var string
+	 *
+	 * @con_has_field    true
+	 * @con_fieldtype    text
 	 * @con_length       4000
+	 * @con_is_notnull   true
 	 */
 	protected $description = "";
 	/**
@@ -97,12 +89,29 @@ class Notification extends ActiveRecord {
 	 * @con_has_field    true
 	 * @con_fieldtype    text
 	 * @con_length       2
+	 * @con_is_notnull   true
 	 */
 	protected $default_language = "";
 	/**
-	 * @var array|null
+	 * @var ilDateTime
+	 *
+	 * @con_has_field    true
+	 * @con_fieldtype    timestamp
+	 * @con_is_notnull   true
 	 */
-	protected $notification_languages = null;
+	protected $created_at;
+	/**
+	 * @var ilDateTime
+	 *
+	 * @con_has_field    true
+	 * @con_fieldtype    timestamp
+	 * @con_is_notnull   true
+	 */
+	protected $updated_at;
+	/**
+	 * @var NotificationLanguage[]
+	 */
+	protected $languages = [];
 
 
 	/**
@@ -119,128 +128,61 @@ class Notification extends ActiveRecord {
 
 
 	/**
-	 * Get the subject of the notification
-	 * If no language code is provided, the subject of the default language is returned
 	 *
-	 * @param string $language
-	 *
-	 * @return string
 	 */
-	public function getSubject($language = '') {
-		$notification = $this->getNotificationLanguage($language);
-
-		return ($notification) ? $notification->getSubject() : '';
-	}
-
-
-	/**
-	 * Get the text of the notification
-	 * If no language code is provided, the text of the default language is returned
-	 *
-	 * @param string $language
-	 *
-	 * @return string
-	 */
-	public function getText($language = '') {
-		$notification = $this->getNotificationLanguage($language);
-
-		return ($notification) ? $notification->getText() : '';
-	}
-
-
-	/**
-	 * Set a text for the given language
-	 *
-	 * @param string $subject
-	 * @param string $language
-	 */
-	public function setSubject($subject, $language) {
-		$notifications = $this->getNotificationLanguages();
-		if (isset($notifications[$language])) {
-			$notification = $notifications[$language];
-		} else {
-			$notification = new NotificationLanguage();
-			$notification->setLanguage($language);
-			if (!$this->getId()) {
-				self::notification()->storeInstance($this);
-			}
-			$notification->setNotificationId($this->getId());
-			$this->notification_languages[$language] = $notification;
+	public function afterObjectLoad()/*: void*/ {
+		if (!empty($this->id)) {
+			$this->languages = self::notificationLanguage()->getLanguagesForNotification($this->id);
 		}
-		$notification->setSubject($subject);
 	}
 
 
 	/**
-	 * Set a text for the given language
+	 * @param string $field_name
 	 *
-	 * @param string $text
-	 * @param string $language
+	 * @return mixed|null
 	 */
-	public function setText($text, $language) {
-		$notifications = $this->getNotificationLanguages();
-		if (isset($notifications[$language])) {
-			$notification = $notifications[$language];
-		} else {
-			$notification = new NotificationLanguage();
-			$notification->setLanguage($language);
-			if (!$this->getId()) {
-				self::notification()->storeInstance($this);
-			}
-			$notification->setNotificationId($this->getId());
-			$this->notification_languages[$language] = $notification;
+	public function sleep(/*string*/
+		$field_name) {
+		$field_value = $this->{$field_name};
+
+		switch ($field_name) {
+			case "created_at":
+			case "updated_at":
+				return $field_value->get(IL_CAL_DATETIME);
+
+			default:
+				return null;
 		}
-		$notification->setText($text);
 	}
 
 
 	/**
-	 * @param string $language
+	 * @param string $field_name
+	 * @param mixed  $field_value
 	 *
-	 * @return NotificationLanguage
+	 * @return mixed|null
 	 */
-	public function getNotificationLanguage($language = '') {
-		$language = ($language && in_array($language, $this->getLanguages())) ? $language : $this->getDefaultLanguage();
-		$notifications = $this->getNotificationLanguages();
+	public function wakeUp(/*string*/
+		$field_name, $field_value) {
+		switch ($field_name) {
+			case "id":
+				return intval($field_value);
 
-		return (isset($notifications[$language])) ? $notifications[$language] : null;
-	}
+			case "created_at":
+			case "updated_at":
+				return new ilDateTime($field_value, IL_CAL_DATETIME);
 
-
-	/**
-	 * @return array
-	 */
-	public function getLanguages() {
-		$return = array();
-		foreach ($this->getNotificationLanguages() as $notification) {
-			$return[] = $notification->getLanguage();
+			default:
+				return null;
 		}
-
-		return $return;
-	}
-
-
-	/**
-	 * @return NotificationLanguage[]
-	 */
-	public function getNotificationLanguages() {
-		if ($this->notification_languages === null) {
-			$notifications = NotificationLanguage::where(array( 'notification_id' => $this->getId() ))->get();
-			/** @var NotificationLanguage $notification */
-			$this->notification_languages = array();
-			foreach ($notifications as $notification) {
-				$this->notification_languages[$notification->getLanguage()] = $notification;
-			}
-		}
-
-		return $this->notification_languages;
 	}
 
 
 	/**
 	 * @return int
 	 */
-	public function getId() {
+	public function getId(): int {
 		return $this->id;
 	}
 
@@ -248,7 +190,7 @@ class Notification extends ActiveRecord {
 	/**
 	 * @param int $id
 	 */
-	public function setId($id) {
+	public function setId(int $id)/*: void*/ {
 		$this->id = $id;
 	}
 
@@ -256,87 +198,7 @@ class Notification extends ActiveRecord {
 	/**
 	 * @return string
 	 */
-	public function getCreatedAt() {
-		return $this->created_at;
-	}
-
-
-	/**
-	 * @param string $created_at
-	 */
-	public function setCreatedAt($created_at) {
-		$this->created_at = $created_at;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getUpdatedAt() {
-		return $this->updated_at;
-	}
-
-
-	/**
-	 * @param string $updated_at
-	 */
-	public function setUpdatedAt($updated_at) {
-		$this->updated_at = $updated_at;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getTitle() {
-		return $this->title;
-	}
-
-
-	/**
-	 * @param string $title
-	 */
-	public function setTitle($title) {
-		$this->title = $title;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getDescription() {
-		return $this->description;
-	}
-
-
-	/**
-	 * @param string $description
-	 */
-	public function setDescription($description) {
-		$this->description = $description;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getDefaultLanguage() {
-		return $this->default_language;
-	}
-
-
-	/**
-	 * @param string $default_language
-	 */
-	public function setDefaultLanguage($default_language) {
-		$this->default_language = $default_language;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getName() {
+	public function getName(): string {
 		return $this->name;
 	}
 
@@ -344,7 +206,170 @@ class Notification extends ActiveRecord {
 	/**
 	 * @param string $name
 	 */
-	public function setName($name) {
+	public function setName(string $name)/*: void*/ {
 		$this->name = $name;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getTitle(): string {
+		return $this->title;
+	}
+
+
+	/**
+	 * @param string $title
+	 */
+	public function setTitle(string $title)/*: void*/ {
+		$this->title = $title;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getDescription(): string {
+		return $this->description;
+	}
+
+
+	/**
+	 * @param string $description
+	 */
+	public function setDescription(string $description)/*: void*/ {
+		$this->description = $description;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getDefaultLanguage(): string {
+		return $this->default_language;
+	}
+
+
+	/**
+	 * @param string $default_language
+	 */
+	public function setDefaultLanguage(string $default_language)/*: void*/ {
+		$this->default_language = $default_language;
+	}
+
+
+	/**
+	 * @return ilDateTime
+	 */
+	public function getCreatedAt(): ilDateTime {
+		return $this->created_at;
+	}
+
+
+	/**
+	 * @param ilDateTime $created_at
+	 */
+	public function setCreatedAt(ilDateTime $created_at)/*: void*/ {
+		$this->created_at = $created_at;
+	}
+
+
+	/**
+	 * @return ilDateTime
+	 */
+	public function getUpdatedAt(): ilDateTime {
+		return $this->updated_at;
+	}
+
+
+	/**
+	 * @param ilDateTime $updated_at
+	 */
+	public function setUpdatedAt(ilDateTime $updated_at)/*: void*/ {
+		$this->updated_at = $updated_at;
+	}
+
+
+	/**
+	 * @return NotificationLanguage[]
+	 */
+	public function getLanguages(): array {
+		return $this->languages;
+	}
+
+
+	/**
+	 * @param NotificationLanguage[] $languages
+	 */
+	public function setLanguages(array $languages)/*: void*/ {
+		$this->languages = $languages;
+	}
+
+
+	/**
+	 * @param string $language
+	 * @param bool   $allow_create_new
+	 *
+	 * @return NotificationLanguage
+	 */
+	protected function getNotificationLanguage(string $language = "", bool $allow_create_new = false): NotificationLanguage {
+		if (empty($language) || (!isset($this->languages[$language]) && !$allow_create_new)) {
+			$language = $this->default_language;
+		}
+
+		if (isset($this->languages[$language])) {
+			$l = $this->languages[$language];
+		} else {
+			$l = $this->languages[$language] = self::notificationLanguage()->getLanguageForNotification($this->id, $language);
+		}
+
+		return $l;
+	}
+
+
+	/**
+	 * @param string $language
+	 *
+	 * @return string
+	 */
+	public function getSubject(string $language = ""): string {
+		$language = $this->getNotificationLanguage($language);
+
+		return $language->getSubject();
+	}
+
+
+	/**
+	 * @param string $subject
+	 * @param string $language
+	 */
+	public function setSubject(string $subject, string $language)/*: void*/ {
+		$language = $this->getNotificationLanguage($language, true);
+
+		$language->setSubject($subject);
+	}
+
+
+	/**
+	 * @param string $language
+	 *
+	 * @return string
+	 */
+	public function getText(string $language = ""): string {
+		$language = $this->getNotificationLanguage($language);
+
+		return $language->getText();
+	}
+
+
+	/**
+	 * @param string $text
+	 * @param string $language
+	 */
+	public function setText(string $text, string $language)/*: void*/ {
+		$language = $this->getNotificationLanguage($language, true);
+
+		$language->setText($text);
 	}
 }

@@ -29,7 +29,7 @@ final class Repository {
 	/**
 	 * @return self
 	 */
-	public static function getInstance()/*: self*/ {
+	public static function getInstance(): self {
 		if (self::$instance === null) {
 			self::$instance = new self();
 		}
@@ -49,7 +49,7 @@ final class Repository {
 	/**
 	 * @return Factory
 	 */
-	public function factory()/*: Factory*/ {
+	public function factory(): Factory {
 		return Factory::getInstance();
 	}
 
@@ -59,7 +59,7 @@ final class Repository {
 	 *
 	 * @return Parser
 	 */
-	public function getParserForNotification(Notification $notification)/*: Parser*/ {
+	public function getParserForNotification(Notification $notification): Parser {
 		// Currently only one parser type
 		return $this->factory()->twig();
 	}
@@ -75,8 +75,7 @@ final class Repository {
 	 *
 	 * @throws Notifications4PluginsException
 	 */
-	public function parseSubject(Parser $parser, Notification $notification, array $placeholders = array(),/*string*/
-		$language = "")/*: string*/ {
+	public function parseSubject(Parser $parser, Notification $notification, array $placeholders = array(), string $language = ""): string {
 		return $parser->parse($notification->getSubject($language), $placeholders);
 	}
 
@@ -91,8 +90,7 @@ final class Repository {
 	 *
 	 * @throws Notifications4PluginsException
 	 */
-	public function parseText(Parser $parser, Notification $notification, array $placeholders = array(),/*string*/
-		$language = "")/*: string*/ {
+	public function parseText(Parser $parser, Notification $notification, array $placeholders = array(), string $language = ""): string {
 		return $parser->parse($notification->getText($language), $placeholders);
 	}
 }

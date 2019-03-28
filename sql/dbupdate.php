@@ -1,7 +1,7 @@
 <#1>
 <?php
 \srag\Plugins\Notifications4Plugins\Notification\Notification::updateDB();
-\srag\Plugins\Notifications4Plugins\Notification\NotificationLanguage::updateDB();
+\srag\Plugins\Notifications4Plugins\Notification\Language\NotificationLanguage::updateDB();
 ?>
 <#2>
 <?php

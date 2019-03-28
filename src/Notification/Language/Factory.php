@@ -1,6 +1,6 @@
 <?php
 
-namespace srag\Plugins\Notifications4Plugins\Parser;
+namespace srag\Plugins\Notifications4Plugins\Notification\Language;
 
 use ilNotifications4PluginsPlugin;
 use srag\DIC\Notifications4Plugins\DICTrait;
@@ -9,7 +9,7 @@ use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 /**
  * Class Factory
  *
- * @package srag\Plugins\Notifications4Plugins\Parser
+ * @package srag\Plugins\Notifications4Plugins\Notification\Language
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
@@ -45,9 +45,11 @@ final class Factory {
 
 
 	/**
-	 * @return twigParser
+	 * @return NotificationLanguage
 	 */
-	public function twig(): twigParser {
-		return new twigParser();
+	public function newInstance(): NotificationLanguage {
+		$language = new NotificationLanguage();
+
+		return $language;
 	}
 }

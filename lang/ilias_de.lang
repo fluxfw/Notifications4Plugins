@@ -1,25 +1,30 @@
-add_notification#:#Benachrichtigung hinzufügen
-title#:#Titel
-name#:#Name
-description#:#Beschreibung
-default_language#:#Standard-Sprache
-languages#:#Sprachen
-actions#:#Aktionen
-general#:#Allgemein
-add_new_language#:#Neue Sprache hinzufügen
-language#:#Sprache
-subject#:#Betreff
-text#:#Text
-name_info#:#Der Name ist eine zusätzliche eindeutige Kennung einer Benachrichtigung. Dies ermöglicht das einfache Abrufen von srNotification-Objekten anhand des Namens, nicht nur anhand der ID
-default_language_name#:#Diese Sprache wird ersetzt, wenn Sie versuchen, eine nicht vorhandene Sprache zu laden, oder wenn keine Sprache bereitgestellt wird
-created_notification#:#Benachrichtigung erstellt
-updated_notification#:#Benachrichtigung gespeichert
-cancel#:#Abbrechen
-save#:#Speichern
-delete#:#Löschen
-delete_confirm#:#Sind Sie sicher, dass Sie die Benachrichtigung löschen wollen?
-deleted_notification#:#Benachrichtigung gelöscht
-edit#:#Bearbeiten
-id#:#ID
-template_selection#:#%1$s Vorlage
-template_selection_info#:#Folgende Platzhalter können in der %1$s-Vorlage verwendet werden. Unterhalb wird dessen Datentyp angezeigt. Wie Sie diese in %1$s verwenden können, schauen Sie bitte in dessen Dokumentation nach
+config_notifications#:#Benachrichtigungen
+notifications4plugin_actions#:#Aktionen
+notifications4plugin_add_new_language#:#Neue Sprache hinzufügen
+notifications4plugin_add_notification#:#Benachrichtigung hinzufügen
+notifications4plugin_added_notification#:#Benachrichtigung %s hinzugefügt
+notifications4plugin_cancel#:#Abbrechen
+notifications4plugin_default_language#:#Standard-Sprache
+notifications4plugin_default_language_info#:#Diese Sprache wird ersetzt, wenn Sie versuchen, eine nicht vorhandene Sprache zu laden, oder wenn keine Sprache bereitgestellt wird
+notifications4plugin_delete#:#Löschen
+notifications4plugin_delete_notification_confirm#:#Möchten Sie die Benachrichtigung wirklich entfernen: %s ?
+notifications4plugin_deleted_notification#:#Benachrichtigung %s gelöscht
+notifications4plugin_description#:#Beschreibung
+notifications4plugin_duplicate#:#Duplizieren
+notifications4plugin_duplicated#:#Dupliziert
+notifications4plugin_duplicated_notification#:#Benachrichtigung %s dupliziert
+notifications4plugin_edit#:#Bearbeiten
+notifications4plugin_edit_notification#:#Benachrichtigung bearbeiten
+notifications4plugin_id#:#ID
+notifications4plugin_language#:#Sprache
+notifications4plugin_languages#:#Sprachen
+notifications4plugin_name#:#Name
+notifications4plugin_name_info#:#Der Name ist eine zusätzliche eindeutige Kennung einer Benachrichtigung. Dies ermöglicht das einfache Abrufen von srNotification-Objekten anhand des Namens, nicht nur anhand der ID
+notifications4plugin_notifications#:#Benachrichtigungen
+notifications4plugin_save#:#Speichern
+notifications4plugin_saved_notification#:#Benachrichtigung %s gespeichert
+notifications4plugin_subject#:#Betreff
+notifications4plugin_text#:#Text
+notifications4plugin_template_selection#:#%1$s Vorlage
+notifications4plugin_template_selection_info#:#Folgende Platzhalter können in der %1$s-Vorlage verwendet werden. Unterhalb wird dessen Datentyp angezeigt. Wie Sie diese in %1$s verwenden können, schauen Sie bitte in dessen Dokumentation nach
+notifications4plugin_title#:#Titel

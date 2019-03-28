@@ -16,6 +16,7 @@ use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
  *
  * @package srag\Plugins\Notifications4Plugins\Sender
  *
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
 class InternalMailSender implements Sender {
@@ -26,11 +27,11 @@ class InternalMailSender implements Sender {
 	/**
 	 * @var string
 	 */
-	protected $message = '';
+	protected $message = "";
 	/**
 	 * @var string
 	 */
-	protected $subject = '';
+	protected $subject = "";
 	/**
 	 * User-ID or login of sender
 	 *
@@ -42,7 +43,7 @@ class InternalMailSender implements Sender {
 	 *
 	 * @var int|string
 	 */
-	protected $user_to = '';
+	protected $user_to = "";
 	/**
 	 * @var ilMail
 	 */
@@ -93,7 +94,7 @@ class InternalMailSender implements Sender {
 
 		$this->mailer->setSaveInSentbox($this->isSaveInSentBox());
 
-		$errors = $this->mailer->sendMail($this->getUserTo(), $this->getCc(), $this->getBcc(), $this->getSubject(), $this->getMessage(), array(), array( 'normal' ));
+		$errors = $this->mailer->sendMail($this->getUserTo(), $this->getCc(), $this->getBcc(), $this->getSubject(), $this->getMessage(), array(), array( "normal" ));
 
 		if (count($errors) > 0) {
 			// Throw first exception
@@ -198,12 +199,12 @@ class InternalMailSender implements Sender {
 	 * @inheritdoc
 	 */
 	public function reset() {
-		$this->message = '';
-		$this->subject = '';
+		$this->message = "";
+		$this->subject = "";
 		$this->user_from = 0;
-		$this->user_to = '';
-		$this->bcc = '';
-		$this->bcc = '';
+		$this->user_to = "";
+		$this->bcc = "";
+		$this->bcc = "";
 		$this->save_in_sent_box = true;
 		$this->mailer = null;
 
@@ -244,7 +245,7 @@ class InternalMailSender implements Sender {
 				// Need login
 				$data = ilObjUser::_lookupName($id_or_user);
 
-				return $data['login'];
+				return $data["login"];
 			}
 		}
 

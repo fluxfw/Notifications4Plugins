@@ -15,6 +15,7 @@ use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
  *
  * @package srag\Plugins\Notifications4Plugins\Sender
  *
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
 class ExternalMailSender implements Sender {
@@ -25,15 +26,15 @@ class ExternalMailSender implements Sender {
 	/**
 	 * @var string
 	 */
-	protected $message = '';
+	protected $message = "";
 	/**
 	 * @var string
 	 */
-	protected $subject = '';
+	protected $subject = "";
 	/**
 	 * @var string
 	 */
-	protected $from = '';
+	protected $from = "";
 	/**
 	 * @var string|array
 	 */
@@ -59,11 +60,10 @@ class ExternalMailSender implements Sender {
 	/**
 	 * MailSender constructor
 	 *
-	 * @param string       $from E-Mail from address. If omitted, the ILIAS setting 'external noreply address' is used
+	 * @param string       $from E-Mail from address. If omitted, the ILIAS setting "external noreply address" is used
 	 * @param string|array $to   E-Mail address or array of addresses
 	 */
-	public function __construct( /*string*/
-		$from = "", $to = "") {
+	public function __construct(string $from = "", $to = "") {
 		$this->from = $from;
 		$this->to = $to;
 		$this->mailer = new ilMimeMail();
@@ -74,7 +74,7 @@ class ExternalMailSender implements Sender {
 	 * @inheritdoc
 	 */
 	public function send()/*: void*/ {
-		$from = ($this->from) ? $this->from : self::dic()->ilias()->getSetting('mail_external_sender_noreply');
+		$from = ($this->from) ? $this->from : self::dic()->ilias()->getSetting("mail_external_sender_noreply");
 		$this->mailer->From(self::dic()->mailMimeSenderFactory()->userByEmailAddress($from));
 
 		$this->mailer->To($this->to);
@@ -208,10 +208,10 @@ class ExternalMailSender implements Sender {
 	 * @inheritdoc
 	 */
 	public function reset() {
-		$this->from = '';
-		$this->to = '';
-		$this->subject = '';
-		$this->message = '';
+		$this->from = "";
+		$this->to = "";
+		$this->subject = "";
+		$this->message = "";
 		$this->attachments = array();
 		$this->cc = array();
 		$this->bcc = array();

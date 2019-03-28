@@ -14,6 +14,7 @@ use Twig_Loader_String;
  *
  * @package srag\Plugins\Notifications4Plugins\Parser
  *
+ * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
 class twigParser implements Parser {
@@ -25,7 +26,7 @@ class twigParser implements Parser {
 	 * @var array
 	 */
 	protected $options = array(
-		'autoescape' => false, // Do not auto escape variables by default when using {{ myVar }}
+		"autoescape" => false, // Do not auto escape variables by default when using {{ myVar }}
 	);
 
 
@@ -44,8 +45,7 @@ class twigParser implements Parser {
 	 *
 	 * @throws Twig_Error
 	 */
-	public function parse(/*string*/
-		$text, array $placeholders = array())/*: string*/ {
+	public function parse(string $text, array $placeholders = array()): string {
 		$loader = new Twig_Loader_String();
 
 		$twig = new Twig_Environment($loader, $this->options);

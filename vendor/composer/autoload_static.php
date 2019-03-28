@@ -14,6 +14,7 @@ class ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\DIC\\Notifications4Plugins\\' => 31,
             'srag\\CustomInputGUIs\\Notifications4Plugins\\' => 43,
+            'srag\\ActiveRecordConfig\\' => 24,
         ),
     );
 
@@ -37,6 +38,10 @@ class ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c
         'srag\\CustomInputGUIs\\Notifications4Plugins\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
+        ),
+        'srag\\ActiveRecordConfig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/srag/activerecordconfig/src',
         ),
     );
 
@@ -232,6 +237,12 @@ class ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c
         'ilNotifications4PluginsConfigGUI' => __DIR__ . '/../..' . '/classes/class.ilNotifications4PluginsConfigGUI.php',
         'ilNotifications4PluginsPlugin' => __DIR__ . '/../..' . '/classes/class.ilNotifications4PluginsPlugin.php',
         'ilNotifications4PluginsUIHookGUI' => __DIR__ . '/../..' . '/classes/class.ilNotifications4PluginsUIHookGUI.php',
+        'srag\\ActiveRecordConfig\\Notifications4Plugins\\ActiveRecordConfig' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfig.php',
+        'srag\\ActiveRecordConfig\\Notifications4Plugins\\ActiveRecordConfigFormGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfigFormGUI.php',
+        'srag\\ActiveRecordConfig\\Notifications4Plugins\\ActiveRecordConfigGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfigGUI.php',
+        'srag\\ActiveRecordConfig\\Notifications4Plugins\\ActiveRecordConfigTableGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordConfigTableGUI.php',
+        'srag\\ActiveRecordConfig\\Notifications4Plugins\\ActiveRecordObjectFormGUI' => __DIR__ . '/..' . '/srag/activerecordconfig/src/ActiveRecordObjectFormGUI.php',
+        'srag\\ActiveRecordConfig\\Notifications4Plugins\\Exception\\ActiveRecordConfigException' => __DIR__ . '/..' . '/srag/activerecordconfig/src/Exception/ActiveRecordConfigException.php',
         'srag\\CustomInputGUIs\\Notifications4Plugins\\CheckboxInputGUI\\CheckboxInputGUI' => __DIR__ . '/..' . '/srag/custominputguis/src/CheckboxInputGUI/CheckboxInputGUI.php',
         'srag\\CustomInputGUIs\\Notifications4Plugins\\CustomInputGUIs' => __DIR__ . '/..' . '/srag/custominputguis/src/CustomInputGUIs.php',
         'srag\\CustomInputGUIs\\Notifications4Plugins\\CustomInputGUIsTrait' => __DIR__ . '/..' . '/srag/custominputguis/src/CustomInputGUIsTrait.php',
@@ -293,9 +304,11 @@ class ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c
         'srag\\DIC\\Notifications4Plugins\\Version\\VersionInterface' => __DIR__ . '/..' . '/srag/dic/src/Version/VersionInterface.php',
         'srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/LibrariesNamespaceChanger.php',
         'srag\\Plugins\\Notifications4Plugins\\Notification\\Factory' => __DIR__ . '/../..' . '/src/Notification/Factory.php',
+        'srag\\Plugins\\Notifications4Plugins\\Notification\\Language\\Factory' => __DIR__ . '/../..' . '/src/Notification/Language/Factory.php',
+        'srag\\Plugins\\Notifications4Plugins\\Notification\\Language\\NotificationLanguage' => __DIR__ . '/../..' . '/src/Notification/Language/NotificationLanguage.php',
+        'srag\\Plugins\\Notifications4Plugins\\Notification\\Language\\Repository' => __DIR__ . '/../..' . '/src/Notification/Language/Repository.php',
         'srag\\Plugins\\Notifications4Plugins\\Notification\\Notification' => __DIR__ . '/../..' . '/src/Notification/Notification.php',
         'srag\\Plugins\\Notifications4Plugins\\Notification\\NotificationFormGUI' => __DIR__ . '/../..' . '/src/Notification/NotificationFormGUI.php',
-        'srag\\Plugins\\Notifications4Plugins\\Notification\\NotificationLanguage' => __DIR__ . '/../..' . '/src/Notification/NotificationLanguage.php',
         'srag\\Plugins\\Notifications4Plugins\\Notification\\NotificationsTableGUI' => __DIR__ . '/../..' . '/src/Notification/NotificationsTableGUI.php',
         'srag\\Plugins\\Notifications4Plugins\\Notification\\Repository' => __DIR__ . '/../..' . '/src/Notification/Repository.php',
         'srag\\Plugins\\Notifications4Plugins\\Notification\\UI' => __DIR__ . '/../..' . '/src/Notification/UI.php',
