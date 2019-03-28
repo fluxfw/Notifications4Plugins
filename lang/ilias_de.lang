@@ -1,5 +1,6 @@
 config_notifications#:#Benachrichtigungen
 notifications4plugin_actions#:#Aktionen
+notifications4plugin_add#:#Hinzugefügen
 notifications4plugin_add_new_language#:#Neue Sprache hinzufügen
 notifications4plugin_add_notification#:#Benachrichtigung hinzufügen
 notifications4plugin_added_notification#:#Benachrichtigung %s hinzugefügt

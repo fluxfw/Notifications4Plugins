@@ -33,11 +33,11 @@ class NotificationFormGUI extends ActiveRecordObjectFormGUI {
 	/**
 	 * NotificationFormGUI constructor
 	 *
-	 * @param object       $parent
-	 * @param string       $tab_id
-	 * @param Notification $object
+	 * @param ilNotifications4PluginsConfigGUI $parent
+	 * @param string                           $tab_id
+	 * @param Notification                     $object
 	 */
-	public function __construct(NotificationFormGUI $parent, string $tab_id, Notification $object) {
+	public function __construct(ilNotifications4PluginsConfigGUI $parent, string $tab_id, Notification $object) {
 		parent::__construct($parent, $tab_id, $object, false);
 	}
 

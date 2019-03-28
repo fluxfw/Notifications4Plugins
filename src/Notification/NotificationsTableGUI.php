@@ -2,7 +2,6 @@
 
 namespace srag\Plugins\Notifications4Plugins\Notification;
 
-use ilLinkButton;
 use ilNotifications4PluginsConfigGUI;
 use ilNotifications4PluginsPlugin;
 use srag\ActiveRecordConfig\Notifications4Plugins\ActiveRecordConfigTableGUI;
@@ -81,10 +80,8 @@ class NotificationsTableGUI extends ActiveRecordConfigTableGUI {
 	 * @inheritdoc
 	 */
 	protected function initCommands()/*: void*/ {
-		$add_notification = ilLinkButton::getInstance();
-		$add_notification->setCaption($this->txt("add_notification"), false);
-		$add_notification->setUrl(self::dic()->ctrl()->getLinkTarget($this->parent_obj, ilNotifications4PluginsConfigGUI::CMD_ADD_NOTIFICATION));
-		self::dic()->toolbar()->addButtonInstance($add_notification);
+		self::dic()->toolbar()->addComponent(self::dic()->ui()->factory()->button()->standard($this->txt("add_notification"), self::dic()->ctrl()
+			->getLinkTarget($this->parent_obj, ilNotifications4PluginsConfigGUI::CMD_ADD_NOTIFICATION)));
 	}
 
 
