@@ -25,7 +25,7 @@ notifications4plugin_notifications#:#Benachrichtigungen
 notifications4plugin_save#:#Speichern
 notifications4plugin_saved_notification#:#Benachrichtigung %s gespeichert
 notifications4plugin_subject#:#Betreff
-notifications4plugin_text#:#Text
 notifications4plugin_template_selection#:#%1$s Vorlage
 notifications4plugin_template_selection_info#:#Folgende Platzhalter können in der %1$s-Vorlage verwendet werden. Unterhalb wird dessen Datentyp angezeigt. Wie Sie diese in %1$s verwenden können, schauen Sie bitte in dessen Dokumentation nach
+notifications4plugin_text#:#Text
 notifications4plugin_title#:#Titel
