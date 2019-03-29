@@ -179,6 +179,23 @@ self::version()/*: VersionInterface*/;
 
 If you really need DICTrait outside a class (For instance in `dbupdate.php`), use `DICStatic::dic()` or `DICStatic::plugin(ilXPlugin::class)`.
 
+#### LibraryLanguageInstaller
+Expand you plugin class for installing languages of a library to your plugin
+```php
+...
+
+	/**
+	 * @inheritdoc
+	 */
+	public function updateLanguages(array $a_lang_keys = null) {
+		parent::updateLanguages($a_lang_keys);
+
+		LibraryLanguageInstaller::getInstance()->withPlugin(self::plugin())->withLibraryLanguageDirectory(__DIR__ . "/../vendor/srag/x/lang")
+			->updateLanguages($a_lang_keys);
+	}
+...
+```
+
 #### Clean up
 You can now remove all usages of ILIAS globals in your class and replace it with this library.
 Please avoid to store in variables or class variables.

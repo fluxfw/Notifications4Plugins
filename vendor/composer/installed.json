@@ -1,24 +1,72 @@
 [
     {
-        "name": "srag/custominputguis",
-        "version": "v0.19.7",
-        "version_normalized": "0.19.7.0",
+        "name": "srag/activerecordconfig",
+        "version": "v0.15.0",
+        "version_normalized": "0.15.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/studer-raimann/CustomInputGUIs.git",
-            "reference": "95f2ffa2d774e753c05028bbdb8d71348dad46de"
+            "url": "https://github.com/studer-raimann/ActiveRecordConfig.git",
+            "reference": "9e8c9460ef608b97a76e83f15e98528f7629c2be"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/CustomInputGUIs/zipball/95f2ffa2d774e753c05028bbdb8d71348dad46de",
-            "reference": "95f2ffa2d774e753c05028bbdb8d71348dad46de",
+            "url": "https://api.github.com/repos/studer-raimann/ActiveRecordConfig/zipball/9e8c9460ef608b97a76e83f15e98528f7629c2be",
+            "reference": "9e8c9460ef608b97a76e83f15e98528f7629c2be",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6",
+            "srag/custominputguis": ">=0.1.0",
+            "srag/dic": ">=0.1.0"
+        },
+        "time": "2019-03-29T11:28:20+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "srag\\ActiveRecordConfig\\Notifications4Plugins\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0-only"
+        ],
+        "authors": [
+            {
+                "name": "studer + raimann ag - Team Custom 1",
+                "email": "support-custom1@studer-raimann.ch",
+                "homepage": "https://studer-raimann.ch",
+                "role": "Developer"
+            }
+        ],
+        "description": "Simple ActiveRecord config for ILIAS plugins",
+        "homepage": "https://github.com/studer-raimann/ActiveRecordConfig",
+        "keywords": [
+            "ILIAS",
+            "activerecord",
+            "config"
+        ]
+    },
+    {
+        "name": "srag/custominputguis",
+        "version": "v0.19.10",
+        "version_normalized": "0.19.10.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/studer-raimann/CustomInputGUIs.git",
+            "reference": "505b631e3b79c3b150700845d422dcb7fb0d560a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/studer-raimann/CustomInputGUIs/zipball/505b631e3b79c3b150700845d422dcb7fb0d560a",
+            "reference": "505b631e3b79c3b150700845d422dcb7fb0d560a",
             "shasum": ""
         },
         "require": {
             "php": ">=5.6",
             "srag/dic": ">=0.1.0"
         },
-        "time": "2019-03-19T14:43:37+00:00",
+        "time": "2019-03-29T11:30:43+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -50,23 +98,23 @@
     },
     {
         "name": "srag/dic",
-        "version": "v0.14.13",
-        "version_normalized": "0.14.13.0",
+        "version": "v0.15.4",
+        "version_normalized": "0.15.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/studer-raimann/DIC.git",
-            "reference": "7b8b2082622901cee63570b3e96be8a693f07279"
+            "reference": "9f90f54f36a00a793fc08a7916dfdb06ebe3a76c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/7b8b2082622901cee63570b3e96be8a693f07279",
-            "reference": "7b8b2082622901cee63570b3e96be8a693f07279",
+            "url": "https://api.github.com/repos/studer-raimann/DIC/zipball/9f90f54f36a00a793fc08a7916dfdb06ebe3a76c",
+            "reference": "9f90f54f36a00a793fc08a7916dfdb06ebe3a76c",
             "shasum": ""
         },
         "require": {
             "php": ">=5.6"
         },
-        "time": "2019-02-26T08:34:09+00:00",
+        "time": "2019-03-26T13:15:41+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -97,23 +145,23 @@
     },
     {
         "name": "srag/librariesnamespacechanger",
-        "version": "v0.5.2",
-        "version_normalized": "0.5.2.0",
+        "version": "v0.5.3",
+        "version_normalized": "0.5.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/studer-raimann/LibrariesNamespaceChanger.git",
-            "reference": "4db267d97b5768d31429c14acde288181bfa4928"
+            "reference": "3bd70ad7c32bd988209c7a0bf5a69c900bfe2880"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/LibrariesNamespaceChanger/zipball/4db267d97b5768d31429c14acde288181bfa4928",
-            "reference": "4db267d97b5768d31429c14acde288181bfa4928",
+            "url": "https://api.github.com/repos/studer-raimann/LibrariesNamespaceChanger/zipball/3bd70ad7c32bd988209c7a0bf5a69c900bfe2880",
+            "reference": "3bd70ad7c32bd988209c7a0bf5a69c900bfe2880",
             "shasum": ""
         },
         "require": {
             "php": ">=5.6"
         },
-        "time": "2019-03-19T14:25:06+00:00",
+        "time": "2019-03-29T12:24:17+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -141,25 +189,73 @@
         ]
     },
     {
-        "name": "srag/removeplugindataconfirm",
-        "version": "v0.3.6",
-        "version_normalized": "0.3.6.0",
+        "name": "srag/notifications4plugin",
+        "version": "v0.1.3",
+        "version_normalized": "0.1.3.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/studer-raimann/RemovePluginDataConfirm.git",
-            "reference": "c9bab84437a3029ca919da727d7f315c6de3c675"
+            "url": "https://github.com/studer-raimann/Notifications4Plugin.git",
+            "reference": "0ee519466cb7f3aeb9c7e785f2a91f7a3e8e0c13"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/studer-raimann/RemovePluginDataConfirm/zipball/c9bab84437a3029ca919da727d7f315c6de3c675",
-            "reference": "c9bab84437a3029ca919da727d7f315c6de3c675",
+            "url": "https://api.github.com/repos/studer-raimann/Notifications4Plugin/zipball/0ee519466cb7f3aeb9c7e785f2a91f7a3e8e0c13",
+            "reference": "0ee519466cb7f3aeb9c7e785f2a91f7a3e8e0c13",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.0",
+            "srag/custominputguis": ">=0.1.0",
+            "srag/dic": ">=0.1.0",
+            "twig/twig": "1.18.0"
+        },
+        "time": "2019-03-29T13:10:19+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "srag\\Notifications4Plugin\\Notifications4Plugins\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-3.0-only"
+        ],
+        "authors": [
+            {
+                "name": "studer + raimann ag - Team Custom 1",
+                "email": "support-custom1@studer-raimann.ch",
+                "homepage": "https://studer-raimann.ch",
+                "role": "Developer"
+            }
+        ],
+        "description": "This library offers a quick and easy way to create and send notifications in any language. The notifications are usually configured in the config screen of Notifications4Plugin and can then be sent for instance as an email by other plugins dynamic",
+        "homepage": "https://github.com/studer-raimann/Notifications4Plugin",
+        "keywords": [
+            "ILIAS",
+            "notifications"
+        ]
+    },
+    {
+        "name": "srag/removeplugindataconfirm",
+        "version": "v0.4.1",
+        "version_normalized": "0.4.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/studer-raimann/RemovePluginDataConfirm.git",
+            "reference": "fc1f1828c05ac2548d3b4022d53422cf1335ffc2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/studer-raimann/RemovePluginDataConfirm/zipball/fc1f1828c05ac2548d3b4022d53422cf1335ffc2",
+            "reference": "fc1f1828c05ac2548d3b4022d53422cf1335ffc2",
             "shasum": ""
         },
         "require": {
             "php": ">=5.6",
             "srag/dic": ">=0.1.0"
         },
-        "time": "2019-01-22T09:18:04+00:00",
+        "time": "2019-03-26T13:17:27+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

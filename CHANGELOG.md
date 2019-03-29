@@ -1,5 +1,9 @@
 # Changelog
 
+## [4.0.0]
+- Duplicate notifications
+- Using notifications4plugin library
+
 ## [3.1.0]
 - Sort notifications
 - Template selection UI

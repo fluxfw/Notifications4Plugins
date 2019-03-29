@@ -2,22 +2,22 @@
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
+use srag\DIC\Notifications4Plugins\Util\LibraryLanguageInstaller;
+use srag\Plugins\Notifications4Plugins\Notification\Language\NotificationLanguage;
 use srag\Plugins\Notifications4Plugins\Notification\Notification;
-use srag\Plugins\Notifications4Plugins\Notification\NotificationLanguage;
-use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 use srag\RemovePluginDataConfirm\Notifications4Plugins\PluginUninstallTrait;
 
 /**
  * Class ilNotifications4PluginsPlugin
  *
+ * @author studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author Stefan Wanzenried <sw@studer-raimann.ch>
  */
 class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 
 	use PluginUninstallTrait;
-	use Notifications4PluginsTrait;
-	const PLUGIN_ID = 'notifications4pl';
-	const PLUGIN_NAME = 'Notifications4Plugins';
+	const PLUGIN_ID = "notifications4pl";
+	const PLUGIN_NAME = "Notifications4Plugins";
 	const PLUGIN_CLASS_NAME = self::class;
 	const REMOVE_PLUGIN_DATA_CONFIRM_CLASS_NAME = Notifications4PluginsConfirm::class;
 	/**
@@ -29,7 +29,7 @@ class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 	/**
 	 * @return self
 	 */
-	public static function getInstance() {
+	public static function getInstance(): self {
 		if (self::$instance === null) {
 			self::$instance = new self();
 		}
@@ -49,8 +49,22 @@ class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 	/**
 	 * @return string
 	 */
-	public function getPluginName() {
+	public function getPluginName(): string {
 		return self::PLUGIN_NAME;
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	public function updateLanguages(array $a_lang_keys = null) {
+		parent::updateLanguages($a_lang_keys);
+
+		LibraryLanguageInstaller::getInstance()->withPlugin(self::plugin())->withLibraryLanguageDirectory(__DIR__
+			. "/../vendor/srag/removeplugindataconfirm/lang")->updateLanguages();
+
+		LibraryLanguageInstaller::getInstance()->withPlugin(self::plugin())->withLibraryLanguageDirectory(__DIR__
+			. "/../vendor/srag/notifications4plugin/lang")->updateLanguages();
 	}
 
 
