@@ -2,7 +2,6 @@
 
 require_once __DIR__ . "/../../vendor/autoload.php";
 
-use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 use srag\RemovePluginDataConfirm\Notifications4Plugins\AbstractRemovePluginDataConfirm;
 
 /**
@@ -14,6 +13,5 @@ use srag\RemovePluginDataConfirm\Notifications4Plugins\AbstractRemovePluginDataC
  */
 class Notifications4PluginsConfirm extends AbstractRemovePluginDataConfirm {
 
-	use Notifications4PluginsTrait;
 	const PLUGIN_CLASS_NAME = ilNotifications4PluginsPlugin::class;
 }

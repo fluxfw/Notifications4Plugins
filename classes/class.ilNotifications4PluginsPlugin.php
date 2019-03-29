@@ -5,7 +5,6 @@ require_once __DIR__ . "/../vendor/autoload.php";
 use srag\DIC\Notifications4Plugins\Util\LibraryLanguageInstaller;
 use srag\Plugins\Notifications4Plugins\Notification\Language\NotificationLanguage;
 use srag\Plugins\Notifications4Plugins\Notification\Notification;
-use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
 use srag\RemovePluginDataConfirm\Notifications4Plugins\PluginUninstallTrait;
 
 /**
@@ -17,7 +16,6 @@ use srag\RemovePluginDataConfirm\Notifications4Plugins\PluginUninstallTrait;
 class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 
 	use PluginUninstallTrait;
-	use Notifications4PluginsTrait;
 	const PLUGIN_ID = "notifications4pl";
 	const PLUGIN_NAME = "Notifications4Plugins";
 	const PLUGIN_CLASS_NAME = self::class;
@@ -64,6 +62,9 @@ class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 
 		LibraryLanguageInstaller::getInstance()->withPlugin(self::plugin())->withLibraryLanguageDirectory(__DIR__
 			. "/../vendor/srag/removeplugindataconfirm/lang")->updateLanguages();
+
+		LibraryLanguageInstaller::getInstance()->withPlugin(self::plugin())->withLibraryLanguageDirectory(__DIR__
+			. "/../vendor/srag/notifications4plugin/lang")->updateLanguages();
 	}
 
 

@@ -1,133 +1,13 @@
-# Notifications4Plugins
-This plugin offers a quick and easy way to create and send notifications in any language. The notifications are usually configured in the config screen of Notifications4Plugins and can then be sent for instance as an email by other plugins dynamic
-
-The text of the notifications is parsed by default with the [Twig template engine!](https://twig.symfony.com/doc/1.x/templates.html), meaning the developer can replace placeholders and use if statements and loops
-
-The development interface offers easy methods to create, modify and send notifications
+## Installation
 
 ### Install Notifications4Plugins-Plugin
 Start at your ILIAS root directory
 ```bash
 mkdir -p Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
 cd Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
-git clone https://github.com/studer-raimann/Notifications4Plugins.git Notifications4Plugins
+git clone https://github.com/studer-raimann/Notifications4PluginsPlugin.git Notifications4Plugins
 ```
 Update, activate and config the plugin in the ILIAS Plugin Administration
-
-## Development interface
-First include the `Notifications4Plugins` autoloader relative in your main plugin class file
-```php
-...
-require_once __DIR__ . "/../../Notifications4Plugins/vendor/autoload.php";
-...
-```
-
-Your class in this you want to use Notifications4Plugins needs to use the trait `Notifications4PluginsTrait`
-```php
-...
-use srag\Plugins\Notifications4Plugins\Utils\Notifications4PluginsTrait;
-...
-class x {
-...
-use Notifications4PluginsTrait;
-...
-```
-
-### Get notification(s)
-Main
-```php
-// Get the notification by name
-$notification = self::notification()->getNotificationByName(self::MY_UNIQUE_NAME);
-
-// Get notifications for a selection list (For instance the options for an `ilSelectInputGUI`)
-$notifications = self::notification()->getArrayForSelection();
-```
-Other
-```php
-// Get the notification by id
-$notification = self::notification()->getNotificationById(self::MY_UNIQUE_ID);
-
-// Get notifications for a table
-$notifications = self::notification()->getArrayForTable();
-
-// Get the notifications
-$notifications = self::notification()->getNotifications();
-```
-
-### Send a notification
-```php
-// Send the notification as external mail
-$sender = self::sender()->factory()->externalMail('from_email', 'to_email');
-
-// Send the notification as internal mail
-$sender = self::sender()->factory()->internalMail('from_user', 'to_user');
-
-// vcalendar
-$sender = self::sender()->factory()->vcalendar(...);
-
-// Implement a custom sender object
-// Your class must implement the interface `srag\Plugins\Notifications4Plugins\Sender\Sender`
-```
-
-```php
-// Prepare placeholders, note that the keys are the same like deklared in the notification template
-$placeholders = array(
-  'user' => new ilObjUser(6),
-  'course' => new ilObjCourse(12345)
-);
-```
-
-```php
-// Sent the notification in english first (default langauge) and in german again
-self::sender()->send($sender, $notification, $placeholders);
-self::sender()->send($sender, $notification, $placeholders, 'de');
-```
-
-### Create a notification
-```php
-$notification = self::notification()->factory()->newInstance();
-
-$notification->setName(self::MY_UNIQUE_NAME); // Use the name as unique identifier to retrieve this object later
-$notification->setDefaultLanguage('en'); // The text of the default language gets substituted if you try to get the notification of a langauge not available
-$notification->setTitle('My first notification');
-$notification->setDescription("I'm a description");
-
-// Add subject and text for english and german
-$notification->setSubject('Hi {{ user.getFullname }}', 'en');
-$notification->setText('You joined the course {{ course.getTitle }}', 'en');
-$notification->setSubject('Hallo {{ user.getFullname }}', 'de');
-$notification->setText('Sie sind nun Mitglied in folgendem Kurs {{ course.getTitle }}', 'de');
-
-self::notification()->storeInstance($notification);
-```
-
-### Delete a notification
-```php
-self::notification()->deleteNotification($notification);
-```
-
-### Get parsed subject and text of a notification
-You can get the parsed subject and text from a notification, for example to display it on screen.
-
-```php
-$placeholders = array(
-  'course' => new ilObjCourse(1234),
-  'user' => new ilObjUser(6)
-);
-
-$parser = self::parser()->getParserForNotification($notification);
-
-$subject = self::parser()->parseSubject($parser, $notification, $placeholders);
-$text = self::parser()->parseText($parser, $notification, $placeholders);
-```
-
-### UI
-// Template selection
-self::notification()->ui()->templateSelection('post_key', array(
-  'user' => 'object ' . ilObjUser::class,
-  'course' => 'object ' . ilObjCourse::class,
-  'id' => 'int'
-));
 
 ### Some screenshots
 TODO
@@ -137,11 +17,10 @@ TODO
 * PHP >=7.0
 * [composer](https://getcomposer.org)
 * [srag/activerecordconfig](https://packagist.org/packages/srag/activerecordconfig)
-* [srag/custominputguis](https://packagist.org/packages/srag/custominputguis)
 * [srag/dic](https://packagist.org/packages/srag/dic)
 * [srag/librariesnamespacechanger](https://packagist.org/packages/srag/librariesnamespacechanger)
+* [srag/notifications4plugin](https://packagist.org/packages/srag/notifications4plugin)
 * [srag/removeplugindataconfirm](https://packagist.org/packages/srag/removeplugindataconfirm)
-* [twig/twig](https://packagist.org/packages/twig/twig)
 
 Please use it for further development!
 

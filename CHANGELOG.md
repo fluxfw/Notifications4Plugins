@@ -1,8 +1,8 @@
 # Changelog
 
-## [x]
+## [4.0.0]
 - Duplicate notifications
-- More refactoring
+- Using notifications4plugin library
 
 ## [3.1.0]
 - Sort notifications

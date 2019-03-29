@@ -4,22 +4,23 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c
+class ComposerStaticInit90593249400017b2a860b790a78af55e
 {
     public static $prefixLengthsPsr4 = array (
         's' => 
         array (
-            'srag\\RemovePluginDataConfirm\\Notifications4Plugins\\' => 51,
+            'srag\\RemovePluginDataConfirm\\' => 29,
             'srag\\Plugins\\Notifications4Plugins\\' => 35,
+            'srag\\Notifications4Plugin\\' => 26,
             'srag\\LibrariesNamespaceChanger\\' => 31,
-            'srag\\DIC\\Notifications4Plugins\\' => 31,
-            'srag\\CustomInputGUIs\\Notifications4Plugins\\' => 43,
+            'srag\\DIC\\' => 9,
+            'srag\\CustomInputGUIs\\' => 21,
             'srag\\ActiveRecordConfig\\' => 24,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'srag\\RemovePluginDataConfirm\\Notifications4Plugins\\' => 
+        'srag\\RemovePluginDataConfirm\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src',
         ),
@@ -27,15 +28,19 @@ class ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
+        'srag\\Notifications4Plugin\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/srag/notifications4plugin/src',
+        ),
         'srag\\LibrariesNamespaceChanger\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src',
         ),
-        'srag\\DIC\\Notifications4Plugins\\' => 
+        'srag\\DIC\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/dic/src',
         ),
-        'srag\\CustomInputGUIs\\Notifications4Plugins\\' => 
+        'srag\\CustomInputGUIs\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/custominputguis/src',
         ),
@@ -303,26 +308,31 @@ class ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c
         'srag\\DIC\\Notifications4Plugins\\Version\\Version' => __DIR__ . '/..' . '/srag/dic/src/Version/Version.php',
         'srag\\DIC\\Notifications4Plugins\\Version\\VersionInterface' => __DIR__ . '/..' . '/srag/dic/src/Version/VersionInterface.php',
         'srag\\LibrariesNamespaceChanger\\LibrariesNamespaceChanger' => __DIR__ . '/..' . '/srag/librariesnamespacechanger/src/LibrariesNamespaceChanger.php',
-        'srag\\Plugins\\Notifications4Plugins\\Notification\\Factory' => __DIR__ . '/../..' . '/src/Notification/Factory.php',
-        'srag\\Plugins\\Notifications4Plugins\\Notification\\Language\\Factory' => __DIR__ . '/../..' . '/src/Notification/Language/Factory.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Ctrl\\AbstractCtrl' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Ctrl/AbstractCtrl.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Exception\\Notifications4PluginException' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Exception/Notifications4PluginException.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Notification\\AbstractNotification' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Notification/AbstractNotification.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Notification\\Factory' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Notification/Factory.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Notification\\Language\\AbstractNotificationLanguage' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Notification/Language/AbstractNotificationLanguage.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Notification\\Language\\Factory' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Notification/Language/Factory.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Notification\\Language\\Repository' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Notification/Language/Repository.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Notification\\Repository' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Notification/Repository.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Parser\\Factory' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Parser/Factory.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Parser\\Parser' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Parser/Parser.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Parser\\Repository' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Parser/Repository.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Parser\\twigParser' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Parser/twigParser.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Sender\\ExternalMailSender' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Sender/ExternalMailSender.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Sender\\Factory' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Sender/Factory.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Sender\\InternalMailSender' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Sender/InternalMailSender.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Sender\\Repository' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Sender/Repository.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Sender\\Sender' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Sender/Sender.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Sender\\vcalendarSender' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Sender/vcalendarSender.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\UI\\NotificationFormGUI' => __DIR__ . '/..' . '/srag/notifications4plugin/src/UI/NotificationFormGUI.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\UI\\NotificationsTableGUI' => __DIR__ . '/..' . '/srag/notifications4plugin/src/UI/NotificationsTableGUI.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\UI\\UI' => __DIR__ . '/..' . '/srag/notifications4plugin/src/UI/UI.php',
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\Utils\\Notifications4PluginTrait' => __DIR__ . '/..' . '/srag/notifications4plugin/src/Utils/Notifications4PluginTrait.php',
+        'srag\\Plugins\\Notifications4Plugins\\Ctrl\\Notifications4PluginCtrl' => __DIR__ . '/../..' . '/src/Ctrl/class.Notifications4PluginCtrl.php',
         'srag\\Plugins\\Notifications4Plugins\\Notification\\Language\\NotificationLanguage' => __DIR__ . '/../..' . '/src/Notification/Language/NotificationLanguage.php',
-        'srag\\Plugins\\Notifications4Plugins\\Notification\\Language\\Repository' => __DIR__ . '/../..' . '/src/Notification/Language/Repository.php',
         'srag\\Plugins\\Notifications4Plugins\\Notification\\Notification' => __DIR__ . '/../..' . '/src/Notification/Notification.php',
-        'srag\\Plugins\\Notifications4Plugins\\Notification\\NotificationFormGUI' => __DIR__ . '/../..' . '/src/Notification/NotificationFormGUI.php',
-        'srag\\Plugins\\Notifications4Plugins\\Notification\\NotificationsTableGUI' => __DIR__ . '/../..' . '/src/Notification/NotificationsTableGUI.php',
-        'srag\\Plugins\\Notifications4Plugins\\Notification\\Repository' => __DIR__ . '/../..' . '/src/Notification/Repository.php',
-        'srag\\Plugins\\Notifications4Plugins\\Notification\\UI' => __DIR__ . '/../..' . '/src/Notification/UI.php',
-        'srag\\Plugins\\Notifications4Plugins\\Parser\\Factory' => __DIR__ . '/../..' . '/src/Parser/Factory.php',
-        'srag\\Plugins\\Notifications4Plugins\\Parser\\Parser' => __DIR__ . '/../..' . '/src/Parser/Parser.php',
-        'srag\\Plugins\\Notifications4Plugins\\Parser\\Repository' => __DIR__ . '/../..' . '/src/Parser/Repository.php',
-        'srag\\Plugins\\Notifications4Plugins\\Parser\\twigParser' => __DIR__ . '/../..' . '/src/Parser/twigParser.php',
-        'srag\\Plugins\\Notifications4Plugins\\Sender\\ExternalMailSender' => __DIR__ . '/../..' . '/src/Sender/ExternalMailSender.php',
-        'srag\\Plugins\\Notifications4Plugins\\Sender\\Factory' => __DIR__ . '/../..' . '/src/Sender/Factory.php',
-        'srag\\Plugins\\Notifications4Plugins\\Sender\\InternalMailSender' => __DIR__ . '/../..' . '/src/Sender/InternalMailSender.php',
-        'srag\\Plugins\\Notifications4Plugins\\Sender\\Repository' => __DIR__ . '/../..' . '/src/Sender/Repository.php',
-        'srag\\Plugins\\Notifications4Plugins\\Sender\\Sender' => __DIR__ . '/../..' . '/src/Sender/Sender.php',
-        'srag\\Plugins\\Notifications4Plugins\\Sender\\vcalendarSender' => __DIR__ . '/../..' . '/src/Sender/vcalendarSender.php',
-        'srag\\Plugins\\Notifications4Plugins\\Utils\\Notifications4PluginsTrait' => __DIR__ . '/../..' . '/src/Utils/Notifications4PluginsTrait.php',
         'srag\\RemovePluginDataConfirm\\Notifications4Plugins\\AbstractPluginUninstallTrait' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/AbstractPluginUninstallTrait.php',
         'srag\\RemovePluginDataConfirm\\Notifications4Plugins\\AbstractRemovePluginDataConfirm' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/AbstractRemovePluginDataConfirm.php',
         'srag\\RemovePluginDataConfirm\\Notifications4Plugins\\Exception\\RemovePluginDataConfirmException' => __DIR__ . '/..' . '/srag/removeplugindataconfirm/src/Exception/RemovePluginDataConfirmException.php',
@@ -333,10 +343,10 @@ class ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitcbdcb30763e41733d08cfd3868a1801c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit90593249400017b2a860b790a78af55e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit90593249400017b2a860b790a78af55e::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit90593249400017b2a860b790a78af55e::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit90593249400017b2a860b790a78af55e::$classMap;
 
         }, null, ClassLoader::class);
     }

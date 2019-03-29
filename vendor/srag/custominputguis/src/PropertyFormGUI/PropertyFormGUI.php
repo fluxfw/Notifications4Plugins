@@ -209,10 +209,10 @@ abstract class PropertyFormGUI extends ilPropertyFormGUI {
 	 *
 	 * @return string
 	 */
-	public final function txt(/*string*/
+	public function txt(/*string*/
 		$key,/*?string*/
-		$default = NULL)/*: string*/ {
-		if ($default !== NULL) {
+		$default = null)/*: string*/ {
+		if ($default !== null) {
 			return self::plugin()->translate($key, static::LANG_MODULE, [], true, "", $default);
 		} else {
 			return self::plugin()->translate($key, static::LANG_MODULE);
