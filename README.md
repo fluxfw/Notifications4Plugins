@@ -5,7 +5,7 @@ Start at your ILIAS root directory
 ```bash
 mkdir -p Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
 cd Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
-git clone https://github.com/studer-raimann/Notifications4PluginsPlugin.git Notifications4Plugins
+git clone https://github.com/studer-raimann/Notifications4Plugins.git Notifications4Plugins
 ```
 Update, activate and config the plugin in the ILIAS Plugin Administration
 
