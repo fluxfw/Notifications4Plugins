@@ -7,6 +7,8 @@ use arConnector;
 use ilDateTime;
 use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Notifications4Plugin\Notifications4Plugins\Notification\Language\AbstractNotificationLanguage;
+use srag\Notifications4Plugin\Notifications4Plugins\Notification\Language\Repository as NotificationLanguageRepository;
+use srag\Notifications4Plugin\Notifications4Plugins\Notification\Repository as NotificationRepository;
 use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTrait;
 
 /**
@@ -33,6 +35,22 @@ abstract class AbstractNotification extends ActiveRecord {
 	 * @abstract
 	 */
 	const LANGUAGE_CLASS_NAME = "";
+
+
+	/**
+	 * @inheritdoc
+	 */
+	protected static function notification(): NotificationRepository {
+		return NotificationRepository::getInstance(static::class, static::LANGUAGE_CLASS_NAME);
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	protected static function notificationLanguage(): NotificationLanguageRepository {
+		return NotificationLanguageRepository::getInstance(static::LANGUAGE_CLASS_NAME);
+	}
 
 
 	/**
@@ -141,7 +159,7 @@ abstract class AbstractNotification extends ActiveRecord {
 	 */
 	public function afterObjectLoad()/*: void*/ {
 		if (!empty($this->id)) {
-			$this->languages = self::notificationLanguage(static::LANGUAGE_CLASS_NAME)->getLanguagesForNotification($this->id);
+			$this->languages = self::notificationLanguage()->getLanguagesForNotification($this->id);
 		}
 	}
 
@@ -338,8 +356,7 @@ abstract class AbstractNotification extends ActiveRecord {
 		if (isset($this->languages[$language])) {
 			$l = $this->languages[$language];
 		} else {
-			$l = $this->languages[$language] = self::notificationLanguage(static::LANGUAGE_CLASS_NAME)
-				->getLanguageForNotification($this->id, $language);
+			$l = $this->languages[$language] = self::notificationLanguage()->getLanguageForNotification($this->id, $language);
 		}
 
 		return $l;

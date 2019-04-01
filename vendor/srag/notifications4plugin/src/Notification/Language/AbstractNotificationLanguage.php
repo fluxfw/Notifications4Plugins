@@ -6,6 +6,8 @@ use ActiveRecord;
 use arConnector;
 use ilDateTime;
 use srag\DIC\Notifications4Plugins\DICTrait;
+use srag\Notifications4Plugin\Notifications4Plugins\Notification\Language\Repository as NotificationLanguageRepository;
+use srag\Notifications4Plugin\Notifications4Plugins\Notification\Repository as NotificationRepository;
 use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTrait;
 
 /**
@@ -26,6 +28,22 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 	 * @abstract
 	 */
 	const TABLE_NAME = "";
+
+
+	/**
+	 * @inheritdoc
+	 */
+	protected static function notification(string $notification_class): NotificationRepository {
+		return NotificationRepository::getInstance($notification_class, static::class);
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	protected static function notificationLanguage(): NotificationLanguageRepository {
+		return NotificationLanguageRepository::getInstance(static::class);
+	}
 
 
 	/**
