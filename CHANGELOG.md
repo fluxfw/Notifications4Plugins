@@ -1,5 +1,8 @@
 # Changelog
 
+## [4.0.1]
+- Fixes
+
 ## [4.0.0]
 - Duplicate notifications
 - Using notifications4plugin library

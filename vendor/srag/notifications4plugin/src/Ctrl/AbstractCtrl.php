@@ -6,6 +6,8 @@ use ilConfirmationGUI;
 use ilUtil;
 use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Notifications4Plugin\Notifications4Plugins\Notification\AbstractNotification;
+use srag\Notifications4Plugin\Notifications4Plugins\Notification\Language\Repository as NotificationLanguageRepository;
+use srag\Notifications4Plugin\Notifications4Plugins\Notification\Repository as NotificationRepository;
 use srag\Notifications4Plugin\Notifications4Plugins\UI\NotificationFormGUI;
 use srag\Notifications4Plugin\Notifications4Plugins\UI\NotificationsTableGUI;
 use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTrait;
@@ -48,6 +50,22 @@ abstract class AbstractCtrl {
 	 * @abstract
 	 */
 	const LANGUAGE_CLASS_NAME = "";
+
+
+	/**
+	 * @inheritdoc
+	 */
+	protected static function notification(): NotificationRepository {
+		return NotificationRepository::getInstance(static::NOTIFICATION_CLASS_NAME, static::LANGUAGE_CLASS_NAME);
+	}
+
+
+	/**
+	 * @inheritdoc
+	 */
+	protected static function notificationLanguage(): NotificationLanguageRepository {
+		return NotificationLanguageRepository::getInstance(static::LANGUAGE_CLASS_NAME);
+	}
 
 
 	/**
@@ -104,7 +122,7 @@ abstract class AbstractCtrl {
 
 		$table->resetOffset();
 
-		self::dic()->ctrl()->redirect($this, self::CMD_LIST_NOTIFICATIONS);
+		$this->redirect(self::CMD_LIST_NOTIFICATIONS);
 	}
 
 
@@ -118,7 +136,7 @@ abstract class AbstractCtrl {
 
 		$table->resetFilter();
 
-		self::dic()->ctrl()->redirect($this, self::CMD_LIST_NOTIFICATIONS);
+		$this->redirect(self::CMD_LIST_NOTIFICATIONS);
 	}
 
 
@@ -126,7 +144,7 @@ abstract class AbstractCtrl {
 	 *
 	 */
 	public function addNotification()/*: void*/ {
-		$notification = self::notification(static::NOTIFICATION_CLASS_NAME, static::LANGUAGE_CLASS_NAME)->factory()->newInstance();
+		$notification = self::notification()->factory()->newInstance();
 
 		$form = $this->getNotificationForm($notification);
 
@@ -138,7 +156,7 @@ abstract class AbstractCtrl {
 	 *
 	 */
 	public function createNotification()/*: void*/ {
-		$notification = self::notification(static::NOTIFICATION_CLASS_NAME, static::LANGUAGE_CLASS_NAME)->factory()->newInstance();
+		$notification = self::notification()->factory()->newInstance();
 
 		$form = $this->getNotificationForm($notification);
 
@@ -148,13 +166,13 @@ abstract class AbstractCtrl {
 			return;
 		}
 
-		self::notification(static::NOTIFICATION_CLASS_NAME, static::LANGUAGE_CLASS_NAME)->storeInstance($form->getObject());
+		self::notification()->storeInstance($form->getObject());
 
 		ilUtil::sendSuccess(self::plugin()->translate("added_notification", self::LANG_MODULE_NOTIFICATIONS4PLUGIN, [
 			$form->getObject()->getTitle()
 		]), true);
 
-		self::dic()->ctrl()->redirect($this, self::CMD_LIST_NOTIFICATIONS);
+		$this->redirect(self::CMD_LIST_NOTIFICATIONS);
 	}
 
 
@@ -184,13 +202,13 @@ abstract class AbstractCtrl {
 			return;
 		}
 
-		self::notification(static::NOTIFICATION_CLASS_NAME, static::LANGUAGE_CLASS_NAME)->storeInstance($form->getObject());
+		self::notification()->storeInstance($form->getObject());
 
 		ilUtil::sendSuccess(self::plugin()->translate("saved_notification", self::LANG_MODULE_NOTIFICATIONS4PLUGIN, [
 			$form->getObject()->getTitle()
 		]), true);
 
-		self::dic()->ctrl()->redirect($this, self::CMD_LIST_NOTIFICATIONS);
+		$this->redirect(self::CMD_LIST_NOTIFICATIONS);
 	}
 
 
@@ -200,15 +218,14 @@ abstract class AbstractCtrl {
 	public function duplicateNotification()/*: void*/ {
 		$notification = $this->getNotification();
 
-		$cloned_notification = self::notification(static::NOTIFICATION_CLASS_NAME, static::LANGUAGE_CLASS_NAME)
-			->duplicateNotification($notification, self::plugin());
+		$cloned_notification = self::notification()->duplicateNotification($notification, self::plugin());
 
-		self::notification(static::NOTIFICATION_CLASS_NAME, static::LANGUAGE_CLASS_NAME)->storeInstance($cloned_notification);
+		self::notification()->storeInstance($cloned_notification);
 
 		ilUtil::sendSuccess(self::plugin()
 			->translate("duplicated_notification", self::LANG_MODULE_NOTIFICATIONS4PLUGIN, [ $notification->getTitle() ]), true);
 
-		self::dic()->ctrl()->redirect($this, self::CMD_LIST_NOTIFICATIONS);
+		$this->redirect(self::CMD_LIST_NOTIFICATIONS);
 	}
 
 
@@ -230,12 +247,12 @@ abstract class AbstractCtrl {
 	public function deleteNotification()/*: void*/ {
 		$notification = $this->getNotification();
 
-		self::notification(static::NOTIFICATION_CLASS_NAME, static::LANGUAGE_CLASS_NAME)->deleteNotification($notification);
+		self::notification()->deleteNotification($notification);
 
 		ilUtil::sendSuccess(self::plugin()
 			->translate("deleted_notification", self::LANG_MODULE_NOTIFICATIONS4PLUGIN, [ $notification->getTitle() ]), true);
 
-		self::dic()->ctrl()->redirect($this, self::CMD_LIST_NOTIFICATIONS);
+		$this->redirect(self::CMD_LIST_NOTIFICATIONS);
 	}
 
 
@@ -246,7 +263,7 @@ abstract class AbstractCtrl {
 	 */
 	protected function getNotificationsTable(string $parent_cmd = self::CMD_LIST_NOTIFICATIONS): NotificationsTableGUI {
 		return self::notificationUI()->withPlugin(self::plugin())->notificationTable($this, $parent_cmd, function () {
-			return self::notification(static::NOTIFICATION_CLASS_NAME, static::LANGUAGE_CLASS_NAME)->getArrayForTable($this->getNotifications());
+			return self::notification()->getArrayForTable($this->getNotifications());
 		});
 	}
 
@@ -272,19 +289,27 @@ abstract class AbstractCtrl {
 
 
 	/**
+	 * @return array
+	 */
+	protected function getNotifications(): array {
+		return self::notification()->getNotifications();
+	}
+
+
+	/**
 	 * @return AbstractNotification
 	 */
 	protected function getNotification(): AbstractNotification {
 		$notification_id = intval(filter_input(INPUT_GET, self::GET_PARAM));
 
-		return self::notification(static::NOTIFICATION_CLASS_NAME, static::LANGUAGE_CLASS_NAME)->getNotificationById($notification_id);
+		return self::notification()->getNotificationById($notification_id);
 	}
 
 
 	/**
-	 * @return array
+	 * @param string $cmd
 	 */
-	protected function getNotifications(): array {
-		return self::notification(static::NOTIFICATION_CLASS_NAME, static::LANGUAGE_CLASS_NAME)->getNotifications();
+	protected function redirect(string $cmd)/*: void*/ {
+		self::dic()->ctrl()->redirect($this, $cmd);
 	}
 }

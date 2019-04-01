@@ -28,7 +28,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\ActiveRecordConfig\\": "src/"
+                    "srag\\ActiveRecordConfig\\Notifications4Plugins\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -73,7 +73,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\CustomInputGUIs\\": "src/"
+                    "srag\\CustomInputGUIs\\Notifications4Plugins\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -119,7 +119,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\DIC\\": "src/"
+                    "srag\\DIC\\Notifications4Plugins\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -189,16 +189,16 @@
         },
         {
             "name": "srag/notifications4plugin",
-            "version": "v0.1.3",
+            "version": "v0.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/studer-raimann/Notifications4Plugin.git",
-                "reference": "0ee519466cb7f3aeb9c7e785f2a91f7a3e8e0c13"
+                "reference": "8448f98be13c4a0e08a3df44334becb7ee4d6fd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/studer-raimann/Notifications4Plugin/zipball/0ee519466cb7f3aeb9c7e785f2a91f7a3e8e0c13",
-                "reference": "0ee519466cb7f3aeb9c7e785f2a91f7a3e8e0c13",
+                "url": "https://api.github.com/repos/studer-raimann/Notifications4Plugin/zipball/8448f98be13c4a0e08a3df44334becb7ee4d6fd7",
+                "reference": "8448f98be13c4a0e08a3df44334becb7ee4d6fd7",
                 "shasum": ""
             },
             "require": {
@@ -231,7 +231,7 @@
                 "ILIAS",
                 "notifications"
             ],
-            "time": "2019-03-29T13:10:19+00:00"
+            "time": "2019-04-01T07:25:02+00:00"
         },
         {
             "name": "srag/removeplugindataconfirm",
@@ -254,7 +254,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "srag\\RemovePluginDataConfirm\\": "src/"
+                    "srag\\RemovePluginDataConfirm\\Notifications4Plugins\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",

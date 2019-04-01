@@ -1,4 +1,4 @@
-This library offers a quick and easy way to create and send notifications in any language. The notifications are usually configured in the config screen of Notifications4Plugin and can then be sent for instance as an email by other plugins dynamic
+This library offers a quick and easy way to create and send notifications in any language. The notifications are usually configured in the ui of Notifications4Plugin and can then be sent for instance as an email by other plugins dynamic
 
 The text of the notifications is parsed by default with the [Twig template engine!](https://twig.symfony.com/doc/1.x/templates.html), meaning the developer can replace placeholders and use if statements and loops
 
@@ -75,9 +75,9 @@ use srag\Plugins\x\Notification\Language\NotificationLanguage;
 /**
  * ...
  *
- * @ilCtrl_isCalledBy srag\Plugins\x\Notification\Ctrl\Ctrl: ilUIPluginRouterGUI
+ * @ilCtrl_isCalledBy srag\Plugins\x\Notification\Ctrl\XCtrl: ilUIPluginRouterGUI
  */
-class Ctrl extends AbstractCtrl {
+class XCtrl extends AbstractCtrl {
 	...
 	const NOTIFICATION_CLASS_NAME = Notification::class;
 	const LANGUAGE_CLASS_NAME = NotificationLanguage::class;
@@ -215,9 +215,9 @@ ActiveRecordConfigGUI
  * @var array
  */
 protected static $tabs = [
-	Notifications4PluginCtrl::TAB_NOTIFICATIONS => [
-		Ctrl::class,
-		Ctrl::CMD_LIST_NOTIFICATIONS
+	XCtrl::TAB_NOTIFICATIONS => [
+		XCtrl::class,
+		XCtrl::CMD_LIST_NOTIFICATIONS
 	]
 ];
 ```

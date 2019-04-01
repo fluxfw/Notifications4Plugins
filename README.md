@@ -12,6 +12,10 @@ Update, activate and config the plugin in the ILIAS Plugin Administration
 ### Some screenshots
 TODO
 
+## Development interface
+See more
+https://github.com/studer-raimann/Notifications4Plugin/blob/master/README.md#using-trait
+
 ### Dependencies
 * ILIAS 5.3 or ILIAS 5.4
 * PHP >=7.0
