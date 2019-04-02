@@ -46,6 +46,8 @@ foreach (\srag\Plugins\Notifications4Plugins\Notification\Notification::get() as
 	 */
 	if (empty($notification->getParser())) {
 		$notification->setParser(\srag\Notifications4Plugin\Notifications4Plugins\Parser\twigParser::class);
+
+		$notification->store();
 	}
 }
 ?>
