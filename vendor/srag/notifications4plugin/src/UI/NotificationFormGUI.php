@@ -4,12 +4,14 @@ namespace srag\Notifications4Plugin\Notifications4Plugins\UI;
 
 use ilFormSectionHeaderGUI;
 use ilNonEditableValueGUI;
+use ilSelectInputGUI;
 use ilTextAreaInputGUI;
 use ilTextInputGUI;
 use srag\CustomInputGUIs\Notifications4Plugins\PropertyFormGUI\ObjectPropertyFormGUI;
 use srag\DIC\Notifications4Plugins\Plugin\PluginInterface;
 use srag\Notifications4Plugin\Notifications4Plugins\Ctrl\AbstractCtrl;
 use srag\Notifications4Plugin\Notifications4Plugins\Notification\AbstractNotification;
+use srag\Notifications4Plugin\Notifications4Plugins\Parser\twigParser;
 use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTrait;
 
 /**
@@ -143,6 +145,13 @@ class NotificationFormGUI extends ObjectPropertyFormGUI {
 					"setTitle" => $this->txt("default_language"),
 					"setInfo" => $this->txt("default_language_info")
 				],
+				"parser" => [
+					self::PROPERTY_CLASS => ilSelectInputGUI::class,
+					self::PROPERTY_REQUIRED => true,
+					self::PROPERTY_OPTIONS => self::parser()->getPossibleParsers(),
+					"setInfo" => twigParser::NAME . ": " . self::output()->getHTML(self::dic()->ui()->factory()->link()
+							->standard(twigParser::DOC_LINK, twigParser::DOC_LINK)->withOpenInNewViewport(true))
+				]
 			];
 
 		foreach ($this->object->getLanguages() as $language) {
@@ -227,8 +236,7 @@ class NotificationFormGUI extends ObjectPropertyFormGUI {
 				"text" . (!empty($language) ? "_" . $language : "") => [
 					self::PROPERTY_CLASS => ilTextAreaInputGUI::class,
 					"setRows" => 10,
-					"setTitle" => $this->txt("text"),
-					"setInfo" => "https://twig.symfony.com/doc/1.x/templates.html"
+					"setTitle" => $this->txt("text")
 				]
 			];
 	}

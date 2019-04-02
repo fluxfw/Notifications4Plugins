@@ -11,7 +11,7 @@ class ComposerStaticInit90593249400017b2a860b790a78af55e
         array (
             'srag\\RemovePluginDataConfirm\\Notifications4Plugins\\' => 51,
             'srag\\Plugins\\Notifications4Plugins\\' => 35,
-            'srag\\Notifications4Plugin\\' => 26,
+            'srag\\Notifications4Plugin\\Notifications4Plugins\\' => 48,
             'srag\\LibrariesNamespaceChanger\\' => 31,
             'srag\\DIC\\Notifications4Plugins\\' => 31,
             'srag\\CustomInputGUIs\\Notifications4Plugins\\' => 43,
@@ -28,7 +28,7 @@ class ComposerStaticInit90593249400017b2a860b790a78af55e
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'srag\\Notifications4Plugin\\' => 
+        'srag\\Notifications4Plugin\\Notifications4Plugins\\' => 
         array (
             0 => __DIR__ . '/..' . '/srag/notifications4plugin/src',
         ),

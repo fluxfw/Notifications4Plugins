@@ -9,6 +9,7 @@ use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Notifications4Plugin\Notifications4Plugins\Notification\Language\AbstractNotificationLanguage;
 use srag\Notifications4Plugin\Notifications4Plugins\Notification\Language\Repository as NotificationLanguageRepository;
 use srag\Notifications4Plugin\Notifications4Plugins\Notification\Repository as NotificationRepository;
+use srag\Notifications4Plugin\Notifications4Plugins\Parser\twigParser;
 use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTrait;
 
 /**
@@ -87,9 +88,9 @@ abstract class AbstractNotification extends ActiveRecord {
 	 *
 	 * @con_has_field    true
 	 * @con_fieldtype    text
-	 * @con_is_unique    true
 	 * @con_length       1024
 	 * @con_is_notnull   true
+	 * @con_is_unique    true
 	 */
 	protected $name = "";
 	/**
@@ -119,6 +120,14 @@ abstract class AbstractNotification extends ActiveRecord {
 	 * @con_is_notnull   true
 	 */
 	protected $default_language = "";
+	/**
+	 * @var string
+	 *
+	 * @con_has_field    true
+	 * @con_fieldtype    text
+	 * @con_is_notnull   true
+	 */
+	protected $parser = twigParser::class;
 	/**
 	 * @var ilDateTime
 	 *
@@ -283,6 +292,22 @@ abstract class AbstractNotification extends ActiveRecord {
 	 */
 	public function setDefaultLanguage(string $default_language)/*: void*/ {
 		$this->default_language = $default_language;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getParser(): string {
+		return $this->parser;
+	}
+
+
+	/**
+	 * @param string $parser
+	 */
+	public function setParser(string $parser)/*: void*/ {
+		$this->parser = $parser;
 	}
 
 

@@ -37,10 +37,26 @@ final class Repository {
 
 
 	/**
+	 * @var array
+	 */
+	protected   $parsers = [
+		twigParser::class => twigParser::NAME
+	];
+
+
+	/**
 	 * Repository constructor
 	 */
 	private function __construct() {
 
+	}
+
+
+	/**
+	 * @param string $parser_class
+	 */
+	public function addParser(string $parser_class) {
+		$this->$parsers = [
 	}
 
 
@@ -53,13 +69,38 @@ final class Repository {
 
 
 	/**
+	 * @return Parser[]
+	 */
+	public function getPossibleParsers(): array {
+		return $this->parsers;
+	}
+
+
+	/**
+	 * @param string $parser_class
+	 *
+	 * @return Parser
+	 *
+	 * @throws Notifications4PluginException
+	 */
+	public function getParserByClass(string $parser_class): Parser {
+		if (isset($this->getPossibleParsers()[$parser_class])) {
+			return new $parser_class();
+		} else {
+			throw new Notifications4PluginException("Invalid parser class $parser_class");
+		}
+	}
+
+
+	/**
 	 * @param AbstractNotification $notification
 	 *
 	 * @return Parser
+	 *
+	 * @throws Notifications4PluginException
 	 */
 	public function getParserForNotification(AbstractNotification $notification): Parser {
-		// Currently only one parser type
-		return $this->factory()->twig();
+		return $this->getParserByClass($notification->getParser());
 	}
 
 
