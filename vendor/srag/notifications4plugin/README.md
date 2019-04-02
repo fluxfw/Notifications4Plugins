@@ -107,7 +107,7 @@ Expand you plugin class for installing languages of the library to your plugin
 Your class in this you want to use Notifications4Plugin needs to use the trait `Notifications4PluginTrait`
 ```php
 ...
-use srag\Plugins\Notifications4Plugin\Utils\Notifications4PluginTrait;
+use srag\Notifications4Plugin\Notifications4Plugins\x\Utils\Notifications4PluginTrait;
 ...
 class x {
 ...
@@ -148,7 +148,7 @@ $sender = self::sender()->factory()->internalMail('from_user', 'to_user');
 $sender = self::sender()->factory()->vcalendar(...);
 
 // Implement a custom sender object
-// Your class must implement the interface `srag\Plugins\Notifications4Plugin\Sender\Sender`
+// Your class must implement the interface `srag\Notifications4Plugin\Notifications4Plugins\x\Sender\Sender`
 ```
 
 ```php
@@ -206,6 +206,14 @@ $parser = self::parser()->getParserForNotification($notification);
 
 $subject = self::parser()->parseSubject($parser, $notification, $placeholders);
 $text = self::parser()->parseText($parser, $notification, $placeholders);
+```
+
+##### Implement a custom parser
+Your class must implement the interface `srag\Notifications4Plugin\Notifications4Plugins\x\Parser\Parser`
+
+You can add it
+```php
+self::parser()->addParser(new CustomParser());
 ```
 
 ##### UI

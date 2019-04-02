@@ -39,7 +39,7 @@ final class Repository {
 	/**
 	 * @var array
 	 */
-	protected   $parsers = [
+	protected $parsers = [
 		twigParser::class => twigParser::NAME
 	];
 
@@ -53,10 +53,12 @@ final class Repository {
 
 
 	/**
-	 * @param string $parser_class
+	 * @param Parser $parser
 	 */
-	public function addParser(string $parser_class) {
-		$this->$parsers = [
+	public function addParser(Parser $parser) {
+		$parser_class = get_class($parser);
+
+		$this->parsers[$parser_class] = $parser_class::NAME;
 	}
 
 
