@@ -21,6 +21,7 @@ notifications4plugin_name#:#Name
 notifications4plugin_edit_notification#:#Edit notification
 notifications4plugin_name_info#:#The name is an additional unique identifier of a notification. This allows to easy retrieve Notification objects by name, not only by ID
 notifications4plugin_notifications#:#Notifications
+notifications4plugin_parser#:#Parser
 notifications4plugin_save#:#Save
 notifications4plugin_saved_notification#:#Notification %s saved
 notifications4plugin_subject#:#Subject

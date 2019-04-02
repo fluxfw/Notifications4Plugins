@@ -1,5 +1,8 @@
 # Changelog
 
+## [4.1.0]
+- Allow select parser over the ui (Possible more then twig parser later)
+
 ## [4.0.1]
 - Fixes
 

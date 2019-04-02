@@ -20,6 +20,8 @@ class twigParser implements Parser {
 
 	use DICTrait;
 	use Notifications4PluginTrait;
+	const NAME = "twig";
+	const DOC_LINK = "https://twig.symfony.com/doc/1.x/templates.html";
 	/**
 	 * @var array
 	 */

@@ -34,3 +34,7 @@
 \srag\Plugins\Notifications4Plugins\Notification\Notification::updateDB();
 \srag\Plugins\Notifications4Plugins\Notification\Language\NotificationLanguage::updateDB();
 ?>
+<#6>
+<?php
+\srag\Plugins\Notifications4Plugins\Notification\Notification::updateDB();
+?>
