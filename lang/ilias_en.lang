@@ -1,1 +1,2 @@
 config_notifications#:#Notifications
+outdated_warning#:#OUTDATED!!! The global %s plugin was replaced by an own library. Plugins now have to implement them themselves. Please do not uninstall this plugin yet so that a migration is possible

@@ -3,6 +3,7 @@
 namespace srag\Plugins\Notifications4Plugins\Ctrl;
 
 use ilNotifications4PluginsPlugin;
+use ilUtil;
 use srag\Notifications4Plugin\Notifications4Plugins\Ctrl\AbstractCtrl;
 use srag\Plugins\Notifications4Plugins\Notification\Language\NotificationLanguage;
 use srag\Plugins\Notifications4Plugins\Notification\Notification;
@@ -26,7 +27,9 @@ class Notifications4PluginCtrl extends AbstractCtrl {
 	/**
 	 * @inheritdoc
 	 */
-	public function executeCommand() {
+	public function executeCommand()/*: void*/ {
+		ilUtil::sendInfo(self::plugin()->translate("outdated_warning","",[ilNotifications4PluginsPlugin::PLUGIN_NAME]));
+
 		self::dic()->tabs()->activateTab(self::TAB_NOTIFICATIONS);
 
 		parent::executeCommand();

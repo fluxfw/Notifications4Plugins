@@ -7,7 +7,7 @@ use ilTextAreaInputGUI;
 use srag\DIC\Notifications4Plugins\DICTrait;
 
 /**
- * Class TextInputGUI
+ * Class TextAreaInputGUI
  *
  * @package srag\CustomInputGUIs\Notifications4Plugins\TextAreaInputGUI
  *

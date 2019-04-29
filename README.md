@@ -1,3 +1,9 @@
+OUTDATED!!! The global Notifications4Plugins plugin was replaced by the library (https://github.com/studer-raimann/Notifications4Plugin).
+
+Plugins now have to implement them themselves.
+
+Please do not uninstall this plugin yet so that a migration is possible
+
 ## Installation
 
 ### Install Notifications4Plugins-Plugin
