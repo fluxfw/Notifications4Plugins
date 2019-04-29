@@ -207,6 +207,13 @@ final class Repository {
 	public function migrateFromOldGlobalPlugin(string $name = null)/*: ?AbstractNotification*/ {
 		$global_plugin_notification_table_name = "sr_notification";
 		$global_plugin_notification_language_table_name = "sr_notification_lang";
+		$global_plugin_twig_parser_class = implode("\\", [
+			"srag",
+			"Notifications4Plugin",
+			"Notifications4Plugins",
+			"Parser",
+			"twigParser"
+		]); // (Prevents LibraryNamespaceChanger)
 
 		if (!empty($name)) {
 			if (self::dic()->database()->tableExists($global_plugin_notification_table_name)
@@ -228,7 +235,7 @@ final class Repository {
 					$notification->setDescription($row["description"]);
 					$notification->setDefaultLanguage($row["default_language"]);
 
-					if ($row["parser"] === "srag\\Notifications4Plugin\\Notifications4Plugins\\Parser\\twigParser") {
+					if ($row["parser"] === $global_plugin_twig_parser_class) {
 						$notification->setParser(twigParser::class);
 					} else {
 						$notification->setParser($row["parser"]);

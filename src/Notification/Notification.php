@@ -11,6 +11,8 @@ use srag\Plugins\Notifications4Plugins\Notification\Language\NotificationLanguag
  * @package srag\Plugins\Notifications4Plugins\Notification
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
+ *
+ * @deprecated
  */
 class Notification extends AbstractNotification {
 

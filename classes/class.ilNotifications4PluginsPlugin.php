@@ -12,6 +12,8 @@ use srag\RemovePluginDataConfirm\Notifications4Plugins\PluginUninstallTrait;
  *
  * @author studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author Stefan Wanzenried <sw@studer-raimann.ch>
+ *
+ * @deprecated
  */
 class ilNotifications4PluginsPlugin extends ilUserInterfaceHookPlugin {
 
