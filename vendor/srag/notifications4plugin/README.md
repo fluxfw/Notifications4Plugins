@@ -103,6 +103,24 @@ Expand you plugin class for installing languages of the library to your plugin
 ...
 ```
 
+#### Migrate from old global plugin
+Add to your `dbupdate.php` like:
+```php
+if (\srag\Notifications4Plugin\Notifications4Plugins\x\Notification\Repository::getInstance(\srag\Plugins\x\Notification\Notification\Notification::class, \srag\Plugins\x\Notification\Notification\Language\NotificationLanguage::class)
+		->migrateFromOldGlobalPlugin(x::TEMPLATE_NAME) === null) {
+
+	$notification = \srag\Notifications4Plugin\Notifications4Plugins\x\Notification\Repository::getInstance(\srag\Plugins\x\Notification\Notification\Notification::class, \srag\Plugins\x\Notification\Notification\Language\NotificationLanguage::class)
+		->factory()->newInstance();
+
+	$notification->setName(x::TEMPLATE_NAME);
+
+	// TODO: Fill $notification with your default values
+
+	\srag\Notifications4Plugin\Notifications4Plugins\x\Notification\Repository::getInstance(\srag\Plugins\x\Notification\Notification\Notification::class, \srag\Plugins\x\Notification\Notification\Language\NotificationLanguage::class)
+		->storeInstance($notification);
+}
+```
+
 #### Using trait
 Your class in this you want to use Notifications4Plugin needs to use the trait `Notifications4PluginTrait`
 ```php

@@ -7,6 +7,7 @@ use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\DIC\Notifications4Plugins\Plugin\PluginInterface;
 use srag\Notifications4Plugin\Notifications4Plugins\Ctrl\AbstractCtrl;
 use srag\Notifications4Plugin\Notifications4Plugins\Notification\Language\AbstractNotificationLanguage;
+use srag\Notifications4Plugin\Notifications4Plugins\Parser\twigParser;
 use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTrait;
 
 /**
@@ -193,6 +194,62 @@ final class Repository {
 		$notifications = $this->notification_class::orderBy("title", "ASC")->get();
 
 		return $notifications;
+	}
+
+
+	/**
+	 * @param string $name |null
+	 *
+	 * @return AbstractNotification|null
+	 *
+	 * @deprecated
+	 */
+	public function migrateFromOldGlobalPlugin(string $name = null)/*: ?AbstractNotification*/ {
+		$global_plugin_notification_table_name = "sr_notification";
+		$global_plugin_notification_language_table_name = "sr_notification_lang";
+
+		if (!empty($name)) {
+			if (self::dic()->database()->tableExists($global_plugin_notification_table_name)
+				&& self::dic()->database()->tableExists($global_plugin_notification_language_table_name)) {
+				$result = self::dic()->database()->queryF("SELECT * FROM " . $global_plugin_notification_table_name
+					. " WHERE name=%s", [ "text" ], [ $name ]);
+
+				if (($row = $result->fetchAssoc()) !== false) {
+
+					$notification = $this->getNotificationByName($name);
+					if ($notification !== null) {
+						return $notification;
+					}
+
+					$notification = $this->factory()->newInstance();
+
+					$notification->setName($row["name"]);
+					$notification->setTitle($row["title"]);
+					$notification->setDescription($row["description"]);
+					$notification->setDefaultLanguage($row["default_language"]);
+
+					if ($row["parser"] === "srag\\Notifications4Plugin\\Notifications4Plugins\\Parser\\twigParser") {
+						$notification->setParser(twigParser::class);
+					} else {
+						$notification->setParser($row["parser"]);
+					}
+
+					$result2 = self::dic()->database()->queryF("SELECT * FROM " . $global_plugin_notification_language_table_name
+						. " WHERE notification_id=%s", [ "integer" ], [ $row["id"] ]);
+
+					while (($row2 = $result2->fetchAssoc()) !== false) {
+						$notification->setSubject($row2["subject"], $row2["language"]);
+						$notification->setText($row2["text"], $row2["language"]);
+					}
+
+					$this->storeInstance($notification);
+
+					return $notification;
+				}
+			}
+		}
+
+		return null;
 	}
 
 

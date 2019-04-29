@@ -303,15 +303,20 @@ class vcalendarSender implements Sender {
 			$status = "CANCELLED";
 		}
 
-		$ical = "BEGIN:VCALENDAR" . "\r\n" . "PRODID:-//ILIAS" . "\r\n" . "VERSION:2.0" . "\r\n" . "METHOD:" . $this->method . "\r\n" . "BEGIN:VEVENT"
-			. "\r\n" . "UID: " . $this->uid . "\r\n" . "DESCRIPTION:Reminder" . "\r\n" . "DTSTART;TZID=CET:" . date("Ymd\THis", $this->startTime)
-			. "\r\n" . "DTEND;TZID=CET:" . date("Ymd\THis", $this->endTime) . "\r\n" . "DTSTAMP:" . date("Ymd\TGis") . "\r\n" . "LAST-MODIFIED:"
-			. date("Ymd\TGis") . "\r\n" . "ORGANIZER;CN="" . $this->from . "":MAILTO:" . $iluser->getEmail() . "\r\n" . "ATTENDEE;CN="" . $this->to
-			. "";ROLE=REQ-PARTICIPANT;RSVP=TRUE:MAILTO:" . $this->to . "\r\n" . "SUMMARY:" . $this->subject . "\r\n" . "LOCATION:" . $this->location
-		. "\r\n" . "SEQUENCE:" . $this->sequence . "\r\n" . "PRIORITY:5" . "\r\n" . "STATUS:" . $status . "\r\n" . "TRANSP:OPAQUE" . "\r\n"
-		. "CLASS:PUBLIC" . "\r\n" . "BEGIN:VALARM" . "\r\n" . "TRIGGER:-PT15M" . "\r\n" . "ACTION:DISPLAY" . "\r\n" . "END:VALARM" . "\r\n"
-		. "END:VEVENT" . "\r\n" . "END:VCALENDAR" . "\r\n";
-		$message .= "Content-Type: text/calendar;name="meeting . ics";method=" . $this->method . "\n";
+		$ical = 'BEGIN:VCALENDAR' . "\r\n" . 'PRODID:-//ILIAS' . "\r\n" . 'VERSION:2.0' . "\r\n" . 'METHOD:' . $this->method . "\r\n"
+			. 'BEGIN:VTIMEZONE' . "\r\n" . 'TZID:Europe/Paris' . "\r\n" . 'X-LIC-LOCATION:Europe/Paris' . "\r\n" . 'BEGIN:DAYLIGHT' . "\r\n"
+			. 'TZOFFSETFROM:+0100' . "\r\n" . 'TZOFFSETTO:+0200' . "\r\n" . 'TZNAME:CEST' . "\r\n" . 'DTSTART:19700329T020000' . "\r\n"
+			. 'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU' . "\r\n" . 'END:DAYLIGHT' . "\r\n" . 'BEGIN:STANDARD' . "\r\n" . 'TZOFFSETFROM:+0200' . "\r\n"
+			. 'TZOFFSETTO:+0100' . "\r\n" . 'TZNAME:CET' . "\r\n" . 'DTSTART:19701025T030000' . "\r\n" . 'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU'
+			. "\r\n" . 'END:STANDARD' . "\r\n" . 'END:VTIMEZONE' . "\r\n" . 'BEGIN:VEVENT' . "\r\n" . 'UID: ' . $this->uid . "\r\n"
+			. 'DESCRIPTION:Reminder' . "\r\n" . 'DTSTART;TZID=Europe/Paris:' . date("Ymd\THis", $this->startTime) . "\r\n"
+			. 'DTEND;TZID=Europe/Paris:' . date("Ymd\THis", $this->endTime) . "\r\n" . 'DTSTAMP:' . date("Ymd\TGis") . "\r\n" . 'LAST-MODIFIED:'
+			. date("Ymd\TGis") . "\r\n" . 'ORGANIZER;CN="' . $this->from . '":MAILTO:' . $iluser->getEmail() . "\r\n" . 'ATTENDEE;CN="' . $this->to
+			. '";ROLE=REQ-PARTICIPANT;RSVP=TRUE:MAILTO:' . $this->to . "\r\n" . 'SUMMARY:' . $this->subject . "\r\n" . 'LOCATION:' . $this->location
+			. "\r\n" . 'SEQUENCE:' . $this->sequence . "\r\n" . 'PRIORITY:5' . "\r\n" . 'STATUS:' . $status . "\r\n" . 'TRANSP:OPAQUE' . "\r\n"
+			. 'CLASS:PUBLIC' . "\r\n" . 'BEGIN:VALARM' . "\r\n" . 'TRIGGER:-PT15M' . "\r\n" . 'ACTION:DISPLAY' . "\r\n" . 'END:VALARM' . "\r\n"
+			. 'END:VEVENT' . "\r\n" . 'END:VCALENDAR' . "\r\n";
+		$message .= 'Content-Type: text/calendar;name="meeting.ics";method=' . $this->method . "\n";
 		$message .= "Content-Transfer-Encoding: 8bit\n\n";
 		$message .= $ical;
 

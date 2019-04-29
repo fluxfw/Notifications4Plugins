@@ -122,7 +122,8 @@ abstract class AbstractCtrl {
 
 		$table->resetOffset();
 
-		$this->redirect(self::CMD_LIST_NOTIFICATIONS);
+		//$this->redirect(self::CMD_LIST_NOTIFICATIONS);
+		$this->listNotifications(); // Fix reset offset
 	}
 
 
@@ -136,7 +137,8 @@ abstract class AbstractCtrl {
 
 		$table->resetFilter();
 
-		$this->redirect(self::CMD_LIST_NOTIFICATIONS);
+		//$this->redirect(self::CMD_LIST_NOTIFICATIONS);
+		$this->listNotifications(); // Fix reset offset
 	}
 
 

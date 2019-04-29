@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.19.11]
+- PropertyFormGUI supports MultiLineInputGUI
+
 ## [0.19.10]
 - Make `txt` not final
 

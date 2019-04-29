@@ -25,7 +25,7 @@ notifications4plugin_parser#:#Parser
 notifications4plugin_save#:#Save
 notifications4plugin_saved_notification#:#Notification %s saved
 notifications4plugin_subject#:#Subject
-notifications4plugin_template_selection#:#%1$s template
-notifications4plugin_template_selection_info#:#Following placeholders can be used in the %1$s template. Below, its data type is displayed. How to use them in %1$s, please refer to its documentation
+notifications4plugin_template_selection#:#Notification template
+notifications4plugin_template_selection_info#:#Following placeholders can be used in the notification template. Below, its data type is displayed. How to use them in %1$s, please refer to its documentation
 notifications4plugin_text#:#Text
 notifications4plugin_title#:#Title
