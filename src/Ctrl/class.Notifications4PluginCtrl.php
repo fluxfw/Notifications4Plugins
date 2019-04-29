@@ -16,6 +16,8 @@ use srag\Plugins\Notifications4Plugins\Notification\Notification;
  * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
  * @ilCtrl_isCalledBy srag\Plugins\Notifications4Plugins\Ctrl\Notifications4PluginCtrl: ilNotifications4PluginsConfigGUI
+ *
+ * @deprecated
  */
 class Notifications4PluginCtrl extends AbstractCtrl {
 
@@ -28,7 +30,7 @@ class Notifications4PluginCtrl extends AbstractCtrl {
 	 * @inheritdoc
 	 */
 	public function executeCommand()/*: void*/ {
-		ilUtil::sendInfo(self::plugin()->translate("outdated_warning","",[ilNotifications4PluginsPlugin::PLUGIN_NAME]));
+		ilUtil::sendInfo(self::plugin()->translate("outdated_warning", "", [ ilNotifications4PluginsPlugin::PLUGIN_NAME ]));
 
 		self::dic()->tabs()->activateTab(self::TAB_NOTIFICATIONS);
 

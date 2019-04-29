@@ -1,5 +1,8 @@
 # Changelog
 
+## [4.2.1]
+- Mark plugin classes as `deprecated`
+
 ## [4.2.0]
 - Outdated warning
 

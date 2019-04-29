@@ -10,6 +10,8 @@ use srag\RemovePluginDataConfirm\Notifications4Plugins\AbstractRemovePluginDataC
  * @author            studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  *
  * @ilCtrl_isCalledBy Notifications4PluginsConfirm: ilUIPluginRouterGUI
+ *
+ * @deprecated
  */
 class Notifications4PluginsConfirm extends AbstractRemovePluginDataConfirm {
 

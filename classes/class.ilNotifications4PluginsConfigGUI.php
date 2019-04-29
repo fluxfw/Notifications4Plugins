@@ -10,6 +10,8 @@ use srag\Plugins\Notifications4Plugins\Ctrl\Notifications4PluginCtrl;
  *
  * @author studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author Stefan Wanzenried <sw@studer-raimann.ch>
+ *
+ * @deprecated
  */
 class ilNotifications4PluginsConfigGUI extends ActiveRecordConfigGUI {
 

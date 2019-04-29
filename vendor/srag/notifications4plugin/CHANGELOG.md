@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.3.2]
+- Fix migrate twigParser (LibraryNamespaceChanger ...)
+
 ## [0.3.1]
 - Correct migrate twigParser
 - Do not migrate if name exists
