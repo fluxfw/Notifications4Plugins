@@ -2,7 +2,7 @@ OUTDATED!!! The global Notifications4Plugins plugin was replaced by the library 
 
 Plugins now have to implement them themselves.
 
-Please do not uninstall this plugin yet so that a migration is possible
+Please do not uninstall this plugin yet so that a migration is possible.
 
 ## Installation
 
