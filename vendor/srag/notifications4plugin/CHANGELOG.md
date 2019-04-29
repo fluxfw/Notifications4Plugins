@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.2.6]
+- Disable change name after create a notification
+
+## [4.2.5]
+- Change version number to match old global plugin version
+
+## [0.3.4]
+- Disable change name after create a notification
+
+## [0.3.3]
+- Disable change name after create a notification
+
 ## [0.3.2]
 - Fix migrate twigParser (LibraryNamespaceChanger ...)
 
