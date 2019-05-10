@@ -92,7 +92,7 @@ class InternalMailSender implements Sender {
 
 		$this->mailer->setSaveInSentbox($this->isSaveInSentBox());
 
-		$errors = $this->mailer->sendMail($this->getUserTo(), $this->getCc(), $this->getBcc(), $this->getSubject(), $this->getMessage(), array(), array( "normal" ));
+		$errors = $this->mailer->sendMail($this->getUserTo(), $this->getCc(), $this->getBcc(), $this->getSubject(), $this->getMessage(), [], [ "normal" ]);
 
 		if (count($errors) > 0) {
 			// Throw first exception

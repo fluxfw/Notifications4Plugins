@@ -2,7 +2,6 @@
 
 namespace srag\Notifications4Plugin\Notifications4Plugins\Sender;
 
-use ilObjUser;
 use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTrait;
 
@@ -13,20 +12,20 @@ use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTr
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-final class Factory {
+final class Factory implements FactoryInterface {
 
 	use DICTrait;
 	use Notifications4PluginTrait;
 	/**
-	 * @var self
+	 * @var FactoryInterface
 	 */
 	protected static $instance = null;
 
 
 	/**
-	 * @return self
+	 * @return FactoryInterface
 	 */
-	public static function getInstance(): self {
+	public static function getInstance(): FactoryInterface {
 		if (self::$instance === null) {
 			self::$instance = new self();
 		}
@@ -44,10 +43,7 @@ final class Factory {
 
 
 	/**
-	 * @param string       $from
-	 * @param string|array $to
-	 *
-	 * @return ExternalMailSender
+	 * @inheritdoc
 	 */
 	public function externalMail(string $from = "", $to = ""): ExternalMailSender {
 		return new ExternalMailSender($from, $to);
@@ -55,10 +51,7 @@ final class Factory {
 
 
 	/**
-	 * @param int|string|ilObjUser $user_from
-	 * @param int|string|ilObjUser $user_to
-	 *
-	 * @return InternalMailSender
+	 * @inheritdoc
 	 */
 	public function internalMail($user_from = 0, $user_to = ""): InternalMailSender {
 		return new InternalMailSender($user_from, $user_to);
@@ -66,15 +59,7 @@ final class Factory {
 
 
 	/**
-	 * @param int|string|ilObjUser $user_from
-	 * @param string|array         $to
-	 * @param string               $method
-	 * @param string               $uid
-	 * @param int                  $startTime
-	 * @param int                  $endTime
-	 * @param int                  $sequence
-	 *
-	 * @return vcalendarSender
+	 * @inheritdoc
 	 */
 	public function vcalendar($user_from = 0, $to = "", string $method = vcalendarSender::METHOD_REQUEST, string $uid = "", int $startTime = 0, int $endTime = 0, int $sequence = 0): vcalendarSender {
 		return new vcalendarSender($user_from, $to, $method, $uid, $startTime, $endTime, $sequence);

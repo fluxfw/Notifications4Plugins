@@ -25,9 +25,9 @@ class twigParser implements Parser {
 	/**
 	 * @var array
 	 */
-	protected $options = array(
-		"autoescape" => false, // Do not auto escape variables by default when using {{ myVar }}
-	);
+	protected $options = [
+		"autoescape" => false // Do not auto escape variables by default when using {{ myVar }}
+	];
 
 
 	/**
@@ -35,7 +35,7 @@ class twigParser implements Parser {
 	 *
 	 * @param array $options
 	 */
-	public function __construct(array $options = array()) {
+	public function __construct(array $options = []) {
 		$this->options = array_merge($this->options, $options);
 	}
 
@@ -45,7 +45,7 @@ class twigParser implements Parser {
 	 *
 	 * @throws Twig_Error
 	 */
-	public function parse(string $text, array $placeholders = array()): string {
+	public function parse(string $text, array $placeholders = []): string {
 		$loader = new Twig_Loader_String();
 
 		$twig = new Twig_Environment($loader, $this->options);

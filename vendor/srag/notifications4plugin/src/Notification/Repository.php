@@ -5,8 +5,8 @@ namespace srag\Notifications4Plugin\Notifications4Plugins\Notification;
 use ilDateTime;
 use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\DIC\Notifications4Plugins\Plugin\PluginInterface;
-use srag\Notifications4Plugin\Notifications4Plugins\Ctrl\AbstractCtrl;
-use srag\Notifications4Plugin\Notifications4Plugins\Notification\Language\AbstractNotificationLanguage;
+use srag\Notifications4Plugin\Notifications4Plugins\Ctrl\CtrlInterface;
+use srag\Notifications4Plugin\Notifications4Plugins\Notification\Language\NotificationLanguage;
 use srag\Notifications4Plugin\Notifications4Plugins\Parser\twigParser;
 use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTrait;
 
@@ -17,12 +17,12 @@ use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTr
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-final class Repository {
+final class Repository implements RepositoryInterface {
 
 	use DICTrait;
 	use Notifications4PluginTrait;
 	/**
-	 * @var self[]
+	 * @var RepositoryInterface[]
 	 */
 	protected static $instances = [];
 
@@ -31,9 +31,9 @@ final class Repository {
 	 * @param string $notification_class
 	 * @param string $language_class
 	 *
-	 * @return self
+	 * @return RepositoryInterface
 	 */
-	public static function getInstance(string $notification_class, string $language_class): self {
+	public static function getInstance(string $notification_class, string $language_class): RepositoryInterface {
 		if (!isset(self::$instances[$notification_class . "_" . $language_class])) {
 			self::$instances[$notification_class . "_" . $language_class] = new self($notification_class, $language_class);
 		}
@@ -43,7 +43,7 @@ final class Repository {
 
 
 	/**
-	 * @var string|AbstractNotification
+	 * @var string|Notification
 	 */
 	protected $notification_class;
 	/**
@@ -65,9 +65,9 @@ final class Repository {
 
 
 	/**
-	 * @param AbstractNotification $notification
+	 * @inheritdoc
 	 */
-	public function deleteNotification(AbstractNotification $notification)/*: void*/ {
+	public function deleteNotification(Notification $notification)/*: void*/ {
 		$notification->delete();
 
 		foreach (self::notificationLanguage($this->language_class)->getLanguagesForNotification($notification->getId()) as $language) {
@@ -77,20 +77,17 @@ final class Repository {
 
 
 	/**
-	 * @param AbstractNotification $notification
-	 * @param PluginInterface      $plugin
-	 *
-	 * @return AbstractNotification
+	 * @inheritdoc
 	 */
-	public function duplicateNotification(AbstractNotification $notification, PluginInterface $plugin): AbstractNotification {
+	public function duplicateNotification(Notification $notification, PluginInterface $plugin): Notification {
 		/**
-		 * @var AbstractNotification $duplicated_notification
+		 * @var Notification $duplicated_notification
 		 */
 
 		$duplicated_notification = $notification->copy();
 
 		$duplicated_notification->setTitle($duplicated_notification->getTitle() . " ("
-			. $plugin->translate("duplicated", AbstractCtrl::LANG_MODULE_NOTIFICATIONS4PLUGIN) . ")");
+			. $plugin->translate("duplicated", CtrlInterface::LANG_MODULE_NOTIFICATIONS4PLUGIN) . ")");
 
 		$languages = [];
 		foreach (self::notificationLanguage($this->language_class)->getLanguagesForNotification($notification->getId()) as $language) {
@@ -103,17 +100,15 @@ final class Repository {
 
 
 	/**
-	 * @return Factory
+	 * @inheritdoc
 	 */
-	public function factory(): Factory {
+	public function factory(): FactoryInterface {
 		return Factory::getInstance($this->notification_class);
 	}
 
 
 	/**
-	 * @param AbstractNotification[] $notifications
-	 *
-	 * @return array
+	 * @inheritdoc
 	 */
 	public function getArrayForSelection(array $notifications): array {
 		$array = [];
@@ -127,9 +122,7 @@ final class Repository {
 
 
 	/**
-	 * @param AbstractNotification[] $notifications
-	 *
-	 * @return array
+	 * @inheritdoc
 	 */
 	public function getArrayForTable(array $notifications): array {
 		$data = [];
@@ -141,7 +134,7 @@ final class Repository {
 			$row["name"] = $notification->getName();
 			$row["description"] = $notification->getDescription();
 			$row["default_language"] = $notification->getDefaultLanguage();
-			$row["languages"] = implode(", ", array_map(function (AbstractNotificationLanguage $language): string {
+			$row["languages"] = implode(", ", array_map(function (NotificationLanguage $language): string {
 				return $language->getLanguage();
 			}, $notification->getLanguages()));
 			$data[] = $row;
@@ -152,59 +145,53 @@ final class Repository {
 
 
 	/**
-	 * @param int $id
-	 *
-	 * @return AbstractNotification|null
+	 * @inheritdoc
 	 */
 	public function getNotificationById(int $id)/*: ?Notification*/ {
 		/**
-		 * @var AbstractNotification|null $notification
+		 * @var Notification|null $notification
 		 */
 
-		$notification = $this->notification_class::where([ "id" => $id ])->first();
+		$notification = call_user_func($this->notification_class . "::where", [ "id" => $id ])->first();
 
 		return $notification;
 	}
 
 
 	/**
-	 * @param string $name
-	 *
-	 * @return AbstractNotification|null
+	 * @inheritdoc
 	 */
 	public function getNotificationByName(string $name)/*: ?Notification*/ {
 		/**
-		 * @var AbstractNotification|null $notification
+		 * @var Notification|null $notification
 		 */
 
-		$notification = $this->notification_class::where([ "name" => $name ])->first();
+		$notification = call_user_func($this->notification_class . "::where", [ "name" => $name ])->first();
 
 		return $notification;
 	}
 
 
 	/**
-	 * @return AbstractNotification[]
+	 * @inheritdoc
 	 */
 	public function getNotifications(): array {
 		/**
-		 * @var AbstractNotification[] $notifications
+		 * @var Notification[] $notifications
 		 */
 
-		$notifications = $this->notification_class::orderBy("title", "ASC")->get();
+		$notifications = call_user_func($this->notification_class . "::orderBy", "title", "ASC")->get();
 
 		return $notifications;
 	}
 
 
 	/**
-	 * @param string $name |null
-	 *
-	 * @return AbstractNotification|null
+	 * @inheritdoc
 	 *
 	 * @deprecated
 	 */
-	public function migrateFromOldGlobalPlugin(string $name = null)/*: ?AbstractNotification*/ {
+	public function migrateFromOldGlobalPlugin(string $name = null)/*: ?Notification*/ {
 		$global_plugin_notification_table_name = "sr_notification";
 		$global_plugin_notification_language_table_name = "sr_notification_lang";
 		$global_plugin_twig_parser_class = implode("\\", [
@@ -261,9 +248,9 @@ final class Repository {
 
 
 	/**
-	 * @param AbstractNotification $notification
+	 * @inheritdoc
 	 */
-	public function storeInstance(AbstractNotification $notification)/*: void*/ {
+	public function storeInstance(Notification $notification)/*: void*/ {
 		$date = new ilDateTime(time(), IL_CAL_UNIX);
 
 		if (empty($notification->getId())) {

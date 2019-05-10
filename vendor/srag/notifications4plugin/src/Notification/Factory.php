@@ -12,12 +12,12 @@ use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTr
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-final class Factory {
+final class Factory implements FactoryInterface {
 
 	use DICTrait;
 	use Notifications4PluginTrait;
 	/**
-	 * @var self[]
+	 * @var FactoryInterface[]
 	 */
 	protected static $instances = [];
 
@@ -25,9 +25,9 @@ final class Factory {
 	/**
 	 * @param string $notification_class
 	 *
-	 * @return self
+	 * @return FactoryInterface
 	 */
-	public static function getInstance(string $notification_class): self {
+	public static function getInstance(string $notification_class): FactoryInterface {
 		if (!isset(self::$instances[$notification_class])) {
 			self::$instances[$notification_class] = new self($notification_class);
 		}
@@ -37,7 +37,7 @@ final class Factory {
 
 
 	/**
-	 * @var string|AbstractNotification
+	 * @var string|Notification
 	 */
 	protected $notification_class;
 
@@ -53,9 +53,9 @@ final class Factory {
 
 
 	/**
-	 * @return AbstractNotification
+	 * @inheritdoc
 	 */
-	public function newInstance(): AbstractNotification {
+	public function newInstance(): Notification {
 		$notification = new $this->notification_class();
 
 		return $notification;

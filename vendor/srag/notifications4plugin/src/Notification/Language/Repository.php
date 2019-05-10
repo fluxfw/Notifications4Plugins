@@ -13,12 +13,12 @@ use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTr
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-final class Repository {
+final class Repository implements RepositoryInterface {
 
 	use DICTrait;
 	use Notifications4PluginTrait;
 	/**
-	 * @var self[]
+	 * @var RepositoryInterface[]
 	 */
 	protected static $instances = [];
 
@@ -26,9 +26,9 @@ final class Repository {
 	/**
 	 * @param string $language_class
 	 *
-	 * @return self
+	 * @return RepositoryInterface
 	 */
-	public static function getInstance(string $language_class): self {
+	public static function getInstance(string $language_class): RepositoryInterface {
 		if (!isset(self::$instances[$language_class])) {
 			self::$instances[$language_class] = new self($language_class);
 		}
@@ -38,7 +38,7 @@ final class Repository {
 
 
 	/**
-	 * @var string|AbstractNotificationLanguage
+	 * @var string|NotificationLanguage
 	 */
 	protected $language_class;
 
@@ -54,21 +54,19 @@ final class Repository {
 
 
 	/**
-	 * @param AbstractNotificationLanguage $language
+	 * @inheritdoc
 	 */
-	public function deleteLanguage(AbstractNotificationLanguage $language)/*: void*/ {
+	public function deleteLanguage(NotificationLanguage $language)/*: void*/ {
 		$language->delete();
 	}
 
 
 	/**
-	 * @param AbstractNotificationLanguage $language
-	 *
-	 * @return AbstractNotificationLanguage
+	 * @inheritdoc
 	 */
-	public function duplicateLanguage(AbstractNotificationLanguage $language): AbstractNotificationLanguage {
+	public function duplicateLanguage(NotificationLanguage $language): NotificationLanguage {
 		/**
-		 * @var AbstractNotificationLanguage $duplicated_language
+		 * @var NotificationLanguage $duplicated_language
 		 */
 
 		$duplicated_language = $language->copy();
@@ -78,41 +76,36 @@ final class Repository {
 
 
 	/**
-	 * @return Factory
+	 * @inheritdoc
 	 */
-	public function factory(): Factory {
+	public function factory(): FactoryInterface {
 		return Factory::getInstance($this->language_class);
 	}
 
 
 	/**
-	 * @param int $id
-	 *
-	 * @return AbstractNotificationLanguage|null
+	 * @inheritdoc
 	 */
 	public function getLanguageById(int $id)/*: ?NotificationLanguage*/ {
 		/**
-		 * @var AbstractNotificationLanguage|null $language
+		 * @var NotificationLanguage|null $language
 		 */
 
-		$language = $this->language_class::where([ "id" => $id ])->first();
+		$language = call_user_func($this->language_class . "::where", [ "id" => $id ])->first();
 
 		return $language;
 	}
 
 
 	/**
-	 * @param int    $notification_id
-	 * @param string $language
-	 *
-	 * @return AbstractNotificationLanguage
+	 * @inheritdoc
 	 */
-	public function getLanguageForNotification(int $notification_id, string $language): AbstractNotificationLanguage {
+	public function getLanguageForNotification(int $notification_id, string $language): NotificationLanguage {
 		/**
-		 * @var AbstractNotificationLanguage $l
+		 * @var NotificationLanguage $l
 		 */
 
-		$l = $this->language_class::where([ "notification_id" => $notification_id, "language" => $language ])->first();
+		$l = call_user_func($this->language_class . "::where", [ "notification_id" => $notification_id, "language" => $language ])->first();
 
 		if ($l === null) {
 			$l = $this->factory()->newInstance();
@@ -127,16 +120,14 @@ final class Repository {
 
 
 	/**
-	 * @param int $notification_id
-	 *
-	 * @return AbstractNotificationLanguage[]
+	 * @inheritdoc
 	 */
 	public function getLanguagesForNotification(int $notification_id): array {
 		/**
-		 * @var AbstractNotificationLanguage[] $array
+		 * @var NotificationLanguage[] $array
 		 */
 
-		$array = $this->language_class::where([ "notification_id" => $notification_id ])->get();
+		$array = call_user_func($this->language_class . "::where", [ "notification_id" => $notification_id ])->get();
 
 		$languages = [];
 
@@ -149,9 +140,9 @@ final class Repository {
 
 
 	/**
-	 * @param AbstractNotificationLanguage $language
+	 * @inheritdoc
 	 */
-	public function storeInstance(AbstractNotificationLanguage $language)/*: void*/ {
+	public function storeInstance(NotificationLanguage $language)/*: void*/ {
 		$date = new ilDateTime(time(), IL_CAL_UNIX);
 
 		if (empty($language->getId())) {

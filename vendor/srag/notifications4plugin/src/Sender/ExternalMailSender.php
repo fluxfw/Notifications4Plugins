@@ -44,15 +44,15 @@ class ExternalMailSender implements Sender {
 	/**
 	 * @var array
 	 */
-	protected $attachments = array();
+	protected $attachments = [];
 	/**
 	 * @var string|array
 	 */
-	protected $cc = array();
+	protected $cc = [];
 	/**
 	 * @var string|array
 	 */
-	protected $bcc = array();
+	protected $bcc = [];
 
 
 	/**
@@ -210,9 +210,9 @@ class ExternalMailSender implements Sender {
 		$this->to = "";
 		$this->subject = "";
 		$this->message = "";
-		$this->attachments = array();
-		$this->cc = array();
-		$this->bcc = array();
+		$this->attachments = [];
+		$this->cc = [];
+		$this->bcc = [];
 		$this->mailer = new ilMimeMail();
 
 		return $this;

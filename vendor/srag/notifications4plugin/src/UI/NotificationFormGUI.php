@@ -9,8 +9,8 @@ use ilTextAreaInputGUI;
 use ilTextInputGUI;
 use srag\CustomInputGUIs\Notifications4Plugins\PropertyFormGUI\ObjectPropertyFormGUI;
 use srag\DIC\Notifications4Plugins\Plugin\PluginInterface;
-use srag\Notifications4Plugin\Notifications4Plugins\Ctrl\AbstractCtrl;
-use srag\Notifications4Plugin\Notifications4Plugins\Notification\AbstractNotification;
+use srag\Notifications4Plugin\Notifications4Plugins\Ctrl\CtrlInterface;
+use srag\Notifications4Plugin\Notifications4Plugins\Notification\Notification;
 use srag\Notifications4Plugin\Notifications4Plugins\Parser\twigParser;
 use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTrait;
 
@@ -25,13 +25,13 @@ use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTr
 class NotificationFormGUI extends ObjectPropertyFormGUI {
 
 	use Notifications4PluginTrait;
-	const LANG_MODULE = AbstractCtrl::LANG_MODULE_NOTIFICATIONS4PLUGIN;
+	const LANG_MODULE = CtrlInterface::LANG_MODULE_NOTIFICATIONS4PLUGIN;
 	/**
 	 * @var PluginInterface
 	 */
 	protected $plugin;
 	/**
-	 * @var AbstractNotification
+	 * @var Notification
 	 */
 	protected $object;
 
@@ -39,11 +39,11 @@ class NotificationFormGUI extends ObjectPropertyFormGUI {
 	/**
 	 * NotificationFormGUI constructor
 	 *
-	 * @param PluginInterface      $plugin
-	 * @param AbstractCtrl         $parent
-	 * @param AbstractNotification $object
+	 * @param PluginInterface $plugin
+	 * @param CtrlInterface   $parent
+	 * @param Notification    $object
 	 */
-	public function __construct(PluginInterface $plugin, AbstractCtrl $parent, AbstractNotification $object) {
+	public function __construct(PluginInterface $plugin, CtrlInterface $parent, Notification $object) {
 		$this->plugin = $plugin;
 
 		parent::__construct($parent, $object, false);
@@ -87,12 +87,12 @@ class NotificationFormGUI extends ObjectPropertyFormGUI {
 	 */
 	protected function initAction()/*: void*/ {
 		if (!empty($this->object->getId())) {
-			self::dic()->ctrl()->setParameter($this->parent, AbstractCtrl::GET_PARAM, $this->object->getId());
+			self::dic()->ctrl()->setParameter($this->parent, CtrlInterface::GET_PARAM, $this->object->getId());
 		}
 
 		parent::initAction();
 
-		self::dic()->ctrl()->setParameter($this->parent, AbstractCtrl::GET_PARAM, null);
+		self::dic()->ctrl()->setParameter($this->parent, CtrlInterface::GET_PARAM, null);
 	}
 
 
@@ -101,12 +101,12 @@ class NotificationFormGUI extends ObjectPropertyFormGUI {
 	 */
 	protected function initCommands()/*: void*/ {
 		if (!empty($this->object->getId())) {
-			$this->addCommandButton(AbstractCtrl::CMD_UPDATE_NOTIFICATION, $this->txt("save"));
+			$this->addCommandButton(CtrlInterface::CMD_UPDATE_NOTIFICATION, $this->txt("save"));
 		} else {
-			$this->addCommandButton(AbstractCtrl::CMD_CREATE_NOTIFICATION, $this->txt("add"));
+			$this->addCommandButton(CtrlInterface::CMD_CREATE_NOTIFICATION, $this->txt("add"));
 		}
 
-		$this->addCommandButton(AbstractCtrl::CMD_LIST_NOTIFICATIONS, $this->txt("cancel"));
+		$this->addCommandButton(CtrlInterface::CMD_LIST_NOTIFICATIONS, $this->txt("cancel"));
 	}
 
 
