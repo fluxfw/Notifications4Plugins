@@ -15,17 +15,17 @@
 <?php
 \srag\DIC\Notifications4Plugins\DICStatic::dic()->database()
 	->modifyTableColumn(\srag\Plugins\Notifications4Plugins\Notification\Notification::TABLE_NAME, "title", [
-		"type" => "text",
+		"type" => \ilDBConstants::T_TEXT,
 		"length" => 1024
 	]);
 \srag\DIC\Notifications4Plugins\DICStatic::dic()->database()
 	->modifyTableColumn(\srag\Plugins\Notifications4Plugins\Notification\Notification::TABLE_NAME, "description", [
-		"type" => "text",
+		"type" => \ilDBConstants::T_TEXT,
 		"length" => 4000
 	]);
 \srag\DIC\Notifications4Plugins\DICStatic::dic()->database()
 	->modifyTableColumn(\srag\Plugins\Notifications4Plugins\Notification\Notification::TABLE_NAME, "name", [
-		"type" => "text",
+		"type" => \ilDBConstants::T_TEXT,
 		"length" => 1024
 	]);
 ?>
