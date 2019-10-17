@@ -29,5 +29,5 @@ interface Parser {
 	 *
 	 * @throws Notifications4PluginException
 	 */
-	public function parse(string $text, array $placeholders = array()): string;
+	public function parse(string $text, array $placeholders = []): string;
 }

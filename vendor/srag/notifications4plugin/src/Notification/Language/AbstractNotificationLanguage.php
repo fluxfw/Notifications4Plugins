@@ -7,7 +7,9 @@ use arConnector;
 use ilDateTime;
 use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Notifications4Plugin\Notifications4Plugins\Notification\Language\Repository as NotificationLanguageRepository;
+use srag\Notifications4Plugin\Notifications4Plugins\Notification\Language\RepositoryInterface as NotificationLanguageRepositoryInterface;
 use srag\Notifications4Plugin\Notifications4Plugins\Notification\Repository as NotificationRepository;
+use srag\Notifications4Plugin\Notifications4Plugins\Notification\RepositoryInterface as NotificationRepositoryInterface;
 use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTrait;
 
 /**
@@ -18,7 +20,7 @@ use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTr
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  */
-abstract class AbstractNotificationLanguage extends ActiveRecord {
+abstract class AbstractNotificationLanguage extends ActiveRecord implements NotificationLanguage {
 
 	use DICTrait;
 	use Notifications4PluginTrait;
@@ -33,7 +35,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 	/**
 	 * @inheritdoc
 	 */
-	protected static function notification(string $notification_class): NotificationRepository {
+	protected static function notification(string $notification_class): NotificationRepositoryInterface {
 		return NotificationRepository::getInstance($notification_class, static::class);
 	}
 
@@ -41,7 +43,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 	/**
 	 * @inheritdoc
 	 */
-	protected static function notificationLanguage(): NotificationLanguageRepository {
+	protected static function notificationLanguage(): NotificationLanguageRepositoryInterface {
 		return NotificationLanguageRepository::getInstance(static::class);
 	}
 
@@ -186,7 +188,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 
 
 	/**
-	 * @return int
+	 * @inheritdoc
 	 */
 	public function getId(): int {
 		return $this->id;
@@ -194,7 +196,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 
 
 	/**
-	 * @param int $id
+	 * @inheritdoc
 	 */
 	public function setId(int $id)/*: void*/ {
 		$this->id = $id;
@@ -202,7 +204,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 
 
 	/**
-	 * @return int
+	 * @inheritdoc
 	 */
 	public function getNotificationId(): int {
 		return $this->notification_id;
@@ -210,7 +212,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 
 
 	/**
-	 * @param int $notification_id
+	 * @inheritdoc
 	 */
 	public function setNotificationId(int $notification_id)/*: void*/ {
 		$this->notification_id = $notification_id;
@@ -218,7 +220,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 
 
 	/**
-	 * @return string
+	 * @inheritdoc
 	 */
 	public function getLanguage(): string {
 		return $this->language;
@@ -226,7 +228,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 
 
 	/**
-	 * @param string $language
+	 * @inheritdoc
 	 */
 	public function setLanguage(string $language)/*: void*/ {
 		$this->language = $language;
@@ -234,7 +236,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 
 
 	/**
-	 * @return string
+	 * @inheritdoc
 	 */
 	public function getSubject(): string {
 		return $this->subject;
@@ -242,7 +244,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 
 
 	/**
-	 * @param string $subject
+	 * @inheritdoc
 	 */
 	public function setSubject(string $subject)/*: void*/ {
 		$this->subject = $subject;
@@ -250,7 +252,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 
 
 	/**
-	 * @return string
+	 * @inheritdoc
 	 */
 	public function getText(): string {
 		return $this->text;
@@ -258,7 +260,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 
 
 	/**
-	 * @param string $text
+	 * @inheritdoc
 	 */
 	public function setText(string $text)/*: void*/ {
 		$this->text = $text;
@@ -266,7 +268,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 
 
 	/**
-	 * @return ilDateTime
+	 * @inheritdoc
 	 */
 	public function getCreatedAt(): ilDateTime {
 		return $this->created_at;
@@ -274,7 +276,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 
 
 	/**
-	 * @param ilDateTime $created_at
+	 * @inheritdoc
 	 */
 	public function setCreatedAt(ilDateTime $created_at)/*: void*/ {
 		$this->created_at = $created_at;
@@ -282,7 +284,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 
 
 	/**
-	 * @return ilDateTime
+	 * @inheritdoc
 	 */
 	public function getUpdatedAt(): ilDateTime {
 		return $this->updated_at;
@@ -290,7 +292,7 @@ abstract class AbstractNotificationLanguage extends ActiveRecord {
 
 
 	/**
-	 * @param ilDateTime $updated_at
+	 * @inheritdoc
 	 */
 	public function setUpdatedAt(ilDateTime $updated_at)/*: void*/ {
 		$this->updated_at = $updated_at;

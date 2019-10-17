@@ -4,7 +4,7 @@ namespace srag\Notifications4Plugin\Notifications4Plugins\Parser;
 
 use srag\DIC\Notifications4Plugins\DICTrait;
 use srag\Notifications4Plugin\Notifications4Plugins\Exception\Notifications4PluginException;
-use srag\Notifications4Plugin\Notifications4Plugins\Notification\AbstractNotification;
+use srag\Notifications4Plugin\Notifications4Plugins\Notification\Notification;
 use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTrait;
 
 /**
@@ -14,20 +14,20 @@ use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTr
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-final class Repository {
+final class Repository implements RepositoryInterface {
 
 	use DICTrait;
 	use Notifications4PluginTrait;
 	/**
-	 * @var self
+	 * @var RepositoryInterface
 	 */
 	protected static $instance = null;
 
 
 	/**
-	 * @return self
+	 * @return RepositoryInterface
 	 */
-	public static function getInstance(): self {
+	public static function getInstance(): RepositoryInterface {
 		if (self::$instance === null) {
 			self::$instance = new self();
 		}
@@ -53,7 +53,7 @@ final class Repository {
 
 
 	/**
-	 * @param Parser $parser
+	 * @inheritdoc
 	 */
 	public function addParser(Parser $parser) {
 		$parser_class = get_class($parser);
@@ -63,15 +63,15 @@ final class Repository {
 
 
 	/**
-	 * @return Factory
+	 * @inheritdoc
 	 */
-	public function factory(): Factory {
+	public function factory(): FactoryInterface {
 		return Factory::getInstance();
 	}
 
 
 	/**
-	 * @return Parser[]
+	 * @inheritdoc
 	 */
 	public function getPossibleParsers(): array {
 		return $this->parsers;
@@ -79,11 +79,7 @@ final class Repository {
 
 
 	/**
-	 * @param string $parser_class
-	 *
-	 * @return Parser
-	 *
-	 * @throws Notifications4PluginException
+	 * @inheritdoc
 	 */
 	public function getParserByClass(string $parser_class): Parser {
 		if (isset($this->getPossibleParsers()[$parser_class])) {
@@ -95,43 +91,25 @@ final class Repository {
 
 
 	/**
-	 * @param AbstractNotification $notification
-	 *
-	 * @return Parser
-	 *
-	 * @throws Notifications4PluginException
+	 * @inheritdoc
 	 */
-	public function getParserForNotification(AbstractNotification $notification): Parser {
+	public function getParserForNotification(Notification $notification): Parser {
 		return $this->getParserByClass($notification->getParser());
 	}
 
 
 	/**
-	 * @param Parser               $parser
-	 * @param AbstractNotification $notification
-	 * @param array                $placeholders
-	 * @param string               $language
-	 *
-	 * @return string
-	 *
-	 * @throws Notifications4PluginException
+	 * @inheritdoc
 	 */
-	public function parseSubject(Parser $parser, AbstractNotification $notification, array $placeholders = array(), string $language = ""): string {
+	public function parseSubject(Parser $parser, Notification $notification, array $placeholders = [], string $language = ""): string {
 		return $parser->parse($notification->getSubject($language), $placeholders);
 	}
 
 
 	/**
-	 * @param Parser               $parser
-	 * @param AbstractNotification $notification
-	 * @param array                $placeholders
-	 * @param string               $language
-	 *
-	 * @return string
-	 *
-	 * @throws Notifications4PluginException
+	 * @inheritdoc
 	 */
-	public function parseText(Parser $parser, AbstractNotification $notification, array $placeholders = array(), string $language = ""): string {
+	public function parseText(Parser $parser, Notification $notification, array $placeholders = [], string $language = ""): string {
 		return $parser->parse($notification->getText($language), $placeholders);
 	}
 }

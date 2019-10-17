@@ -12,20 +12,20 @@ use srag\Notifications4Plugin\Notifications4Plugins\Utils\Notifications4PluginTr
  *
  * @author  studer + raimann ag - Team Custom 1 <support-custom1@studer-raimann.ch>
  */
-final class Factory {
+final class Factory implements FactoryInterface {
 
 	use DICTrait;
 	use Notifications4PluginTrait;
 	/**
-	 * @var self
+	 * @var FactoryInterface
 	 */
 	protected static $instance = null;
 
 
 	/**
-	 * @return self
+	 * @return FactoryInterface
 	 */
-	public static function getInstance(): self {
+	public static function getInstance(): FactoryInterface {
 		if (self::$instance === null) {
 			self::$instance = new self();
 		}
@@ -43,7 +43,7 @@ final class Factory {
 
 
 	/**
-	 * @return twigParser
+	 * @inheritdoc
 	 */
 	public function twig(): twigParser {
 		return new twigParser();
